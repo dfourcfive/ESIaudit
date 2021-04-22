@@ -261,8 +261,40 @@ CREATE TABLE IF NOT EXISTS Matieres(
     Coefficient INT,
     Credit INT,
     ChargeHoraire INT,   
-)
-
+);
+CREATE TABLE IF NOT EXISTS Seances(
+    id_sea SERIAL PRIMARY KEY,
+    id_mat INT,
+       CONSTRAINT fk_id_mat
+        FOREIGN KEY(id_mat) 
+	      REFERENCES Matieres(id_mat)
+	      ON DELETE SET NULL,  
+    charge_horaire INT,
+    type VARCHAR(255),  
+);
 CREATE TABLE IF NOT EXISTS Enseignement(
-    id_ue
-)
+    id_ensm SERIAL PRIMARY KEY,
+    id_sea INT,
+       CONSTRAINT fk_id_sea
+        FOREIGN KEY(id_sea) 
+	      REFERENCES Seances(id_sea)
+	      ON DELETE SET NULL,
+    charge_horaire INT,
+    role VARCHAR(255),        
+);
+
+CREATE TABLE IF NOT EXISTS DelibModule(
+    id_dbm SERIAL PRIMARY KEY,
+    id_mat INT,
+       CONSTRAINT fk_id_mat
+        FOREIGN KEY(id_mat) 
+	      REFERENCES Matieres(id_mat)
+	      ON DELETE SET NULL,
+    id_etud INT,
+     CONSTRAINT fk_id_etud
+      FOREIGN KEY(id_etud) 
+	      REFERENCES etudiants(id_etud)
+	      ON DELETE SET NULL,
+    anneés INT,
+    moyenne NUMERIC(6,2),
+);
