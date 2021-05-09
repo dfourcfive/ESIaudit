@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const PfeMaster = sequelize.define("PfeMasters", {
         PfeMasterId: {
-        type: DataTypes.INTEGER, 
+        type: Sequelize.INTEGER, 
         primaryKey: true,
         autoIncrement: true
     },

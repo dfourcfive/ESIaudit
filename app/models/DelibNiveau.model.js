@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const DelibNiveau = sequelize.define("DelibNiveaux", {
         DelibNiveauId: {
-            type: DataTypes.INTEGER, 
+            type: Sequelize.INTEGER, 
             primaryKey: true,
             autoIncrement: true
         },

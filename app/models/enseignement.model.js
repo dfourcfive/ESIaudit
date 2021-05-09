@@ -2,7 +2,7 @@
 module.exports = (sequelize, Sequelize) => {
     const enseignement = sequelize.define("enseignements", {
         enseignementId: {
-            type: DataTypes.INTEGER, 
+            type: Sequelize.INTEGER, 
             primaryKey: true,
             autoIncrement: true
         },

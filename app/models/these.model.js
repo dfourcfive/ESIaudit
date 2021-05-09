@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const these = sequelize.define("theses", {
         theseId: {
-            type: DataTypes.INTEGER, 
+            type: Sequelize.INTEGER, 
             primaryKey: true,
             autoIncrement: true
         },

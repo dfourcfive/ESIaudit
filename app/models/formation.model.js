@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const formation = sequelize.define("formations", {
         formationId: {
-            type: DataTypes.INTEGER, 
+            type: Sequelize.INTEGER, 
             primaryKey: true,
             autoIncrement: true
         },

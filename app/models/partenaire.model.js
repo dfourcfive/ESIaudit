@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const partenaire = sequelize.define("partenaires", {
         partenaireId: {
-            type: DataTypes.INTEGER, 
+            type: Sequelize.INTEGER, 
             primaryKey: true,
             autoIncrement: true
         },

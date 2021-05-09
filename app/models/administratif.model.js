@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const administratif = sequelize.define("administratifs", {
         administratifId: {
-            type: DataTypes.INTEGER, 
+            type: Sequelize.INTEGER, 
             primaryKey: true,
             autoIncrement: true
         },

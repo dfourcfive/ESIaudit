@@ -78,59 +78,59 @@ db.role.belongsToMany(db.user, {through: "user_roles"})
 db.user.belongsToMany(db.role, {through: "user_roles"})
 db.ROLES = ["user", "admin", "moderator"]
 //departement has many salles and salle belongs to one departement
-db.departement.HasMany(db.salle)
+db.departement.hasMany(db.salle)
 db.salle.belongsTo(db.departement)
 //Club has many activites and activite belongs to one club
-db.club.HasMany(db.activite)
+db.club.hasMany(db.activite)
 db.activite.belongsTo(db.club)
 //Activite belongs to salle
 db.activite.belongsTo(db.salle)
 //salle has many outils and outil belongs to salle
-db.salle.HasMany(db.outil)
+db.salle.hasMany(db.outil)
 db.outil.belongsTo(db.salle)
 //club belongs to salle
 db.club.belongsTo(db.salle)
 //departement has many administratifs and administratif belongs to one departement
-db.departement.HasMany(db.administratif)
+db.departement.hasMany(db.administratif)
 db.administratif.belongsTo(db.departement)
 //departement has many formations and formation belongs to one departement
-db.departement.HasMany(db.formation)
+db.departement.hasMany(db.formation)
 db.formation.belongsTo(db.departement)
 //formation has many partenaires and partenaire has many formations
 db.formation.belongsToMany(db.partenaire, {through: "formation_partenaire"})
 db.partenaire.belongsToMany(db.formation, {through: "formation_partenaire"})
 //formation has many niveaux and niveau belongs to one formation
-db.formation.HasMany(db.niveau)
+db.formation.hasMany(db.niveau)
 db.niveau.belongsTo(db.formation)
 //departement has many these and these belongs to departement
-db.departement.HasMany(db.these)
+db.departement.hasMany(db.these)
 db.these.belongsTo(db.departement)
 //departement has many doctorant and doctorant belongs to many departement
-db.departement.HasMany(db.doctorant)
+db.departement.hasMany(db.doctorant)
 db.doctorant.belongsTo(db.departement)
 //
-db.etudiant.belongsToMany(db.niveau)
-db.niveau.belongsToMany(db.etudiant)
+db.etudiant.belongsToMany(db.niveau,{through: "etudiant_niveau"})
+db.niveau.belongsToMany(db.etudiant,{through: "etudiant_niveau"})
 //
-db.enseignants.belongsToMany(db.formation, {through: "enseignants_formations"})
+db.enseignant.belongsToMany(db.formation, {through: "enseignants_formations"})
 db.formation.belongsToMany(db.enseignant, {through: "enseignants_formations"})
 //
-db.formation.HasMany(db.niveau)
+db.formation.hasMany(db.niveau)
 db.niveau.belongsTo(db.formation)
 //
 db.DelibNiveau.belongsTo(db.etudiant)
 db.DelibNiveau.belongsTo(db.niveau)
-db.etudiant.HasMany(db.DelibNiveau)
-db.niveau.HasMany(db.DelibNiveau)
+db.etudiant.hasMany(db.DelibNiveau)
+db.niveau.hasMany(db.DelibNiveau)
 //
 db.semestre.belongsTo(db.niveau)
-db.niveau.HasMany(db.semestre)
+db.niveau.hasMany(db.semestre)
 //
 db.ue.belongsTo(db.semestre)
-db.semestre.HasMany(db.ue)
+db.semestre.hasMany(db.ue)
 //
 db.matiere.belongsTo(db.ue)
-db.ue.HasMany(db.matiere)
+db.ue.hasMany(db.matiere)
 
 
 
