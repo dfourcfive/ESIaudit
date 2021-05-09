@@ -282,3 +282,14 @@ CREATE TABLE IF NOT EXISTS DelibModule(
     anneés INT,
     moyenne NUMERIC(6,2),
 );
+
+CREATE TABLE IF NOT EXISTS Partenaire(
+    id_par SERIAL PRIMARY KEY,
+    id_form INT,
+       CONSTRAINT fk_id_form
+        FOREIGN KEY(id_form) 
+	      REFERENCES formations(id_form)
+	      ON DELETE SET NULL,
+    type VARCHAR(255),
+    role VARCHAR(255),        
+);
