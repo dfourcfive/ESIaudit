@@ -1,3 +1,5 @@
+
+
 module.exports = (sequelize, Sequelize) => {
     const salle = sequelize.define("salles", {
         salleId: {

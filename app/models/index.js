@@ -1,5 +1,4 @@
 const config = require("../config/db.config.js");
-
 const Sequelize = require("sequelize");
 
 //import models
@@ -103,6 +102,39 @@ db.partenaire.belongsToMany(db.formation, {through: "formation_partenaire"})
 //formation has many niveaux and niveau belongs to one formation
 db.formation.HasMany(db.niveau)
 db.niveau.belongsTo(db.formation)
+//departement has many these and these belongs to departement
+db.departement.HasMany(db.these)
+db.these.belongsTo(db.departement)
+//departement has many doctorant and doctorant belongs to many departement
+db.departement.HasMany(db.doctorant)
+db.doctorant.belongsTo(db.departement)
+//
+db.etudiant.belongsToMany(db.niveau)
+db.niveau.belongsToMany(db.etudiant)
+//
+db.enseignants.belongsToMany(db.formation, {through: "enseignants_formations"})
+db.formation.belongsToMany(db.enseignant, {through: "enseignants_formations"})
+//
+db.formation.HasMany(db.niveau)
+db.niveau.belongsTo(db.formation)
+//
+db.DelibNiveau.belongsTo(db.etudiant)
+db.DelibNiveau.belongsTo(db.niveau)
+db.etudiant.HasMany(db.DelibNiveau)
+db.niveau.HasMany(db.DelibNiveau)
+//
+db.semestre.belongsTo(db.niveau)
+db.niveau.HasMany(db.semestre)
+//
+db.ue.belongsTo(db.semestre)
+db.semestre.HasMany(db.ue)
+//
+db.matiere.belongsTo(db.ue)
+db.ue.HasMany(db.matiere)
+
+
+
+
 
 
 
