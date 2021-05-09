@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Activités(
     date_debut DATE,
     date_fin DATE,
     id_club INT,
-   CONSTRAINT fk_id_club
+    CONSTRAINT fk_id_club
       FOREIGN KEY(id_club) 
 	      REFERENCES Clubs(id_club)
 	      ON DELETE SET NULL,    
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS Clubs(
 CREATE TABLE IF NOT EXISTS Theses(
     id_these SERIAL PRIMARY KEY,
     titre VARCHAR(255),
-    domain VARCHAR(255),
+    domaine VARCHAR(255),
     date_Lancement DATE,
     id_dep INT,
     CONSTRAINT fk_id_dep
@@ -78,11 +78,12 @@ CREATE TABLE IF NOT EXISTS doctorants(
     prenom VARCHAR(255),
     date_naissance DATE,
     lieu_nissance VARCHAR(255),
-    adress VARCHAR(255),
-    id_form INT,
-    CONSTRAINT fk_id_form
-      FOREIGN KEY(id_form) 
-	      REFERENCES formations(id_form)
+    adresse VARCHAR(255),
+    sex VARCHAR(100),
+    id_dep INT,
+    CONSTRAINT fk_id_dep
+      FOREIGN KEY(id_dep) 
+	      REFERENCES departements(id_dep)
 	      ON DELETE SET NULL
 );
 
@@ -102,12 +103,13 @@ CREATE TABLE IF NOT EXISTS administratifs(
     nom VARCHAR(255),
     prenom VARCHAR(255),
     data_naissance DATE,
-    lieu_nissance VARCHAR(255),
+    lieu_naissance VARCHAR(255),
     adresse VARCHAR(255),
     diplome VARCHAR(255),
     specialite VARCHAR(255),
-    id_dep INT,
     role VARCHAR(255),
+    sex VARCHAR(100),
+    id_dep INT,
      CONSTRAINT fk_id_dep
       FOREIGN KEY(id_dep) 
 	      REFERENCES departements(id_dep)
@@ -119,22 +121,11 @@ CREATE TABLE IF NOT EXISTS PfeMaster (
     titre VARCHAR(255),
     domain VARCHAR(255),
     date_Lancement DATE,
+    date_fin DATE,
     id_form INT,
-    role VARCHAR(255),
      CONSTRAINT fk_id_form
       FOREIGN KEY(id_form) 
-	      REFERENCES formations(id_form)
-	      ON DELETE SET NULL
-);
-
-CREATE TABLE IF NOT EXISTS encadrements(
-    id_enc SERIAL PRIMARY KEY,
-    date_debut DATE,
-    date_fin DATE,
-    id_pfem
-    CONSTRAINT fk_id_pfem
-      FOREIGN KEY(id_pfem) 
-	      REFERENCES PfeMaster(id_pfem)
+	    REFERENCES formations(id_form)
 	      ON DELETE SET NULL,
     id_ens
     CONSTRAINT fk_id_ens
@@ -143,19 +134,15 @@ CREATE TABLE IF NOT EXISTS encadrements(
 	      ON DELETE SET NULL,
 );
 
+
 CREATE TABLE IF NOT EXISTS etudiants(
     id_etud SERIAL PRIMARY KEY,
     nom VARCHAR(255),
     prenom VARCHAR(255),
     data_naissance DATE,
-    lieu_nissance VARCHAR(255),
+    lieu_naissance VARCHAR(255),
     adresse VARCHAR(255),
     Sex VARCHAR(100),
-    id_form INT,
-     CONSTRAINT fk_id_form
-      FOREIGN KEY(id_form) 
-	      REFERENCES formations(id_form)
-	      ON DELETE SET NULL,
     id_niv INT,
      CONSTRAINT fk_id_niv
       FOREIGN KEY(id_niv) 
@@ -175,8 +162,16 @@ CREATE TABLE IF NOT EXISTS enseignants(
     specialite VARCHAR(255),
     grade VARCHAR(255),
     situationSocial VARCHAR(255),
-    Sex VARCHAR(100),
-    id_form INT,
+    Sex VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS enseignants_formations(
+    id_ens INT PRIMARY KEY,
+     CONSTRAINT fk_id_ens
+      FOREIGN KEY(id_ens) 
+	      REFERENCES enseignants(id_form)
+	      ON DELETE SET NULL,
+    id_form INT PRIMARY KEY,
      CONSTRAINT fk_id_form
       FOREIGN KEY(id_form) 
 	      REFERENCES formations(id_form)
@@ -186,7 +181,7 @@ CREATE TABLE IF NOT EXISTS enseignants(
 CREATE TABLE IF NOT EXISTS niveaux(
     id_niv SERIAL PRIMARY KEY,
     nom VARCHAR(255),
-    prenom VARCHAR(255),
+    description VARCHAR(255),
     Durée INT,
     id_form INT,
      CONSTRAINT fk_id_form
@@ -207,23 +202,12 @@ CREATE TABLE IF NOT EXISTS DelibNiveau(
       FOREIGN KEY(id_etud) 
 	      REFERENCES etudiants(id_etud)
 	      ON DELETE SET NULL,
-    anneés VARCHAR(8),
+    année VARCHAR(8),
     MoyenneS1 NUMERIC(6,2),
     MoyenneS2 NUMERIC(6,2),
     CreditS1 INT,
     CreditS2 INT,
     Observation VARCHAR(15)
-);
-
-CREATE TABLE IF NOT EXISTS Semestres(
-    id_sem SERIAL PRIMARY KEY,
-    id_niv INT,
-      CONSTRAINT fk_id_niv
-        FOREIGN KEY(id_niv) 
-	      REFERENCES niveaux(id_niv)
-	      ON DELETE SET NULL,  
-    numero INT,
-    description TEXT,
 );
 
 CREATE TABLE IF NOT EXISTS Semestres(

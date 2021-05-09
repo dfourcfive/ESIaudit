@@ -26,6 +26,16 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.salle = require("../models/salle.model.js")(sequelize, Sequelize);
+db.these = require("../models/these.model.js")(sequelize, Sequelize);
+db.outil = require("../models/outil.model.js")(sequelize, Sequelize);
+db.club = require("../models/club.model.js")(sequelize, Sequelize);
+db.activite = require("../models/activite.model.js")(sequelize, Sequelize);
+db.departement = require("../models/departement.model.js")(sequelize, Sequelize);
+db.doctorant = require("../models/doctorant.model.js")(sequelize, Sequelize);
+db.formation = require("../models/formation.model.js")(sequelize, Sequelize);
+db.administratif = require("../models/administratif.model.js")(sequelize, Sequelize);
+db.PfeMaster = require("../models/PfeMaster.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
     through: "user_roles",
@@ -37,7 +47,33 @@ db.user.belongsToMany(db.role, {
     foreignKey: "userId",
     otherKey: "roleId"
 });
-
 db.ROLES = ["user", "admin", "moderator"];
-
+//departement with salle
+db.departement.HasMany(
+    db.salle,
+    {
+        as:'departement',
+        foreignKey : 'departementId'
+    }
+)
+db.salle.belongsTo(
+    db.departement,
+    {
+        foreignKey : 'departementId'
+    }
+)
+//Activité with club
+db.club.HasMany(
+    db.activite,
+    {
+        as:'club',
+        foreignKey : 'clubId'
+    }
+)
+db.activite.belongsTo(
+    db.club,
+    {
+        foreignKey : 'clubId'
+    }
+)
 module.exports = db;
