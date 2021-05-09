@@ -1,6 +1,32 @@
 const config = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
+
+//import models
+const UserModel = require("../models/user.model.js");
+const RoleModel = require("../models/role.model.js");
+const SalleModel = require("../models/salle.model.js");
+const TheseModel = require("../models/these.model.js");
+const OutilModel = require("../models/outil.model.js");
+const ClubModel = require("../models/club.model.js");
+const ActiviteModel = require("../models/activite.model.js");
+const DepartementModel = require("../models/departement.model.js");
+const DoctorantModel = require("../models/doctorant.model.js");
+const FormationModel = require("../models/formation.model.js");
+const AdministratifModel = require("../models/administratif.model.js");
+const PfeMasterModel = require("../models/PfeMaster.model.js");
+const DelibNiveauModel = require("../models/DelibNiveau.model.js");
+const NiveauModel = require("../models/niveau.model.js");
+const EnseignantModel = require("../models/enseignant.model.js");
+const EnseignementModel = require("../models/enseignement.model.js");
+const EtudiantModel = require("../models/etudiant.model.js");
+const SeanceModel = require("../models/seance.model.js");
+const SemestreModel = require("../models/semestre.model.js");
+const UEModel = require("../models/ue.model.js");
+const MatiereModel = require("../models/matiere.model.js");
+const PartenaireModel = require("../models/partenaire.model.js");
+
+//sequelize connection
 const sequelize = new Sequelize(
     config.DB,
     config.USER,
@@ -24,81 +50,59 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.user = require("../models/user.model.js")(sequelize, Sequelize);
-db.role = require("../models/role.model.js")(sequelize, Sequelize);
-db.salle = require("../models/salle.model.js")(sequelize, Sequelize);
-db.these = require("../models/these.model.js")(sequelize, Sequelize);
-db.outil = require("../models/outil.model.js")(sequelize, Sequelize);
-db.club = require("../models/club.model.js")(sequelize, Sequelize);
-db.activite = require("../models/activite.model.js")(sequelize, Sequelize);
-db.departement = require("../models/departement.model.js")(sequelize, Sequelize);
-db.doctorant = require("../models/doctorant.model.js")(sequelize, Sequelize);
-db.formation = require("../models/formation.model.js")(sequelize, Sequelize);
-db.administratif = require("../models/administratif.model.js")(sequelize, Sequelize);
-db.PfeMaster = require("../models/PfeMaster.model.js")(sequelize, Sequelize);
-db.DelibNiveau = require("../models/DelibNiveau.model.js")(sequelize, Sequelize);
-db.niveau = require("../models/niveau.model.js")(sequelize, Sequelize);
-db.enseignant = require("../models/enseignant.model.js")(sequelize, Sequelize);
-db.enseignement = require("../models/enseignement.model.js")(sequelize, Sequelize);
-db.etudiant = require("../models/etudiant.model.js")(sequelize, Sequelize);
-db.seance = require("../models/seance.model.js")(sequelize, Sequelize);
-db.semestre = require("../models/semestre.model.js")(sequelize, Sequelize);
-db.ue = require("../models/ue.model.js")(sequelize, Sequelize);
-db.matiere = require("../models/matiere.model.js")(sequelize, Sequelize);
+//Connect model with sequelize
+db.user = UserModel(sequelize, Sequelize);
+db.role = RoleModel(sequelize, Sequelize);
+db.salle = SalleModel(sequelize, Sequelize);
+db.these = TheseModel(sequelize, Sequelize);
+db.outil = OutilModel(sequelize, Sequelize);
+db.club = ClubModel(sequelize, Sequelize);
+db.activite = ActiviteModel(sequelize, Sequelize);
+db.departement = DepartementModel(sequelize, Sequelize);
+db.doctorant = DoctorantModel(sequelize, Sequelize);
+db.formation = FormationModel(sequelize, Sequelize);
+db.administratif = AdministratifModel(sequelize, Sequelize);
+db.PfeMaster = PfeMasterModel(sequelize, Sequelize);
+db.DelibNiveau = DelibNiveauModel(sequelize, Sequelize);
+db.niveau = NiveauModel(sequelize, Sequelize);
+db.enseignant = EnseignantModel(sequelize, Sequelize);
+db.enseignement = EnseignementModel(sequelize, Sequelize);
+db.etudiant = EtudiantModel(sequelize, Sequelize);
+db.seance = SeanceModel(sequelize, Sequelize);
+db.semestre = SemestreModel(sequelize, Sequelize);
+db.ue = UEModel(sequelize, Sequelize);
+db.matiere = MatiereModel(sequelize, Sequelize);
+db.partenaire = PartenaireModel(sequelize, Sequelize);
 
-db.role.belongsToMany(db.user, {
-    through: "user_roles",
-    foreignKey: "roleId",
-    otherKey: "userId"
-});
-db.user.belongsToMany(db.role, {
-    through: "user_roles",
-    foreignKey: "userId",
-    otherKey: "roleId"
-});
-db.ROLES = ["user", "admin", "moderator"];
-//departement with salle
-db.departement.HasMany(
-    db.salle,
-    {
-        as:'departement',
-        foreignKey : 'departementId'
-    }
-)
-db.salle.belongsTo(
-    db.departement,
-    {
-        foreignKey : 'departementId'
-    }
-)
-//Activité with club
-db.club.HasMany(
-    db.activite,
-    {
-        as:'club',
-        foreignKey : 'clubId'
-    }
-)
-db.activite.belongsTo(
-    db.club,
-    {
-        foreignKey : 'clubId'
-    }
-)
-//Activité with salle
-db.club.HasMany(
-    db.activite,
-    {
-        as:'club',
-        foreignKey : 'clubId'
-    }
-)
-db.activite.belongsTo(
-    db.club,
-    {
-        foreignKey : 'clubId'
-    }
-)
+//user has many roles and role has many users
+db.role.belongsToMany(db.user, {through: "user_roles"})
+db.user.belongsToMany(db.role, {through: "user_roles"})
+db.ROLES = ["user", "admin", "moderator"]
+//departement has many salles and salle belongs to one departement
+db.departement.HasMany(db.salle)
+db.salle.belongsTo(db.departement)
+//Club has many activites and activite belongs to one club
+db.club.HasMany(db.activite)
+db.activite.belongsTo(db.club)
+//Activite belongs to salle
+db.activite.belongsTo(db.salle)
+//salle has many outils and outil belongs to salle
+db.salle.HasMany(db.outil)
+db.outil.belongsTo(db.salle)
+//club belongs to salle
+db.club.belongsTo(db.salle)
+//departement has many administratifs and administratif belongs to one departement
+db.departement.HasMany(db.administratif)
+db.administratif.belongsTo(db.departement)
+//departement has many formations and formation belongs to one departement
+db.departement.HasMany(db.formation)
+db.formation.belongsTo(db.departement)
+//formation has many partenaires and partenaire has many formations
+db.formation.belongsToMany(db.partenaire, {through: "formation_partenaire"})
+db.partenaire.belongsToMany(db.formation, {through: "formation_partenaire"})
+//formation has many niveaux and niveau belongs to one formation
+db.formation.HasMany(db.niveau)
+db.niveau.belongsTo(db.formation)
 
 
 
