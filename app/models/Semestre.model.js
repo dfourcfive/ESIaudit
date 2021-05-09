@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Semestre = sequelize.define("Semestres", {
+    const semestre = sequelize.define("semestres", {
         SemestreId: {
             type: DataTypes.INTEGER, 
             primaryKey: true,
@@ -13,5 +13,5 @@ module.exports = (sequelize, Sequelize) => {
         },
     });
 
-    return Semestre;
+    return semestre;
 };
