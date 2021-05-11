@@ -8,15 +8,14 @@ exports.add=(req, res) =>{
         nom: req.body.nom,
         description:req.body.nom,
     }).then((data) => {
-        res.send(data);
+        res.send({data});
     }).catch((err) => {
         res.status(500).send({ message: err.message });
     });
 }
 exports.getAll=(req, res) =>{
-    departement.finAll().then((results) => {
-
-        res.send({ message: "User was registered successfully!"  });
+    departement.findAll().then((data) => {
+        res.send({data});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
     });

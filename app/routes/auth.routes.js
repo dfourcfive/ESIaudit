@@ -22,3 +22,6 @@ module.exports = function(app) {
     //route for singIn
   app.post("/api/auth/signin", controller.signin);
 };
+/*
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIwNTg3OTg0LCJleHAiOjE2MjA2NzQzODR9.KAaFAc3EuxbHo2iTORp7tYhCMVZlaui90d0Fo-mFUJs
+*/
