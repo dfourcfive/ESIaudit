@@ -16,7 +16,7 @@ exports.add=(req, res) =>{
 exports.getAll=(req, res) =>{
     departement.findAll().then((results) => {
 
-        res.send({ message: "User was registered successfully!"  });
+        res.send({data});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
