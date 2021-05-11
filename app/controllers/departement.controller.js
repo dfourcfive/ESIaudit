@@ -5,8 +5,8 @@ const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
     departement.create({
-        nom: req.body.nom,
-        description:req.body.nom,
+        nom: req.body.name,
+        description:req.body.description,
     }).then((data) => {
         res.send(data);
     }).catch((err) => {
@@ -14,7 +14,7 @@ exports.add=(req, res) =>{
     });
 }
 exports.getAll=(req, res) =>{
-    departement.finAll().then((results) => {
+    departement.findAll().then((results) => {
 
         res.send({ message: "User was registered successfully!"  });
     }).catch((err) => {
