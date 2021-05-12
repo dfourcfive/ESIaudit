@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
     formation.create({
-        nom: req.body.name,
+        nom: req.body.nom,
         description:req.body.description,
         departementId:req.body.departementId,
     }).then((data) => {
@@ -31,7 +31,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    formation.destroy(id).then((data) => {
+    formation.destroy({where : {formationId: id}}).then((data) => {
         if (num == 1) {
         res.send({message:'deleted successfully!'});
         }

@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
     departement.create({
-        nom: req.body.name,
+        nom: req.body.nom,
         description:req.body.description,
     }).then((data) => {
         res.send({data});
@@ -15,7 +15,7 @@ exports.add=(req, res) =>{
 }
 exports.getAll=(req, res) =>{
     departement.findAll().then((results) => {
-        res.send({data});
+        res.send({results});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
@@ -31,7 +31,7 @@ exports.getOne=(req, res) =>{
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
     departement.destroy(id).then((data) => {
-        if (num == 1) {
+        if (data == 1) {
         res.send({message:'deleted successfully!'});
         }
         else{
