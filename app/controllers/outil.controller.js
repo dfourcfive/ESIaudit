@@ -32,7 +32,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    outil.destroy({where : {formationId: id}}).then((data) => {
+    outil.destroy({where : {outilId: id}}).then((data) => {
         if (data == 1) {
         res.send({message:'deleted successfully!'});
         }

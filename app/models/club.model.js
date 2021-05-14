@@ -11,9 +11,6 @@ module.exports = (sequelize, Sequelize) => {
         type: {
             type: Sequelize.STRING
         },
-        type: {
-            type: Sequelize.DATE
-        },
     });
 
     return club;

@@ -52,7 +52,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    partenaire.destroy({where : {formationId: id}}).then((data) => {
+    partenaire.destroy({where : {partenaireId: id}}).then((data) => {
         if (num == 1) {
         res.send({message:'deleted successfully!'});
         }

@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
     activite.create({
-        titre: req.body.nom,
+        titre: req.body.titre,
         type:req.body.description,
         date_debut:req.body.date_debut,
         date_fin:req.body.date_fin,
@@ -34,7 +34,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    activite.destroy({where : {formationId: id}}).then((data) => {
+    activite.destroy({where : {activiteId: id}}).then((data) => {
         if (data == 1) {
         res.send({message:'deleted successfully!'});
         }

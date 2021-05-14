@@ -30,7 +30,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    departement.destroy(id).then((data) => {
+    departement.destroy({where : {formationId: id}}).then((data) => {
         if (data == 1) {
         res.send({message:'deleted successfully!'});
         }
