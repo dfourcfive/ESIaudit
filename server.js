@@ -30,6 +30,7 @@ require('./app/routes/formation.routes')(app);
 require('./app/routes/partenaire.routes')(app);
 require('./app/routes/salle.routes')(app);
 require('./app/routes/activite.routes')(app);
+require('./app/routes/outil.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
