@@ -27,7 +27,7 @@ exports.getAll=(req, res) =>{
             },
           ],
     }).then((results) => {
-        res.send({data});
+        res.send({results});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
