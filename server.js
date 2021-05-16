@@ -34,6 +34,7 @@ require('./app/routes/outil.routes')(app);
 require('./app/routes/niveau.routes')(app);
 require('./app/routes/club.routes')(app);
 require('./app/routes/these.routes')(app);
+require('./app/routes/doctorant.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
