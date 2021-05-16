@@ -1,18 +1,23 @@
 const db = require("../models");
 const config = require("../config/auth.config");
-const etudiant = db.etudiant;
-const niveau = db.niveau;
+const enseignant = db.enseignant;
+const formation = db.formation;
 
 const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
-    etudiant.create({
+    enseignant.create({
         nom: req.body.nom,
         prenom:req.body.prenom,
         data_naissance:req.body.data_naissance,
         lieu_naissance:req.body.lieu_naissance,
         adresse:req.body.adresse,
-        Sex:req.body.Sex,
+        diplome:req.body.diplome,
+        grade:req.body.grade,
+        adresse:req.body.adresse,
+        specialite:req.body.specialite,
+        situationSocial:req.body.situationSocial,
+        sex:req.body.sex,
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -20,11 +25,11 @@ exports.add=(req, res) =>{
     });
 }
 exports.getAll=(req, res) =>{
-    etudiant.findAll({
+    enseignant.findAll({
         include: [
             {
-              model: niveau,
-              attributes: ['niveauId','titre','desc','Durée'],
+              model: formation,
+              attributes: ['niveauId','nom','description'],
               through: {
                 attributes: [],
               }
@@ -38,11 +43,11 @@ exports.getAll=(req, res) =>{
 }
 exports.getOne=(req, res) =>{
     const id = req.params.id;
-    etudiant.findByPk(id,{
+    enseignant.findByPk(id,{
         include: [
             {
               model: niveau,
-              attributes: ['niveauId','titre','desc','Durée'],
+              attributes: ['niveauId','nom','description'],
               through: {
                 attributes: [],
               }
@@ -56,7 +61,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    etudiant.destroy({where : {etudiantId: id}}).then((num) => {
+    enseignant.destroy({where : {enseignantId: id}}).then((num) => {
         if (num == 1) {
         res.send({message:'deleted successfully!'});
         }
@@ -69,13 +74,13 @@ exports.DeleteOne=(req, res) =>{
 }
 
 exports.linkWithformation = (req, res) => {
-    etudiant.findByPk(req.body.etudiantId)
+    enseignant.findByPk(req.body.enseignantId)
       .then((etud) => {
         if (!etud) {
           res.status(500).send('partenaire not found!');
           return null;
         }
-        return niveau.findByPk(req.body.niveauId).then((niv) => {
+        return formation.findByPk(req.body.formationId).then((niv) => {
           if (!niv) {
             res.status(500).send('formation not found!');
             console.log("Tutorial not found!");

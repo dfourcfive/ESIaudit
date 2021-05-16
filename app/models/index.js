@@ -117,13 +117,8 @@ db.niveau.belongsToMany(db.etudiant,{through: "etudiant_niveau"})
 db.enseignant.belongsToMany(db.formation, {through: "enseignants_formations"})
 db.formation.belongsToMany(db.enseignant, {through: "enseignants_formations"})
 //
-db.formation.hasMany(db.niveau)
-db.niveau.belongsTo(db.formation)
-//
 db.DelibNiveau.belongsTo(db.etudiant)
 db.DelibNiveau.belongsTo(db.niveau)
-db.etudiant.hasMany(db.DelibNiveau)
-db.niveau.hasMany(db.DelibNiveau)
 //
 db.semestre.belongsTo(db.niveau)
 db.niveau.hasMany(db.semestre)
