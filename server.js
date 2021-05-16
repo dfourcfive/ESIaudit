@@ -38,6 +38,11 @@ require('./app/routes/doctorant.routes')(app);
 require('./app/routes/niveau.routes')(app);
 require('./app/routes/etudiant.routes')(app);
 require('./app/routes/enseignant.routes')(app);
+require('./app/routes/DelibNiveau.routes')(app);
+require('./app/routes/semestre.routes')(app);
+require('./app/routes/ue.routes')(app);
+require('./app/routes/matiere.routes')(app);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

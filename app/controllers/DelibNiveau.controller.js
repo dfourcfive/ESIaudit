@@ -1,14 +1,18 @@
 const db = require("../models");
 const config = require("../config/auth.config");
-const niveau = db.niveau;
+const DelibNiveau = db.DelibNiveau;
 const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
-    niveau.create({
-        titre: req.body.titre,
-        desc:req.body.desc,
-        Durée:req.body.Durée,
-        formationId:req.body.formationId
+    DelibNiveau.create({
+        année: req.body.année,
+        MoyenneS1:req.body.MoyenneS1,
+        MoyenneS2:req.body.MoyenneS2,
+        CreditS1:req.body.CreditS1,
+        CreditS2:req.body.CreditS2,
+        Observation:req.body.Observation,
+        etudiantId:req.body.etudiantId,
+        niveauId:req.body.niveauId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -17,7 +21,7 @@ exports.add=(req, res) =>{
 }
 
 exports.getAll=(req, res) =>{
-    niveau.findAll().then((results) => {
+    DelibNiveau.findAll().then((results) => {
         res.send({results});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
@@ -25,7 +29,7 @@ exports.getAll=(req, res) =>{
 }
 exports.getOne=(req, res) =>{
     const id = req.params.id;
-    niveau.findByPk(id).then((data) => {
+    DelibNiveau.findByPk(id).then((data) => {
         res.send({data});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
@@ -33,7 +37,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    niveau.destroy({where : {niveauId: id}}).then((data) => {
+    DelibNiveau.destroy({where : {DelibNiveauId: id}}).then((data) => {
         if (data == 1) {
         res.send({message:'deleted successfully!'});
         }

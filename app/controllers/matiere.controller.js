@@ -1,14 +1,16 @@
 const db = require("../models");
 const config = require("../config/auth.config");
-const niveau = db.niveau;
+const matiere = db.matiere;
 const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
-    niveau.create({
-        titre: req.body.titre,
-        desc:req.body.desc,
-        Durée:req.body.Durée,
-        formationId:req.body.formationId
+    matiere.create({
+        nom: req.body.nom,
+        type:req.body.type,
+        Coefficient:req.body.Coefficient,
+        credit:req.body.credit,
+        ChargeHoraire:req.body.ChargeHoraire,
+        ueId:req.body.ueId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -17,7 +19,7 @@ exports.add=(req, res) =>{
 }
 
 exports.getAll=(req, res) =>{
-    niveau.findAll().then((results) => {
+    matiere.findAll().then((results) => {
         res.send({results});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
@@ -25,7 +27,7 @@ exports.getAll=(req, res) =>{
 }
 exports.getOne=(req, res) =>{
     const id = req.params.id;
-    niveau.findByPk(id).then((data) => {
+    ue.findByPk(id).then((data) => {
         res.send({data});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
@@ -33,7 +35,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    niveau.destroy({where : {niveauId: id}}).then((data) => {
+    matiere.destroy({where : {matiereId: id}}).then((data) => {
         if (data == 1) {
         res.send({message:'deleted successfully!'});
         }
