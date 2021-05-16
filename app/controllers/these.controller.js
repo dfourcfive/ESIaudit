@@ -1,15 +1,14 @@
 const db = require("../models");
 const config = require("../config/auth.config");
-const activite = db.activite;
+const these = db.these;
 const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
-    activite.create({
+    these.create({
         titre: req.body.titre,
-        type:req.body.type,
-        date_debut:req.body.date_debut,
-        date_fin:req.body.date_fin,
-        salleId:req.body.salleId
+        domaine:req.body.domaine,
+        date_Lancement:req.body.date_Lancement,
+        departementId:req.body.departementId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -18,7 +17,7 @@ exports.add=(req, res) =>{
 }
 
 exports.getAll=(req, res) =>{
-    activite.findAll().then((results) => {
+    these.findAll().then((results) => {
         res.send({results});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
@@ -26,7 +25,7 @@ exports.getAll=(req, res) =>{
 }
 exports.getOne=(req, res) =>{
     const id = req.params.id;
-    activite.findByPk(id).then((data) => {
+    these.findByPk(id).then((data) => {
         res.send({data});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
@@ -34,7 +33,7 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    activite.destroy({where : {activiteId: id}}).then((data) => {
+    these.destroy({where : {activiteId: id}}).then((data) => {
         if (data == 1) {
         res.send({message:'deleted successfully!'});
         }
