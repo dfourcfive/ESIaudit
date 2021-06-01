@@ -58,7 +58,7 @@ exports.UpdateOne=(req, res) =>{
                 credit:req.body.credit,
                 ChargeHoraire:req.body.ChargeHoraire,
                 semestreId:req.body.semestreId
-                                                                }).success(function () {
+                                                                }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

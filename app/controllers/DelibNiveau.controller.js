@@ -63,7 +63,7 @@ exports.UpdateOne=(req, res) =>{
                 Observation:req.body.Observation,
                 etudiantId:req.body.etudiantId,
                 niveauId:req.body.niveauId
-        }).success(function () {
+        }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

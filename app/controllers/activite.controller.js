@@ -57,10 +57,9 @@ exports.UpdateOne=(req, res) =>{
                 date_fin:req.body.date_fin,
                 salleId:req.body.salleId
                       })
-              .success(function () {
+              .then((data)=> {
                 res.send({message:'deleted successfully!'});
-
-              }).error(err => res.send({message:'Cannot update'}));
+              }).catch(err => res.send({message:'Cannot update'}));
         }
         else{
             res.send({message:'Cannot update'});

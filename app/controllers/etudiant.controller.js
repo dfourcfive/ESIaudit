@@ -102,7 +102,7 @@ exports.linkWithformation = (req, res) => {
             data_naissance:req.body.data_naissance,
             lieu_naissance:req.body.lieu_naissance,
             adresse:req.body.adresse,
-            Sex:req.body.Sex,}).success(function () {
+            Sex:req.body.Sex,}).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

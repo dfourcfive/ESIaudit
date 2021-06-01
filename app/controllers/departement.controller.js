@@ -49,7 +49,7 @@ exports.UpdateOne=(req, res) =>{
             departement.update({
                 nom: req.body.nom,
                 description:req.body.description,
-                }).success(function () {
+                }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

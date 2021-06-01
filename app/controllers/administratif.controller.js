@@ -69,7 +69,7 @@ exports.UpdateOne=(req, res) =>{
                 sex:req.body.sex,
                 departementId:req.body.departementId
                               })
-              .success(function () {
+              .then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

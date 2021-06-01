@@ -54,7 +54,7 @@ exports.UpdateOne=(req, res) =>{
                 domaine:req.body.domaine,
                 date_Lancement:req.body.date_Lancement,
                 departementId:req.body.departementId
-                                            }).success(function () {
+                                            }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

@@ -49,10 +49,10 @@ exports.UpdateOne=(req, res) =>{
     semestre.find({where : {semestreId: id}}).then((data) => {
         if (data == 1) {
             semestre.update({
-                numero: req.body.numero,
-                desc:req.body.desc,
-                niveauId:req.body.niveauId
-                        }).success(function () {
+        numero: req.body.numero,
+        desc:req.body.desc,
+        niveauId:req.body.niveauId
+                }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

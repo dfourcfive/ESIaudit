@@ -52,7 +52,7 @@ exports.UpdateOne=(req, res) =>{
                 nom: req.body.nom,
                 type:req.body.description,
                 salleId:req.body.salleId})
-              .success(function () {
+              .then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

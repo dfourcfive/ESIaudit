@@ -95,7 +95,7 @@ exports.linkWithformation = (req, res) => {
           partenaire.update({
             nom: req.body.nom,
             type:req.body.type,
-        }).success(function () {
+        }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));
