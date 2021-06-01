@@ -47,3 +47,27 @@ exports.DeleteOne=(req, res) =>{
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
 }
+exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    doctorant.find({where : {doctorantId: id}}).then((data) => {
+        if (data == 1) {
+            doctorant.update({
+                nom: req.body.nom,
+                prenom:req.body.prenom,
+                date_naissance:req.body.date_naissance,
+                lieu_de_nissance:req.body.lieu_de_nissance,
+                adresse:req.body.adresse,
+                sex:req.body.sex,
+                departementId:req.body.departementId
+                        }).success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}

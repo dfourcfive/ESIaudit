@@ -48,3 +48,30 @@ exports.DeleteOne=(req, res) =>{
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
 }
+
+
+exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    DelibNiveau.find({where : {DelibNiveauId: id}}).then((data) => {
+        if (data == 1) {
+            DelibNiveau.update({
+                année: req.body.année,
+                MoyenneS1:req.body.MoyenneS1,
+                MoyenneS2:req.body.MoyenneS2,
+                CreditS1:req.body.CreditS1,
+                CreditS2:req.body.CreditS2,
+                Observation:req.body.Observation,
+                etudiantId:req.body.etudiantId,
+                niveauId:req.body.niveauId
+        }).success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}

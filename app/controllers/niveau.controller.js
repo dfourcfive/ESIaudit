@@ -44,3 +44,24 @@ exports.DeleteOne=(req, res) =>{
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
 }
+
+exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    niveau.find({where : {niveauId: id}}).then((data) => {
+        if (data == 1) {
+            niveau.update({
+                titre: req.body.titre,
+                desc:req.body.desc,
+                Durée:req.body.Durée,
+                formationId:req.body.formationId                    }).success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}

@@ -87,3 +87,23 @@ exports.linkWithformation = (req, res) => {
         console.log(">> Error while adding Tutorial to Tag: ", err);
       });
   };
+
+  exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    partenaire.find({where : {partenaireId: id}}).then((data) => {
+        if (data == 1) {
+          partenaire.update({
+            nom: req.body.nom,
+            type:req.body.type,
+        }).success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}

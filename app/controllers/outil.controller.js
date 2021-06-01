@@ -43,3 +43,25 @@ exports.DeleteOne=(req, res) =>{
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
 }
+
+
+exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    outil.find({where : {outilId: id}}).then((data) => {
+        if (data == 1) {
+            outil.update({
+                titre: req.body.titre,
+        type:req.body.type,
+        salleId:req.body.salleId
+    }).success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}

@@ -51,3 +51,33 @@ exports.DeleteOne=(req, res) =>{
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
 }
+
+exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    administratif.find({where : {administratifId: id}}).then((data) => {
+        if (data == 1) {
+            administratif.update({
+                nom: req.body.nom,
+                prenom: req.body.prenom,
+                type:req.body.description,
+                data_de_naissance:req.body.data_de_naissance,
+                lieu_naissance:req.body.lieu_naissance,
+                adresse:req.body.adresse,
+                diplome:req.body.diplome,
+                specialite:req.body.specialite,
+                role:req.body.role,
+                sex:req.body.sex,
+                departementId:req.body.departementId
+                              })
+              .success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}

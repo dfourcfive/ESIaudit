@@ -33,12 +33,34 @@ exports.getOne=(req, res) =>{
 }
 exports.DeleteOne=(req, res) =>{
     const id = req.params.id;
-    these.destroy({where : {activiteId: id}}).then((data) => {
+    these.destroy({where : {theseId: id}}).then((data) => {
         if (data == 1) {
         res.send({message:'deleted successfully!'});
         }
         else{
             res.send({message:'Cannot delete'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}
+
+exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    these.find({where : {theseId: id}}).then((data) => {
+        if (data == 1) {
+            these.update({
+                titre: req.body.titre,
+                domaine:req.body.domaine,
+                date_Lancement:req.body.date_Lancement,
+                departementId:req.body.departementId
+                                            }).success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
         }
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});

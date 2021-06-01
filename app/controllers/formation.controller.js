@@ -42,3 +42,24 @@ exports.DeleteOne=(req, res) =>{
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
 }
+
+exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    formation.find({where : {formationId: id}}).then((data) => {
+        if (data == 1) {
+            formation.update({
+            nom: req.body.nom,
+            description:req.body.description,
+            departementId:req.body.departementId,
+    }).success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}

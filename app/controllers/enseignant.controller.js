@@ -96,3 +96,30 @@ exports.linkWithformation = (req, res) => {
         console.log(">> Error while adding Tutorial to Tag: ", err);
       });
   };
+  exports.UpdateOne=(req, res) =>{
+    const id = req.params.id;
+    enseignant.find({where : {enseignantId: id}}).then((data) => {
+        if (data == 1) {
+          enseignant.update({
+              nom: req.body.nom,
+              prenom:req.body.prenom,
+              data_naissance:req.body.data_naissance,
+              lieu_naissance:req.body.lieu_naissance,
+              adresse:req.body.adresse,
+              diplome:req.body.diplome,
+              grade:req.body.grade,
+              adresse:req.body.adresse,
+              specialite:req.body.specialite,
+              situationSocial:req.body.situationSocial,
+              sex:req.body.sex,                              }).success(function () {
+                res.send({message:'deleted successfully!'});
+
+              }).error(err => res.send({message:'Cannot update'}));
+        }
+        else{
+            res.send({message:'Cannot update'});
+        }
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}
