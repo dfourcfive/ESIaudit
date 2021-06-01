@@ -18,5 +18,7 @@ module.exports = function(app) {
 
   app.post("/api/data/formations",[authJwt.verifyToken],controller.add);
 
+  app.post("/api/data/formations/:id",[authJwt.verifyToken],controller.UpdateOne);
+
 
 };

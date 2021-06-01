@@ -17,6 +17,7 @@ module.exports = function(app) {
   app.get("/api/data/DelibNiveaux",[authJwt.verifyToken],controller.getAll);
 
   app.post("/api/data/DelibNiveaux",[authJwt.verifyToken],controller.add);
+  app.post("/api/data/DelibNiveaux/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 
 };

@@ -17,6 +17,7 @@ module.exports = function(app) {
   app.get("/api/data/departements",[authJwt.verifyToken],controller.getAll);
 
   app.post("/api/data/departements",[authJwt.verifyToken],controller.add);
+  app.post("/api/data/departements/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 
 };

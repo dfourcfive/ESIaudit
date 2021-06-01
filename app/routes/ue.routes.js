@@ -18,5 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/ues",[authJwt.verifyToken],controller.add);
 
+  app.post("/api/data/ues/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 };

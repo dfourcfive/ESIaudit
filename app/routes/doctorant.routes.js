@@ -18,5 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/doctorants",[authJwt.verifyToken],controller.add);
 
+  app.post("/api/data/doctorants/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 };

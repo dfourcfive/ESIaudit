@@ -18,4 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/partenaire",[authJwt.verifyToken],controller.add);
   app.put("/api/data/partenaire",[authJwt.verifyToken],controller.linkWithformation);
+  app.post("/api/data/partenaires/:id",[authJwt.verifyToken],controller.UpdateOne);
+
 };

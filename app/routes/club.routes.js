@@ -18,5 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/clubs",[authJwt.verifyToken],controller.add);
 
+  app.post("/api/data/clubs/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 };

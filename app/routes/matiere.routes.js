@@ -18,5 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/matieres",[authJwt.verifyToken],controller.add);
 
+  app.post("/api/data/matieres/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 };

@@ -18,5 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/outils",[authJwt.verifyToken],controller.add);
 
+  app.post("/api/data/outils/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 };

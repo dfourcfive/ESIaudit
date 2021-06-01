@@ -18,5 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/theses",[authJwt.verifyToken],controller.add);
 
+  app.post("/api/data/theses/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 };

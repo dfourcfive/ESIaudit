@@ -18,5 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/niveaux",[authJwt.verifyToken],controller.add);
 
+  app.post("/api/data/niveaux/:id",[authJwt.verifyToken],controller.UpdateOne);
 
 };
