@@ -84,8 +84,8 @@ db.salle.belongsTo(db.departement)
 db.club.hasMany(db.activite)
 db.activite.belongsTo(db.club)
 //Activite belongs to salle ...
-db.activite.belongsTo(db.salle)
 db.salle.hasMany(db.activite)
+db.activite.belongsTo(db.salle)
 //salle has many outils and outil belongs to salle
 db.salle.hasMany(db.outil)
 db.outil.belongsTo(db.salle)

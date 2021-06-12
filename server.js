@@ -3,7 +3,7 @@ const cors = require("cors");
 const db = require("./app/models");
 const Role = db.role;
 const app = express();
-
+const faker = require("./app/faker/generator/generator");
 var corsOptions = {
     origin: "http://localhost:3000"
 };
@@ -42,8 +42,12 @@ require('./app/routes/DelibNiveau.routes')(app);
 require('./app/routes/semestre.routes')(app);
 require('./app/routes/ue.routes')(app);
 require('./app/routes/matiere.routes')(app);
-
-// set port, listen for requests
+//faker functions here in order
+//faker.FakeDepartement();
+//faker.FakeSalles();
+//faker.FakeClubes();
+faker.FakeActivities();
+//set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
