@@ -68,7 +68,7 @@ exports.UpdateOne=(req, res) =>{
                 role:req.body.role,
                 sex:req.body.sex,
                 departementId:req.body.departementId
-                              })
+                })
               .then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
