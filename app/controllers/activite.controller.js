@@ -9,7 +9,8 @@ exports.add=(req, res) =>{
         type:req.body.type,
         date_debut:req.body.date_debut,
         date_fin:req.body.date_fin,
-        salleSalleId:req.body.salleId
+        salleSalleId:req.body.salleId,
+        clubClubeId:req.body.clubClubeId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {

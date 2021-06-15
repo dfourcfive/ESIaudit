@@ -1,7 +1,7 @@
 const faker= require('faker');
 const { formation } = require('../../models');
 const db = require("../../models");
-const departement = db.departement;
+var departement = db.departement;
 const salle = db.salle;
 const club = db.club;
 const activite = db.activite;

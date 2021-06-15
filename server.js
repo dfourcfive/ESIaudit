@@ -42,6 +42,8 @@ require('./app/routes/DelibNiveau.routes')(app);
 require('./app/routes/semestre.routes')(app);
 require('./app/routes/ue.routes')(app);
 require('./app/routes/matiere.routes')(app);
+require('./app/routes/statistics/count.routes')(app);
+
 //faker functions here in order
 //faker.FakeDepartement();
 //faker.FakeSalles();
@@ -50,7 +52,8 @@ require('./app/routes/matiere.routes')(app);
 //faker.FakeOutils();
 //faker.FakeAdministratifs();
 //faker.FakeFormations();
-faker.FakePartenaires();
+//faker.FakePartenaires();
+//****/
 //faker.FakeNiveaux();
 //set port, listen for requests
 const PORT = process.env.PORT || 8080;
