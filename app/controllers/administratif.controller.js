@@ -15,7 +15,7 @@ exports.add=(req, res) =>{
         specialite:req.body.specialite,
         role:req.body.role,
         sex:req.body.sex,
-        departementId:req.body.departementId
+        departementDepartementId:req.body.departementId
         }).then((data) => {
         res.send({data});
     }).catch((err) => {

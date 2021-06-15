@@ -113,7 +113,6 @@ exports.linkWithformation = (req, res) => {
               situationSocial:req.body.situationSocial,
               sex:req.body.sex,                              }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
-
               }).error(err => res.send({message:'Cannot update'}));
         }
         else{

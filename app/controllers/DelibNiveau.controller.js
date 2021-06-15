@@ -11,8 +11,8 @@ exports.add=(req, res) =>{
         CreditS1:req.body.CreditS1,
         CreditS2:req.body.CreditS2,
         Observation:req.body.Observation,
-        etudiantId:req.body.etudiantId,
-        niveauId:req.body.niveauId
+        etudiantEtudiantId:req.body.etudiantId,
+        niveauniveauNiveauId:req.body.niveauId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -62,7 +62,7 @@ exports.UpdateOne=(req, res) =>{
                 CreditS2:req.body.CreditS2,
                 Observation:req.body.Observation,
                 etudiantId:req.body.etudiantId,
-                niveauId:req.body.niveauId
+                niveauNiveauId:req.body.niveauId
         }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 

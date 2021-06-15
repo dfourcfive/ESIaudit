@@ -7,7 +7,7 @@ exports.add=(req, res) =>{
     club.create({
         nom: req.body.nom,
         type:req.body.description,
-        salleId:req.body.salleId
+        salleSalleId:req.body.salleId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -51,7 +51,7 @@ exports.UpdateOne=(req, res) =>{
             club.update({
                 nom: req.body.nom,
                 type:req.body.description,
-                salleId:req.body.salleId})
+                salleSalleId:req.body.salleId})
               .then((data)=>  {
                 res.send({message:'deleted successfully!'});
 

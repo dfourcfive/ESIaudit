@@ -10,7 +10,7 @@ exports.add=(req, res) =>{
         Coefficient:req.body.Coefficient,
         credit:req.body.credit,
         ChargeHoraire:req.body.ChargeHoraire,
-        ueId:req.body.ueId
+        ueUeId:req.body.ueId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -57,7 +57,7 @@ exports.UpdateOne=(req, res) =>{
                 Coefficient:req.body.Coefficient,
                 credit:req.body.credit,
                 ChargeHoraire:req.body.ChargeHoraire,
-                ueId:req.body.ueId            }).then((data)=>  {
+                ueUeId:req.body.ueId            }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

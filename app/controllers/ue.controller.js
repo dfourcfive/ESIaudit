@@ -10,7 +10,7 @@ exports.add=(req, res) =>{
         Coefficient:req.body.Coefficient,
         credit:req.body.credit,
         ChargeHoraire:req.body.ChargeHoraire,
-        semestreId:req.body.semestreId
+        semestreSemestreId:req.body.semestreId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -57,7 +57,7 @@ exports.UpdateOne=(req, res) =>{
                 Coefficient:req.body.Coefficient,
                 credit:req.body.credit,
                 ChargeHoraire:req.body.ChargeHoraire,
-                semestreId:req.body.semestreId
+                semestreSemestreId:req.body.semestreId
                                                                 }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 

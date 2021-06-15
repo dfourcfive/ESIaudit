@@ -7,7 +7,7 @@ exports.add=(req, res) =>{
     outil.create({
         titre: req.body.titre,
         type:req.body.type,
-        salleId:req.body.salleId
+        salleSalleId:req.body.salleId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -52,7 +52,7 @@ exports.UpdateOne=(req, res) =>{
             outil.update({
                 titre: req.body.titre,
         type:req.body.type,
-        salleId:req.body.salleId
+        salleSalleId:req.body.salleId
     }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 

@@ -8,7 +8,7 @@ exports.add=(req, res) =>{
         titre: req.body.titre,
         desc:req.body.desc,
         Durée:req.body.Durée,
-        formationId:req.body.formationId
+        formationFormationId:req.body.formationId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -53,7 +53,7 @@ exports.UpdateOne=(req, res) =>{
                 titre: req.body.titre,
                 desc:req.body.desc,
                 Durée:req.body.Durée,
-                formationId:req.body.formationId                    }).then((data)=> {
+                formationFormationId:req.body.formationId                    }).then((data)=> {
                 res.send({message:'deleted successfully!'});
 
               }).error(err => res.send({message:'Cannot update'}));

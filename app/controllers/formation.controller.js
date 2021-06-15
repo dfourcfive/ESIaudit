@@ -7,7 +7,7 @@ exports.add=(req, res) =>{
     formation.create({
         nom: req.body.nom,
         description:req.body.description,
-        departementId:req.body.departementId,
+        departementDepartementId:req.body.departementId,
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -50,7 +50,7 @@ exports.UpdateOne=(req, res) =>{
             formation.update({
             nom: req.body.nom,
             description:req.body.description,
-            departementId:req.body.departementId,
+            departementDepartementId:req.body.departementId,
     }).then((data)=> {
                 res.send({message:'deleted successfully!'});
 

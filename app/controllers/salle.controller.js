@@ -8,7 +8,7 @@ exports.add=(req, res) =>{
         nom: req.body.nom,
         type:req.body.description,
         capacite:req.body.capacite,
-        departementId:req.body.departementId
+        departementDepartementId:req.body.departementId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -54,7 +54,7 @@ exports.UpdateOne=(req, res) =>{
                 nom: req.body.nom,
                 type:req.body.description,
                 capacite:req.body.capacite,
-                departementId:req.body.departementId
+                departementDepartementId:req.body.departementId
                 }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 

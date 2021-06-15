@@ -99,8 +99,10 @@ db.administratif.belongsTo(db.departement)
 db.departement.hasMany(db.formation)
 db.formation.belongsTo(db.departement)
 //formation has many partenaires and partenaire has many formations
-db.formation.belongsToMany(db.partenaire, {through: "formation_partenaire"})
-db.partenaire.belongsToMany(db.formation, {through: "formation_partenaire"})
+const formation_partenaire = sequelize.define('formation_partenaire', {}, { timestamps: false });
+db.formation_partenaire=formation_partenaire;
+db.formation.belongsToMany(db.partenaire, {through: formation_partenaire})
+db.partenaire.belongsToMany(db.formation, {through: formation_partenaire})
 //formation has many niveaux and niveau belongs to one formation
 db.formation.hasMany(db.niveau)
 db.niveau.belongsTo(db.formation)
@@ -111,11 +113,13 @@ db.these.belongsTo(db.departement)
 db.departement.hasMany(db.doctorant)
 db.doctorant.belongsTo(db.departement)
 //
-db.etudiant.belongsToMany(db.niveau,{through: "etudiant_niveau"})
-db.niveau.belongsToMany(db.etudiant,{through: "etudiant_niveau"})
+const etudiant_niveau = sequelize.define('etudiant_niveau', {}, { timestamps: false });
+db.etudiant.belongsToMany(db.niveau,{through: etudiant_niveau})
+db.niveau.belongsToMany(db.etudiant,{through: etudiant_niveau})
 //
-db.enseignant.belongsToMany(db.formation, {through: "enseignants_formations"})
-db.formation.belongsToMany(db.enseignant, {through: "enseignants_formations"})
+const enseignants_formations = sequelize.define('enseignants_formations', {}, { timestamps: false });
+db.enseignant.belongsToMany(db.formation, {through: enseignants_formations})
+db.formation.belongsToMany(db.enseignant, {through: enseignants_formations})
 //
 db.DelibNiveau.belongsTo(db.etudiant)
 db.DelibNiveau.belongsTo(db.niveau)

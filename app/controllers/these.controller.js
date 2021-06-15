@@ -8,7 +8,7 @@ exports.add=(req, res) =>{
         titre: req.body.titre,
         domaine:req.body.domaine,
         date_Lancement:req.body.date_Lancement,
-        departementId:req.body.departementId
+        departementDepartementId:req.body.departementId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -53,7 +53,7 @@ exports.UpdateOne=(req, res) =>{
                 titre: req.body.titre,
                 domaine:req.body.domaine,
                 date_Lancement:req.body.date_Lancement,
-                departementId:req.body.departementId
+                departementDepartementId:req.body.departementId
                                             }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 

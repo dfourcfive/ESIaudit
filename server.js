@@ -50,6 +50,8 @@ require('./app/routes/matiere.routes')(app);
 //faker.FakeOutils();
 //faker.FakeAdministratifs();
 //faker.FakeFormations();
+faker.FakePartenaires();
+//faker.FakeNiveaux();
 //set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

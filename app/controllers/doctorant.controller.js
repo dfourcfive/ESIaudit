@@ -11,7 +11,7 @@ exports.add=(req, res) =>{
         lieu_de_nissance:req.body.lieu_de_nissance,
         adresse:req.body.adresse,
         sex:req.body.sex,
-        departementId:req.body.departementId
+        departementDepartementId:req.body.departementId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -58,7 +58,7 @@ exports.UpdateOne=(req, res) =>{
                 lieu_de_nissance:req.body.lieu_de_nissance,
                 adresse:req.body.adresse,
                 sex:req.body.sex,
-                departementId:req.body.departementId
+                departementDepartementId:req.body.departementId
                         }).then((data)=> {
                 res.send({message:'deleted successfully!'});
 

@@ -1,4 +1,5 @@
 const faker= require('faker');
+const { formation } = require('../../models');
 const db = require("../../models");
 const departement = db.departement;
 const salle = db.salle;
@@ -6,6 +7,9 @@ const club = db.club;
 const activite = db.activite;
 const outil = db.outil;
 const administratif=db.administratif;
+const perntenaire = db.partenaire;
+const niveaux = db.niveau;
+const formation_partenaire =db.formation_partenaire;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -232,15 +236,56 @@ exports.FakeFormations=()=>{
                 }else{
                     name='SIT';
                 }
-                let desc = faker.lorem.words();
-                salle.create({
+                let desc = faker.lorem.paragraph(1);
+                formation.create({
                     nom: name,
-                    type:desc,
+                    description:desc,
                     departementDepartementId: data[j].get("departementId")
                 }).then((result) => {
                     console.log({data});
                 });
             }}
+        //
+    }).catch((err)=>{
+        console.log({err});
+    });
+    
+}
+//fake pertenaires
+exports.FakePartenaires=()=>{
+    formation.findAll().then((data)=>{
+        for(let j=0; j<data.length-3 ; j++){
+            for(let i=0; i<10; i++){
+                let name = faker.company.companyName();
+                let desc = faker.lorem.words();
+                perntenaire.create({
+                    Nom: name,
+                    type:desc,
+                }).then(function(p){  
+                        p.addFormation(data[i]).then((result)=>console.log("heeree:"+{result}));
+                        console.log({p});    
+                });
+            }}
+        //
+    }).catch((err)=>{
+        console.log({err});
+    });
+    
+}
+//fake niveaux
+exports.FakeNiveaux=()=>{
+    formation.findAll().then((data)=>{
+        var names=['1 CPI','2 CPI','1 CS','2 CS','3 CS'];
+        for(let j=0; j<10; j++){
+                let desc = faker.lorem.words();
+                niveaux.create({
+                    Nom: names[j],
+                    type:desc,
+                    Durée:12,
+                }).then((data)=>{  
+                    console.log({data});       
+                });
+            }
         //
     }).catch((err)=>{
         console.log({err});
