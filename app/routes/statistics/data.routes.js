@@ -1,5 +1,5 @@
 const { authJwt } = require("../../middleware");
-const controller = require("../../controllers/statistics/count.controller");
+const controller = require("../../controllers/statistics/data.controller");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -10,6 +10,5 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/api/stats/count",[authJwt.verifyToken],controller.getTotal);
-  app.post("/api/stats/countWhere",[authJwt.verifyToken],controller.getTotalByFk);
+  app.post("/api/stats/data",[authJwt.verifyToken],controller.getDataByFk);
 };

@@ -43,6 +43,7 @@ require('./app/routes/semestre.routes')(app);
 require('./app/routes/ue.routes')(app);
 require('./app/routes/matiere.routes')(app);
 require('./app/routes/statistics/count.routes')(app);
+require('./app/routes/statistics/data.routes')(app);
 
 //faker functions here in order
 //faker.FakeDepartement();
