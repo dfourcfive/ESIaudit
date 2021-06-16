@@ -12,7 +12,7 @@ exports.add=(req, res) =>{
         CreditS2:req.body.CreditS2,
         Observation:req.body.Observation,
         etudiantEtudiantId:req.body.etudiantId,
-        niveauniveauNiveauId:req.body.niveauId
+        niveauNiveauId:req.body.niveauId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {

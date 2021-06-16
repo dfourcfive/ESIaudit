@@ -10,7 +10,7 @@ exports.add=(req, res) =>{
         date_debut:req.body.date_debut,
         date_fin:req.body.date_fin,
         salleSalleId:req.body.salleId,
-        clubClubeId:req.body.clubClubeId
+        clubClubId:req.body.clubId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
