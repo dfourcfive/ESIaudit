@@ -11,5 +11,5 @@ module.exports = function(app) {
   });
 
   app.post("/api/stats/count",[authJwt.verifyToken],controller.getTotal);
-
+  app.post("/api/stats/countWhere",[authJwt.verifyToken],controller.getTotalWhere);
 };

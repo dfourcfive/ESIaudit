@@ -9,3 +9,13 @@ exports.getTotal=async (req, res) => {
     });
 }
 
+exports.getTotalWhere=async (req, res) => {
+    var table = req.body.table;
+    var fk = req.body.fk;
+    var value = req.body.value;
+    db.sequelize.query('SELECT COUNT(*) FROM '+table+' WHERE '+fk+' = '+value).then((result) => {
+        res.send(JSON.stringify(result[0][0]));
+    }).catch((err) => {
+        res.status(500).send({ message: err.message });
+    });
+}
