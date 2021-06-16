@@ -8,7 +8,7 @@ exports.add=(req, res) =>{
         nom: req.body.nom,
         prenom: req.body.prenom,
         type:req.body.description,
-        data_de_naissance:req.body.data_de_naissance,
+        data_de_naissance:req.body.date_de_naissance,
         lieu_naissance:req.body.lieu_naissance,
         adresse:req.body.adresse,
         diplome:req.body.diplome,

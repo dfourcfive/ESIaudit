@@ -7,7 +7,7 @@ const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
     partenaire.create({
-        nom: req.body.nom,
+        Nom: req.body.nom,
         type:req.body.type,
     }).then((data) => {
         res.send({data});
