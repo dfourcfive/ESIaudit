@@ -11,6 +11,8 @@ const partenaire = db.partenaire;
 const niveaux = db.niveau;
 const formation_partenaire =db.formation_partenaire;
 const these=db.these;
+const doctorant=db.doctorant;
+
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -332,10 +334,12 @@ exports.FakeNiveaux=()=>{
 }
 //fake these
 exports.FakeTheses=()=>{
-    formation.findAll().then((data)=>{
+    departement.findAll().then((data)=>{
         var index=0;
+        var range = 0;
         var names=['informatique','electronique','economie','biologie','3 CS'];
         for(let j=0; j<data.length; j++){
+               if(range <5){
                 let desc = faker.lorem.words();
                 let titre = faker.lorem.word();
                 let date_debut=faker.date.between('2016-01-01','2017-01-01');
@@ -347,7 +351,7 @@ exports.FakeTheses=()=>{
                     Durée:12,
                     date_Lancement:date_debut,
                     date_Fin:date_fin,
-                    formationFormationId:data[j].get("formationId")
+                    departementDepartementId:data[j].get("departementId")
                 }).then((data)=>{  
                     console.log({data});       
                 });
@@ -356,6 +360,11 @@ exports.FakeTheses=()=>{
                 }else{
                     index++;
                 }
+                range++;
+               }
+               else{
+                   range=0;
+               }
             }
         //
     }).catch((err)=>{
@@ -363,7 +372,53 @@ exports.FakeTheses=()=>{
     });
     
 }
-function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  
+//fake these
+exports.FakeDoctorants=()=>{
+    departement.findAll().then((data)=>{
+        var index=0;
+        var range = 0;
+        for(let j=0; j<data.length; j++){
+               if(range <5){
+                let dob=faker.date.between('1960-01-01','1980-01-01');
+                let place = faker.address.cityName();
+                let addr= faker.address.streetAddress();
+                var sex;
+                var gender;
+                if(i % 2 ==0){
+                    sex='Homme';
+                    gender=0;
+                }else{
+                    sex='Femme';
+                    gender=1;
+                }
+                let nom = faker.name.firstName({gender:gender});
+                let prenom = faker.name.lastName({gender:gender});
+
+                doctorant.create({
+                    nom: nom,
+                    prenom:prenom,
+                    sex:sex,
+                    date_naissance:dob,
+                    lieu_de_nissance:place,
+                    adresse:addr,
+                    departementDepartementId:data[j].get("departementId")
+                }).then((data)=>{  
+                    console.log({data});       
+                });
+                if(index>=4){
+                    index=0;
+                }else{
+                    index++;
+                }
+                range++;
+               }
+               else{
+                   range=0;
+               }
+            }
+        //
+    }).catch((err)=>{
+        console.log({err});
+    });
+    
+}
