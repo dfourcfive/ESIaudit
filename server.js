@@ -54,8 +54,11 @@ require('./app/routes/statistics/data.routes')(app);
 //faker.FakeAdministratifs();
 //faker.FakeFormations();
 //faker.FakePartenaires();
+//faker.FakeLinkManyToManyFormatParte();
 //****/
 //faker.FakeNiveaux();
+//faker.FakeTheses();
+
 //set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

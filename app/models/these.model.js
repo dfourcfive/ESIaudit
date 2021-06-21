@@ -14,6 +14,9 @@ module.exports = (sequelize, Sequelize) => {
         date_Lancement: {
             type: Sequelize.DATE
         },
+        date_Fin: {
+            type: Sequelize.DATE
+        },
     });
 
     return these;

@@ -2,6 +2,7 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const partenaire = db.partenaire;
 const formation = db.formation;
+const formation_partenaire = db.formation_partenaire;
 
 const Op = db.Sequelize.Op;
 
@@ -77,7 +78,10 @@ exports.linkWithformation = (req, res) => {
             console.log("Tutorial not found!");
             return null;
           }
-          parten.addformation(forma);
+          formation_partenaire.create({
+            formationId:req.body.formationId,
+            partenaireId:req.body.partenaireId
+          })
           res.send(`linked formation id=${forma.id} to partenaire id=${parten.id}`);
           return parten;
         });

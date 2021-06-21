@@ -7,9 +7,10 @@ const club = db.club;
 const activite = db.activite;
 const outil = db.outil;
 const administratif=db.administratif;
-const perntenaire = db.partenaire;
+const partenaire = db.partenaire;
 const niveaux = db.niveau;
 const formation_partenaire =db.formation_partenaire;
+const these=db.these;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -32,7 +33,17 @@ exports.FakeSalles=()=>{
             for(let i=0; i<10; i++){
                 let name = faker.lorem.word();
                 let desc = faker.lorem.word();
-                let number = faker.lorem.number()
+                if(i % 5 ==0){
+                    var number = 20;
+                }else if(i % 3 == 1){
+                    var number = 80;
+                }else if(i % 3 == 2){
+                    var number = 40;
+                }else if(i % 3 == 3){
+                    var number = 200;
+                }else if(i % 3 == 4){
+                    var number = 50;
+                }
                 salle.create({
                     nom: name,
                     type:desc,
@@ -242,7 +253,7 @@ exports.FakeFormations=()=>{
                     description:desc,
                     departementDepartementId: data[j].get("departementId")
                 }).then((result) => {
-                    console.log({data});
+                    console.log({result});
                 });
             }}
         //
@@ -258,11 +269,10 @@ exports.FakePartenaires=()=>{
             for(let i=0; i<10; i++){
                 let name = faker.company.companyName();
                 let desc = faker.lorem.words();
-                perntenaire.create({
+                partenaire.create({
                     Nom: name,
                     type:desc,
-                }).then(function(p){  
-                        p.addFormation(data[i]).then((result)=>console.log("heeree:"+{result}));
+                }).then((p)=>{  
                         console.log({p});    
                 });
             }}
@@ -270,21 +280,49 @@ exports.FakePartenaires=()=>{
     }).catch((err)=>{
         console.log({err});
     });
-    
+}
+exports.FakeLinkManyToManyFormatParte=()=>{
+    formation.findAll().then((data)=>{
+            partenaire.findAll().then((dataa)=>{
+                for(let j=0; j<dataa.length ; j++){
+                    if(j==1){
+                        formation_partenaire.create({
+                            formationId:999,
+                            partenaireId:999
+                        }).then((result) => {
+                            console.log(result);
+                        }).catch((err) => {
+                            console.log(err);
+                        });
+                    }
+                    formation_partenaire.create({
+                        formationId: data[j].get("formationId"),
+                        partenaireId: dataa[j].get("partenaireId")
+                    }).then((result)=>{console.log({result})}).catch((e)=>{console.log(e)});
+                }
+            })     
+    })
 }
 //fake niveaux
 exports.FakeNiveaux=()=>{
     formation.findAll().then((data)=>{
+        var index=0;
         var names=['1 CPI','2 CPI','1 CS','2 CS','3 CS'];
-        for(let j=0; j<10; j++){
+        for(let j=0; j<data.length; j++){
                 let desc = faker.lorem.words();
                 niveaux.create({
-                    Nom: names[j],
-                    type:desc,
+                    nom: names[index],
+                    desc:desc,
                     Durée:12,
+                    formationFormationId:data[j].get("formationId")
                 }).then((data)=>{  
                     console.log({data});       
                 });
+                if(index>=4){
+                    index=0;
+                }else{
+                    index++;
+                }
             }
         //
     }).catch((err)=>{
@@ -292,3 +330,40 @@ exports.FakeNiveaux=()=>{
     });
     
 }
+//fake these
+exports.FakeTheses=()=>{
+    formation.findAll().then((data)=>{
+        var index=0;
+        var names=['informatique','electronique','economie','biologie','3 CS'];
+        for(let j=0; j<data.length; j++){
+                let desc = faker.lorem.words();
+                let titre = faker.lorem.word();
+                let date_debut=faker.date.between('2016-01-01','2017-01-01');
+                let date_fin=addDays(date_debut,1460);                         
+                these.create({
+                    domaine: names[index],
+                    titre:titre,
+                    desc:desc,
+                    Durée:12,
+                    date_Lancement:date_debut,
+                    date_Fin:date_fin,
+                    formationFormationId:data[j].get("formationId")
+                }).then((data)=>{  
+                    console.log({data});       
+                });
+                if(index>=4){
+                    index=0;
+                }else{
+                    index++;
+                }
+            }
+        //
+    }).catch((err)=>{
+        console.log({err});
+    });
+    
+}
+function randomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  

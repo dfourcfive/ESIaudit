@@ -24,6 +24,7 @@ const SemestreModel = require("../models/semestre.model.js");
 const UEModel = require("../models/ue.model.js");
 const MatiereModel = require("../models/matiere.model.js");
 const PartenaireModel = require("../models/partenaire.model.js");
+const formation_partenaireModel = require("./formation_partenaire.model.js");
 
 //sequelize connection
 const sequelize = new Sequelize(
@@ -72,6 +73,7 @@ db.semestre = SemestreModel(sequelize, Sequelize);
 db.ue = UEModel(sequelize, Sequelize);
 db.matiere = MatiereModel(sequelize, Sequelize);
 db.partenaire = PartenaireModel(sequelize, Sequelize);
+db.formation_partenaire = formation_partenaireModel(sequelize, Sequelize);
 
 //user has many roles and role has many users
 db.role.belongsToMany(db.user, {through: "user_roles"})
@@ -99,10 +101,10 @@ db.administratif.belongsTo(db.departement)
 db.departement.hasMany(db.formation)
 db.formation.belongsTo(db.departement)
 //formation has many partenaires and partenaire has many formations
-const formation_partenaire = sequelize.define('formation_partenaire', {}, { timestamps: false });
-db.formation_partenaire=formation_partenaire;
-db.formation.belongsToMany(db.partenaire, {through: formation_partenaire})
-db.partenaire.belongsToMany(db.formation, {through: formation_partenaire})
+//db.formation.belongsTo(db.formation_partenaire);
+//db.formation_partenaire.hasMany(db.formation);
+//db.partenaire.belongsTo(db.formation_partenaire);
+//db.formation_partenaire.hasMany(db.partenaire)
 //formation has many niveaux and niveau belongs to one formation
 db.formation.hasMany(db.niveau)
 db.niveau.belongsTo(db.formation)
