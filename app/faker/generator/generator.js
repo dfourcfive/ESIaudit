@@ -12,7 +12,8 @@ const niveaux = db.niveau;
 const formation_partenaire =db.formation_partenaire;
 const these=db.these;
 const doctorant=db.doctorant;
-
+const etudiant=db.etudiant;
+const etudiant_niveau=db.etudiant_niveau;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -415,6 +416,70 @@ exports.FakeDoctorants=()=>{
         //
     }).catch((err)=>{
         console.log({err});
-    });
-    
+    });   
+}
+//fake etudiants
+exports.FakeEtudiants=()=>{
+    var index=0;
+    var range = 0;
+    for(let j=0; j<1000; j++){
+           if(range <5){
+            let dob=faker.date.between('1997-01-01','2003-01-01');
+            let place = faker.address.cityName();
+            let addr= faker.address.streetAddress();
+            var sex;
+            var gender;
+            if(i % 2 ==0){
+                sex='Homme';
+                gender=0;
+            }else{
+                sex='Femme';
+                gender=1;
+            }
+            let nom = faker.name.firstName({gender:gender});
+            let prenom = faker.name.lastName({gender:gender});
+
+            doctorant.create({
+                nom: nom,
+                prenom:prenom,
+                sex:sex,
+                date_naissance:dob,
+                lieu_de_nissance:place,
+                adresse:addr,
+            }).then((data)=>{  
+                console.log({data});       
+            });
+            if(index>=4){
+                index=0;
+            }else{
+                index++;
+            }
+            range++;
+           }
+           else{
+               range=0;
+           }
+        }
+}
+exports.FakeLinkManyToManyEtudNiv=()=>{
+    niveaux.findAll().then((data)=>{
+            etudiant.findAll().then((dataa)=>{
+                for(let j=0; j<dataa.length ; j++){
+                    if(j==1){
+                        etudiant_niveau.create({
+                            etudiantId:999,
+                            niveauId:999
+                        }).then((result) => {
+                            console.log(result);
+                        }).catch((err) => {
+                            console.log(err);
+                        });
+                    }
+                    formation_partenaire.create({
+                        etudiantId: data[j].get("etudiantId"),
+                        niveauId: dataa[j].get("niveauId")
+                    }).then((result)=>{console.log({result})}).catch((e)=>{console.log(e)});
+                }
+            })     
+    })
 }

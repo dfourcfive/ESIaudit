@@ -2,6 +2,7 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const etudiant = db.etudiant;
 const niveau = db.niveau;
+const etudiant_niveau = db.etudiant_niveau;
 
 const Op = db.Sequelize.Op;
 
@@ -72,22 +73,24 @@ exports.linkWithformation = (req, res) => {
     etudiant.findByPk(req.body.etudiantId)
       .then((etud) => {
         if (!etud) {
-          res.status(500).send('partenaire not found!');
+          res.status(500).send('etudiant not found!');
           return null;
         }
         return niveau.findByPk(req.body.niveauId).then((niv) => {
           if (!niv) {
-            res.status(500).send('formation not found!');
-            console.log("Tutorial not found!");
+            res.status(500).send('Niveau not found!');
             return null;
           }
-          etud.addformation(niv);
-          res.send(`linked formation id=${niv.id} to partenaire id=${etud.id}`);
+          etudiant_niveau.create({
+            etudiantId:req.body.etudiantId,
+            niveauId:req.body.niveauId
+          }).then((result)=>console.log({result}));   
+           res.send(`linked niveau id=${niv.id} to etudiant id=${etud.id}`);
           return etud;
         });
       })
       .catch((err) => {
-        res.status(500).send('formation not found!',err);
+        res.status(500).send('niveau not found!',err);
         console.log(">> Error while adding Tutorial to Tag: ", err);
       });
   };
