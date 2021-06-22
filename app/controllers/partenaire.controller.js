@@ -17,17 +17,7 @@ exports.add=(req, res) =>{
     });
 }
 exports.getAll=(req, res) =>{
-    partenaire.findAll({
-        include: [
-            {
-              model: formation,
-              attributes: ['formationId','nom','description'],
-              through: {
-                attributes: [],
-              }
-            },
-          ],
-    }).then((results) => {
+    partenaire.findAll({}).then((results) => {
         res.send({results});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
@@ -36,15 +26,6 @@ exports.getAll=(req, res) =>{
 exports.getOne=(req, res) =>{
     const id = req.params.id;
     partenaire.findByPk(id,{
-        include: [
-            {
-              model: formation,
-              attributes: ['formationId','nom','description'],
-              through: {
-                attributes: [],
-              }
-            },
-          ],
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
