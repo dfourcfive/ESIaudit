@@ -30,30 +30,26 @@ exports.FakeDepartement=()=>{
 }
 
 exports.FakeSalles=()=>{
+    var salles= ['Salle TP','Salle TD','Amphi','Salle club']
+    var capacities=[25,30,100,30];
     departement.findAll().then((data)=>{
+        var index=0;
         for(let j=0; j<data.length ; j++){
-            for(let i=0; i<10; i++){
-                let name = faker.lorem.word();
-                let desc = faker.lorem.word();
-                if(i % 5 ==0){
-                    var number = 20;
-                }else if(i % 3 == 1){
-                    var number = 80;
-                }else if(i % 3 == 2){
-                    var number = 40;
-                }else if(i % 3 == 3){
-                    var number = 200;
-                }else if(i % 3 == 4){
-                    var number = 50;
-                }
+            for(let i=0; i<40; i++){
+                let desc = faker.lorem.word();              
                 salle.create({
-                    nom: name,
+                    nom: salles[index],
                     type:desc,
-                    capacite:number,
+                    capacite:capacities[index],
                     departementDepartementId: data[j].get("departementId")
                 }).then((result) => {
                     console.log({data});
                 });
+                if(index>=4){
+                    index=0;
+                   }else{
+                       index++;
+                }
             }}
         //
     }).catch((err)=>{
