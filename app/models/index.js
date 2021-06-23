@@ -25,7 +25,8 @@ const UEModel = require("../models/ue.model.js");
 const MatiereModel = require("../models/matiere.model.js");
 const PartenaireModel = require("../models/partenaire.model.js");
 const formation_partenaireModel = require("./formation_partenaire.model.js");
-const etudiant_niveauModel = require("./etudiant_niveau.model");
+const etudiant_niveauModel = require("./etudiant_niveau.model.js");
+const enseignants_formationModel = require("./enseignants_formations.model.js");
 
 //sequelize connection
 const sequelize = new Sequelize(
@@ -76,6 +77,7 @@ db.matiere = MatiereModel(sequelize, Sequelize);
 db.partenaire = PartenaireModel(sequelize, Sequelize);
 db.formation_partenaire = formation_partenaireModel(sequelize, Sequelize);
 db.etudiant_niveau=etudiant_niveauModel(sequelize, Sequelize);
+db.enseignants_formation=enseignants_formationModel(sequelize, Sequelize)
 //user has many roles and role has many users
 db.role.belongsToMany(db.user, {through: "user_roles"})
 db.user.belongsToMany(db.role, {through: "user_roles"})
@@ -120,9 +122,9 @@ db.doctorant.belongsTo(db.departement)
 //db.etudiant.belongsToMany(db.niveau,{through: etudiant_niveau})
 //db.niveau.belongsToMany(db.etudiant,{through: etudiant_niveau})
 //
-const enseignants_formations = sequelize.define('enseignants_formations', {}, { timestamps: false });
-db.enseignant.belongsToMany(db.formation, {through: enseignants_formations})
-db.formation.belongsToMany(db.enseignant, {through: enseignants_formations})
+//const enseignants_formations = sequelize.define('enseignants_formations', {}, { timestamps: false });
+//db.enseignant.belongsToMany(db.formation, {through: enseignants_formations})
+//db.formation.belongsToMany(db.enseignant, {through: enseignants_formations})
 //
 db.DelibNiveau.belongsTo(db.etudiant)
 db.DelibNiveau.belongsTo(db.niveau)

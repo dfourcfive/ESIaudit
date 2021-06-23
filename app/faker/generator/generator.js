@@ -14,6 +14,7 @@ const these=db.these;
 const doctorant=db.doctorant;
 const etudiant=db.etudiant;
 const etudiant_niveau=db.etudiant_niveau;
+const enseignant=db.enseignant;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -31,17 +32,60 @@ exports.FakeDepartement=()=>{
 }
 
 exports.FakeSalles=()=>{
-    var salles= ['Salle TP','Salle TD','Amphi','Salle club']
-    var capacities=[25,30,100,30];
+    var salles= ['Salle TP','Salle TD','Amphi','bureau','autres'];
+    var choosen='Salle TP';
     departement.findAll().then((data)=>{
         var index=0;
         for(let j=0; j<data.length ; j++){
-            for(let i=0; i<40; i++){
-                let desc = faker.lorem.word();              
+            for(let i=0; i<300; i++){
+                if(i<120){
+                    choosen='Salle TP';
+                }else if (i>=120 && i<210){
+                    choosen='Salle TD';
+                }else if(i=>210 && i>240){
+                    choosen='Amphi';
+                }else if(i=>240 && i>280){
+                    choosen='bureau';
+                }else{
+                    choosen='autres';
+                }
+                let descName = choosen + faker.random.number({max:100});
+                if(choosen=='Salle TP'){
+                    var cp = Math.random() < 0.5 ? 25 : 35;
+                }else if(choosen=='Salle TD'){
+                    var cp = Math.random() < 0.5 ? 30 : 40; 
+                }else if(choosen=='Amphi'){
+                    var rand=Math.random();
+                    if(rand<0.5){
+                        var cp = 200;
+                    }else if(rand < 0.75){
+                        var cp = 300;
+                    }else{
+                        var cp = 400;
+                    }
+                }else if(choosen=='bureau'){
+                    var rand=Math.random();
+                    if(rand<0.5){
+                        var cp = 3;
+                    }else if(rand < 0.75){
+                        var cp = 4;
+                    }else{
+                        var cp = 5;
+                    }
+                }else{
+                    var rand=Math.random();
+                    if(rand<0.5){
+                        var cp = 5;
+                    }else if(rand < 0.75){
+                        var cp = 25;
+                    }else{
+                        var cp = 50;
+                    }
+                }
                 salle.create({
-                    nom: salles[index],
-                    type:desc,
-                    capacite:capacities[index],
+                    nom: descName,
+                    type: choosen,
+                    capacite:cp,
                     departementDepartementId: data[j].get("departementId")
                 }).then((result) => {
                     console.log({data});
@@ -381,7 +425,7 @@ exports.FakeDoctorants=()=>{
                 let addr= faker.address.streetAddress();
                 var sex;
                 var gender;
-                if(i % 2 ==0){
+                if(j % 2 ==0){
                     sex='Homme';
                     gender=0;
                 }else{
@@ -429,7 +473,7 @@ exports.FakeEtudiants=()=>{
             let addr= faker.address.streetAddress();
             var sex;
             var gender;
-            if(i % 2 ==0){
+            if(j % 2 ==0){
                 sex='Homme';
                 gender=0;
             }else{
@@ -439,7 +483,7 @@ exports.FakeEtudiants=()=>{
             let nom = faker.name.firstName({gender:gender});
             let prenom = faker.name.lastName({gender:gender});
 
-            doctorant.create({
+            etudiant.create({
                 nom: nom,
                 prenom:prenom,
                 sex:sex,
@@ -482,4 +526,61 @@ exports.FakeLinkManyToManyEtudNiv=()=>{
                 }
             })     
     })
+}
+//fake teachers
+exports.FakeEnseignant=()=>{
+    var index=0;
+    var range = 0;
+    var situationSocial=['Célibataire','Marié','Divorcé','Veuf'];
+    var grade =['MCA', 'MCB','MAA','MAB'];
+    var specialite = ['Informatique','Mathematique','electronique','Langues'];
+    var diplome =['Doctorat','Professeur'];
+    for(let j=0; j<200; j++){
+           if(range <5){
+            let dob=faker.date.between('1970-01-01','1995-01-01');
+            let place = faker.address.cityName();
+            let addr= faker.address.streetAddress();
+            var sex;
+            var gender;
+            if(j % 2 ==0){
+                sex='Homme';
+                gender=0;
+            }else{
+                sex='Femme';
+                gender=1;
+            }
+            if(j<100){
+                var spec= specialite[0];
+            }else if(j>=130 && j<180){
+                var spec = specialite[1];
+            }else{
+                var spec = specialite[2];
+            }
+            let nom = faker.name.firstName({gender:gender});
+            let prenom = faker.name.lastName({gender:gender});
+            enseignant.create({
+                nom: nom,
+                prenom:prenom,
+                Sex:sex,
+                situationSocial:situationSocial[j % 4],
+                data_naissance:dob,
+                grade:grade[j % 4],
+                diplome:diplome[j % 2],
+                specialite:spec,
+                lieu_naissance:place,
+                adresse:addr,
+            }).then((data)=>{  
+                console.log({data});       
+            });
+            if(index>=4){
+                index=0;
+            }else{
+                index++;
+            }
+            range++;
+           }
+           else{
+               range=0;
+           }
+        }
 }

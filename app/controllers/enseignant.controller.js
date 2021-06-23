@@ -2,7 +2,7 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const enseignant = db.enseignant;
 const formation = db.formation;
-
+const enseignant_formation = db.enseignants_formation;
 const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
@@ -77,7 +77,7 @@ exports.linkWithformation = (req, res) => {
     enseignant.findByPk(req.body.enseignantId)
       .then((etud) => {
         if (!etud) {
-          res.status(500).send('partenaire not found!');
+          res.status(500).send('ens not found!');
           return null;
         }
         return formation.findByPk(req.body.formationId).then((niv) => {
@@ -86,8 +86,13 @@ exports.linkWithformation = (req, res) => {
             console.log("Tutorial not found!");
             return null;
           }
-          etud.addformation(niv);
-          res.send(`linked formation id=${niv.id} to partenaire id=${etud.id}`);
+          enseignant_formation.create({
+            enseignantId:req.body.enseignantId,
+            formationId:req.body.formationId
+          }).then((result)=>{
+            console.log({result});
+          });
+          res.send(`linked formation id=${niv.id} to ens id=${etud.id}`);
           return etud;
         });
       })
