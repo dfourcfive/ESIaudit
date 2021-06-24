@@ -40,14 +40,14 @@ exports.FakeSalles=()=>{
     departement.findAll().then((data)=>{
         var index=0;
         for(let j=0; j<data.length ; j++){
-            for(let i=0; i<300; i++){
-                if(i<120){
+            for(let i=0; i<200; i++){
+                if(i<80){
                     choosen='Salle TP';
-                }else if (i>=120 && i<210){
+                }else if (i>=80 && i<120){
                     choosen='Salle TD';
-                }else if(i=>210 && i>240){
+                }else if(i<150 && i>=120){
                     choosen='Amphi';
-                }else if(i=>240 && i>280){
+                }else if(i<180 && i>=150){
                     choosen='bureau';
                 }else{
                     choosen='autres';
@@ -202,99 +202,103 @@ exports.FakeOutils=()=>{
     };  
 }
 //fake link  salles with outils  
-exports.FakeLinkSalleWithOutils=()=>{
-    var salles = await salle.findAll();
-    var outils = await outil.findAll();
+exports.FakeLinkSalleWithOutils=async ()=>{
+    let salles = await salle.findAll();
+    let outils = await outil.findAll();
+    console.log(salles.length);
+    console.log(salles.length);
+
         for(let i=0;i<salles.length;i++){
             for(let j=0;j<outils.length;j++){
-            if(salles[i].get("type")=='Salle TD'){
+            if(salles[i].get("type")=='Salle TD')
+            {
                 var cp=salles[i].get("capacite");
                 if(outils[j].get("titre")=='table'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:cp
-                    });
+                    }).then((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='chaise'){
                     cp=cp*2+1;
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:cp
-                    });
+                    }).then((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='bureau'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:1
-                    });
+                    }).then((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='tableau'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:1
-                    });
+                    }).then((data)=>console.log({data})).catch((data)=>console.log({data}));
                 }
             }else if(salles[i].get("type")=='Salle TP'){
                 var cp=salles[i].get("capacite");
-                if(outils[j].get("titre")="table d'ordinateur"){
+                if(outils[j].get("titre")=="table d'ordinateur"){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:cp
-                    });
+                    }).then((data)=>console.log({data})).catch((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='PC'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:cp
-                    });
+                    }).then((data)=>console.log({data})).catch((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='datashow'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:1
-                    });
+                    }).then((data)=>console.log({data})).catch((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='rideau datashow'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:1
-                    });
+                    }).then((data)=>console.log({data})).catch((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='chaise'){
                     cp=cp+1;
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:cp
-                    });
+                    }).then((data)=>console.log({data})).catch((data)=>console.log({data}));
                 }
             }else if(salles[i].get("type")=='Amphi'){
                 var cp=salles[i].get("capacite");
-                if(outils[j].get("titre")="bureau"){
+                if(outils[j].get("titre")=="bureau"){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
-                        quantity:1
-                    });
+                        quntity:1
+                    }).then((data)=>console.log(data)).catch((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='chaise'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:2
-                    });
+                    }).then((data)=>console.log(data)).catch((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='datashow'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:1
-                    });
+                    }).then((data)=>console.log(data)).catch((data)=>console.log({data}));
                 }else if(outils[j].get("titre")=='rideau datashow'){
                     outil_salle.create({
                         outilId:outils[j].get('outilId'),
                         salleId:salles[i].get('salleId'),
                         quantity:1
-                    });
+                    }).then((data)=>console.log(data)).catch((data)=>console.log({data}));
                 }
             }
          }
@@ -686,7 +690,7 @@ exports.FakeEnseignant=()=>{
         }
 }
 //fake link ens with formation
-exports.FakeLinkEnsWithForma=()=>{
+exports.FakeLinkEnsWithForma=async ()=>{
     var formations=await formation.findAll();
     var enss= await enseignant.findAll();
     var nb_info=0;
