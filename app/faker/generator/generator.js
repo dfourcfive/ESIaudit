@@ -15,6 +15,7 @@ const doctorant=db.doctorant;
 const etudiant=db.etudiant;
 const etudiant_niveau=db.etudiant_niveau;
 const enseignant=db.enseignant;
+const ens_forma=db.enseignants_formation;
 const outil_salle=db.outil_salle;
 
 exports.FakeDepartement=()=>{
@@ -627,6 +628,63 @@ exports.FakeLinkManyToManyEtudNiv=()=>{
 }
 //fake teachers
 exports.FakeEnseignant=()=>{
+    var index=0;
+    var range = 0;
+    var situationSocial=['Célibataire','Marié','Divorcé','Veuf'];
+    var grade =['MCA', 'MCB','MAA','MAB'];
+    var specialite = ['Informatique','Mathematique','electronique','Langues'];
+    var diplome =['Doctorat','Professeur'];
+    for(let j=0; j<200; j++){
+           if(range <5){
+            let dob=faker.date.between('1970-01-01','1995-01-01');
+            let place = faker.address.cityName();
+            let addr= faker.address.streetAddress();
+            var sex;
+            var gender;
+            if(j % 2 ==0){
+                sex='Homme';
+                gender=0;
+            }else{
+                sex='Femme';
+                gender=1;
+            }
+            if(j<100){
+                var spec= specialite[0];
+            }else if(j>=130 && j<180){
+                var spec = specialite[1];
+            }else{
+                var spec = specialite[2];
+            }
+            let nom = faker.name.firstName({gender:gender});
+            let prenom = faker.name.lastName({gender:gender});
+            enseignant.create({
+                nom: nom,
+                prenom:prenom,
+                Sex:sex,
+                situationSocial:situationSocial[j % 4],
+                data_naissance:dob,
+                grade:grade[j % 4],
+                diplome:diplome[j % 2],
+                specialite:spec,
+                lieu_naissance:place,
+                adresse:addr,
+            }).then((data)=>{  
+                console.log({data});       
+            });
+            if(index>=4){
+                index=0;
+            }else{
+                index++;
+            }
+            range++;
+           }
+           else{
+               range=0;
+           }
+        }
+}
+//fake link ens with formation
+exports.FakeLinkEnsWithForma=()=>{
     var index=0;
     var range = 0;
     var situationSocial=['Célibataire','Marié','Divorcé','Veuf'];

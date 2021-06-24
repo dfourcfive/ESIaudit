@@ -1,6 +1,8 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const outil = db.outil;
+const salle = db.salle;
+const outil_salle=db.outil_salle;
 const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
@@ -44,7 +46,45 @@ exports.DeleteOne=(req, res) =>{
     });
 }
 
+exports.linkWithSalle = (req, res) => {
+    outil.findByPk(req.body.outilId)
+      .then((etud) => {
+        if (!etud) {
+          res.status(500).send('outil not found!');
+          return null;
+        }
+        return salle.findByPk(req.body.salleId).then((niv) => {
+          if (!niv) {
+            res.status(500).send('salle not found!');
+            return null;
+          }
+          outil_salle.create({
+            outilId:req.body.outilId,
+            salleId:req.body.salleId,
+            quantity:req.body.quantity
+          }).then((result)=>console.log({result}));   
+           res.send(`linked outil id=${niv.id} to salle id=${etud.id}`);
+          return etud;
+        });
+      })
+      .catch((err) => {
+        res.status(500).send('salle not found!',err);
+        console.log(">> Error while adding Tutorial to Tag: ", err);
+      });
+  };
 
+  exports.getlinks = (req, res) => {
+    const id = req.params.id;
+    outil_salle.findAll({
+        where: {
+            salleId: id
+          }
+    }).then((data) => {
+        res.send({data});
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+  };
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
     outil.find({where : {outilId: id}}).then((data) => {

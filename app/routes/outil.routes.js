@@ -15,7 +15,8 @@ module.exports = function(app) {
   app.delete("/api/data/outils/:id",[authJwt.verifyToken],controller.DeleteOne);
 
   app.get("/api/data/outils",[authJwt.verifyToken],controller.getAll);
-
+  app.put("/api/data/outils",[authJwt.verifyToken],controller.linkWithSalle);
+  app.get("/api/data/outils/:id",[authJwt.verifyToken],controller.getlinks);
   app.post("/api/data/outils",[authJwt.verifyToken],controller.add);
 
   app.post("/api/data/outils/:id",[authJwt.verifyToken],controller.UpdateOne);
