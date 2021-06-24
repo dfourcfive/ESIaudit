@@ -52,7 +52,7 @@ require('./app/routes/statistics/data.routes')(app);
 //faker.FakeActivities();
 
 //faker.FakeOutils();
-faker.FakeLinkSalleWithOutils();
+//faker.FakeLinkSalleWithOutils();
 //faker.FakeAdministratifs();
 
 //faker.FakeFormations();

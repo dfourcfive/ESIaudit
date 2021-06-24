@@ -640,9 +640,9 @@ exports.FakeEnseignant=()=>{
     var diplome =['Doctorat','Professeur'];
     for(let j=0; j<500; j++){
            if(range <5){
-            let dob=faker.date.between('1970-01-01','1995-01-01');
-            let place = faker.address.cityName();
-            let addr= faker.address.streetAddress();
+            var dob=faker.date.between('1970-01-01','1995-01-01');
+            var place = faker.address.cityName();
+            var addr= faker.address.streetAddress();
             var sex;
             var gender;
             if(j % 2 ==0){
@@ -661,8 +661,8 @@ exports.FakeEnseignant=()=>{
             }else{
                 var spec = specialite[3];
             }
-            let nom = faker.name.firstName({gender:gender});
-            let prenom = faker.name.lastName({gender:gender});
+            var nom = faker.name.firstName({gender:gender});
+            var prenom = faker.name.lastName({gender:gender});
             enseignant.create({
                 nom: nom,
                 prenom:prenom,
