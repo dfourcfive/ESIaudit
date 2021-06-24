@@ -634,7 +634,7 @@ exports.FakeEnseignant=()=>{
     var grade =['MCA', 'MCB','MAA','MAB'];
     var specialite = ['Informatique','Mathematique','electronique','Langues'];
     var diplome =['Doctorat','Professeur'];
-    for(let j=0; j<200; j++){
+    for(let j=0; j<500; j++){
            if(range <5){
             let dob=faker.date.between('1970-01-01','1995-01-01');
             let place = faker.address.cityName();
@@ -648,12 +648,14 @@ exports.FakeEnseignant=()=>{
                 sex='Femme';
                 gender=1;
             }
-            if(j<100){
+            if(j<250){
                 var spec= specialite[0];
-            }else if(j>=130 && j<180){
+            }else if(j>=250 && j<350){
                 var spec = specialite[1];
-            }else{
+            }else if(j>=350 && j<450){
                 var spec = specialite[2];
+            }else{
+                var spec = specialite[3];
             }
             let nom = faker.name.firstName({gender:gender});
             let prenom = faker.name.lastName({gender:gender});
@@ -685,58 +687,54 @@ exports.FakeEnseignant=()=>{
 }
 //fake link ens with formation
 exports.FakeLinkEnsWithForma=()=>{
-    var index=0;
-    var range = 0;
-    var situationSocial=['Célibataire','Marié','Divorcé','Veuf'];
-    var grade =['MCA', 'MCB','MAA','MAB'];
-    var specialite = ['Informatique','Mathematique','electronique','Langues'];
-    var diplome =['Doctorat','Professeur'];
-    for(let j=0; j<200; j++){
-           if(range <5){
-            let dob=faker.date.between('1970-01-01','1995-01-01');
-            let place = faker.address.cityName();
-            let addr= faker.address.streetAddress();
-            var sex;
-            var gender;
-            if(j % 2 ==0){
-                sex='Homme';
-                gender=0;
-            }else{
-                sex='Femme';
-                gender=1;
+    var formations=await formation.findAll();
+    var enss= await enseignant.findAll();
+    var nb_info=0;
+    var nb_math=0;
+    var nb_elect=0;
+    var nb_lang=0;
+    for(let i=0; i<formations.length; i++){
+        for(let j=0; j<enss.length; j++){
+            if(enss[j].get("specialite")=="Informatique"){
+                if(nb_info != 30){
+                    ens_forma.create({
+                        formationId:formations[i].get("formationId"),
+                        enseignantId:enss[j].get("enseignantId")
+                    });
+                    nb_info=nb_info+1;
+                }
+            }else if(enss[j].get("specialite")=="Mathematique"){
+                if(nb_math != 7){
+                    ens_forma.create({
+                        formationId:formations[i].get("formationId"),
+                        enseignantId:enss[j].get("enseignantId")
+                    });
+                    nb_math=nb_math+1;
+                }
+            }else if(enss[j].get("specialite")=="electronique"){
+                if(nb_elect != 4){
+                    ens_forma.create({
+                        formationId:formations[i].get("formationId"),
+                        enseignantId:enss[j].get("enseignantId")
+                    });
+                    nb_elect=nb_elect+1;
+                }
+            } else if(enss[j].get("specialite")=="Langues"){
+                if(nb_lang != 3){
+                    ens_forma.create({
+                        formationId:formations[i].get("formationId"),
+                        enseignantId:enss[j].get("enseignantId")
+                    });
+                    nb_lang=nb_lang+1;
+                }
             }
-            if(j<100){
-                var spec= specialite[0];
-            }else if(j>=130 && j<180){
-                var spec = specialite[1];
-            }else{
-                var spec = specialite[2];
+            if(nb_info==30 && nb_math==7 && nb_elect==4 && nb_lang==3){
+                 nb_info=0;
+                 nb_math=0;
+                 nb_elect=0;
+                 nb_lang=0; 
+                break;
             }
-            let nom = faker.name.firstName({gender:gender});
-            let prenom = faker.name.lastName({gender:gender});
-            enseignant.create({
-                nom: nom,
-                prenom:prenom,
-                Sex:sex,
-                situationSocial:situationSocial[j % 4],
-                data_naissance:dob,
-                grade:grade[j % 4],
-                diplome:diplome[j % 2],
-                specialite:spec,
-                lieu_naissance:place,
-                adresse:addr,
-            }).then((data)=>{  
-                console.log({data});       
-            });
-            if(index>=4){
-                index=0;
-            }else{
-                index++;
-            }
-            range++;
-           }
-           else{
-               range=0;
-           }
         }
-}
+    }
+    }

@@ -94,7 +94,18 @@ exports.linkWithformation = (req, res) => {
         console.log(">> Error while adding Tutorial to Tag: ", err);
       });
   };
-
+  exports.getlinks = (req, res) => {
+    const id = req.params.id;
+    etudiant_niveau.findAll({
+        where: {
+            formationId: id
+          }
+    }).then((data) => {
+        res.send({data});
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+  };
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
     etudiant.find({where : {etudiantId: id}}).then((data) => {
