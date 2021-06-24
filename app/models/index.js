@@ -27,6 +27,7 @@ const PartenaireModel = require("../models/partenaire.model.js");
 const formation_partenaireModel = require("./formation_partenaire.model.js");
 const etudiant_niveauModel = require("./etudiant_niveau.model.js");
 const enseignants_formationModel = require("./enseignants_formations.model.js");
+const outil_salleModel = require("./outil_salle.model.js");
 
 //sequelize connection
 const sequelize = new Sequelize(
@@ -77,7 +78,8 @@ db.matiere = MatiereModel(sequelize, Sequelize);
 db.partenaire = PartenaireModel(sequelize, Sequelize);
 db.formation_partenaire = formation_partenaireModel(sequelize, Sequelize);
 db.etudiant_niveau=etudiant_niveauModel(sequelize, Sequelize);
-db.enseignants_formation=enseignants_formationModel(sequelize, Sequelize)
+db.enseignants_formation=enseignants_formationModel(sequelize, Sequelize);
+db.outil_salle = outil_salleModel(sequelize, Sequelize);
 //user has many roles and role has many users
 db.role.belongsToMany(db.user, {through: "user_roles"})
 db.user.belongsToMany(db.role, {through: "user_roles"})
@@ -92,8 +94,8 @@ db.activite.belongsTo(db.club)
 db.salle.hasMany(db.activite)
 db.activite.belongsTo(db.salle)
 //salle has many outils and outil belongs to salle
-db.salle.hasMany(db.outil)
-db.outil.belongsTo(db.salle)
+//db.salle.hasMany(db.outil)
+//db.outil.belongsTo(db.salle)
 //club belongs to salle
 db.club.belongsTo(db.salle)
 //db.salle.belongsTo(db.club)
