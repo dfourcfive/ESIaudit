@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
         domain: {
             type: Sequelize.STRING
         },
+        type:{
+            type: Sequelize.STRING
+        },
         date_Lancement: {
             type: Sequelize.DATE
         },

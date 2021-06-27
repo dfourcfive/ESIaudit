@@ -6,11 +6,9 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-
         role: {
             type: Sequelize.STRING
         },
-
         ChargeHoraire: {
             type: Sequelize.INTEGER
         },

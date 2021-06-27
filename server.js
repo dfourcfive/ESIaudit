@@ -67,9 +67,9 @@ require('./app/routes/statistics/data.routes')(app);
 //****/
 //faker.FakeEnseignant();
 //faker.FakeLinkEnsWithForma();
-
-
-
+//*****/
+//faker.FakePfeMaster();
+faker.FakeLinkEtudWithPfeMaster();
 
 //set port, listen for requests
 const PORT = process.env.PORT || 8080;

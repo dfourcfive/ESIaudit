@@ -17,7 +17,10 @@ const etudiant_niveau=db.etudiant_niveau;
 const enseignant=db.enseignant;
 const ens_forma=db.enseignants_formation;
 const outil_salle=db.outil_salle;
-
+const semestre = db.semestre;
+const PfeMaster = db.PfeMaster;
+const etudiant_pfemaster = db.etudiant_pfemaster;
+const ue=db.ue;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -516,7 +519,7 @@ exports.FakeTheses=()=>{
     });
     
 }
-//fake these
+//fake doctorants
 exports.FakeDoctorants=()=>{
     departement.findAll().then((data)=>{
         var index=0;
@@ -589,9 +592,9 @@ exports.FakeEtudiants=()=>{
             etudiant.create({
                 nom: nom,
                 prenom:prenom,
-                sex:sex,
-                date_naissance:dob,
-                lieu_de_nissance:place,
+                Sex:sex,
+                data_naissance:dob,
+                lieu_naissance:place,
                 adresse:addr,
             }).then((data)=>{  
                 console.log({data});       
@@ -742,3 +745,108 @@ exports.FakeLinkEnsWithForma=async ()=>{
         }
     }
     }
+//fake semestres
+exports.FakeSemestres=()=>{
+    niveaux.findAll().then((data)=>{
+        var nv=['semestre 1','semestre 2'];
+        var desc = faker.lorem.paragraph(1);
+        var desc2 = faker.lorem.paragraph(1);
+        semestre.create({
+            numero: nv[0],
+            desc:desc,
+            niveauxNiveauId:data[j].get("niveauId")
+        }).then((data)=>{  
+            console.log({data});       
+        });
+        semestre.create({
+            numero:nv[1],
+            desc:desc2,
+            niveauxNiveauId:data[j].get("niveauId")
+        }).then((data)=>{  
+            console.log({data});       
+        });
+        //
+    }).catch((err)=>{
+        console.log({err});
+    }); 
+}
+//todo generate fake link etudiant with pfeMaster
+exports.FakePfeMaster=()=>{
+    var types = ['Master','PFE'];
+    var domain= ['réseau','web/mobile','big data','AI/ML','IOT'];
+    var dates=['2016','2017','2018','2019','2020','2021'];
+    etudiant.findAll().then((data)=>{
+        for(let i=0;i<data.length;i++){
+            var numb=faker.datatype.number({'max':2,min:'0'});
+            var tt= faker.lorem.paragraph(1);
+            var date_debut = faker.date.between(dates[i%6]+'-01-01',dates[i%6]+'-01-02');
+            var date_fin = addDays(date_debut,185);
+            PfeMaster.create({
+                titre:tt,
+                domain:domain[i % 4],
+                type:types[numb % 2],
+                date_Lancement:date_debut,
+                date_fin:date_fin,
+            }).then((data)=>{console.log({data})}).catch((err)=>{console.log({err})});
+        }
+    });
+}
+//todo generate fake link etudiant with pfeMaster
+exports.FakeLinkEtudWithPfeMaster=async()=>{
+    var etudiants = await etudiant.findAll();
+    var pfeMasters = await etudiant.findAll();
+    for(let i=0;i<etudiants.length;i++){
+        if(i % 2 ==0){
+            etudiant_pfemaster.create({
+                etudiantId:etudiants[i].get('etudiantId'),
+                PfeMasterId:pfeMasters[i].get('PfeMasterId')
+            }).then((data)=>console.log({data})).catch((err)=>console.log({err}));
+        }
+    }
+}
+
+//fake Ues
+exports.FakeUes=()=>{
+    semestre.findAll().then((data)=>{
+        var range = 0;
+        var ues=['UEF 1','UEF 2','UEM 1','UET 1','UEF 3','UEF 4','UEM 2','UET 2','UEF 5','UEF 6','UEM 3','UEM 4','UET 3','UEF 7','UEF 8','UEM 5','UEM 6','UET 4','UEF 9','UEF 10','UEM 7','UET 5','UEM 8'];
+        var use_length = ues.length;
+        var chargeHoraire=[''];//54-200
+        for(let i=0;i<data.length;i++){
+        for(let j=0;i<4;j++){
+            if(index + j >use_length){
+                index=0;
+            }
+            var confs = faker.datatype.number({
+                'min': 5,
+                'max': 30
+            });
+            var credit = confs;
+
+            var chargeHoraire = faker.datatype.number({
+                'min': 50,
+                'max': 200
+            });
+            if(ues[j + index].includes("F")){
+                var type="Fondamentales";
+            }else if(ues[j + index].includes("M")){
+                var type="Méthodologie";
+            }else if(ues[j + index].includes("T")){
+                var type="Transversale";
+            }
+            ue.create({
+                nom: ues[j + index],
+                Coefficient:confs,
+                type:type,
+                ChargeHoraire:chargeHoraire,
+                credit:credit,
+                semestreSemestreId:data[i].get('semestreId')
+            }).then((data)=>{
+                console.log({data});       
+            });
+        }
+        index=index+4;
+      }
+            });
+        }
+
