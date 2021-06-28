@@ -23,6 +23,9 @@ module.exports = (sequelize, Sequelize) => {
         Sex: {
             type: Sequelize.STRING
         },
+        intern:{
+            type : Sequelize.STRING
+        }
     });
 
     return etudiant;

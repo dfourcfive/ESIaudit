@@ -1,9 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./app/models");
-const Role = db.role;
 const app = express();
 const faker = require("./app/faker/generator/generator");
+const bi_db_data = require("./app/BI/bi_db_data");
 var corsOptions = {
     origin: "http://localhost:3000"
 };
@@ -15,9 +15,12 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+/*
 db.sequelize.sync().then(() => {
     console.log('Resync Db');
 });
+*/
+
 // simple route
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to EsiAudit-API application." });
@@ -69,9 +72,12 @@ require('./app/routes/statistics/data.routes')(app);
 //faker.FakeLinkEnsWithForma();
 //*****/
 //faker.FakePfeMaster();
-faker.FakeLinkEtudWithPfeMaster();
-
+//faker.FakeLinkEtudWithPfeMaster();
+/****/
+//faker.FakeSemestres();
+//faker.FakeUes();
 //set port, listen for requests
+bi_db_data.GetFactTableFields('test_fact');
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

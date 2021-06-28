@@ -579,6 +579,8 @@ exports.FakeEtudiants=()=>{
             let addr= faker.address.streetAddress();
             var sex;
             var gender;
+            var rndm=faker.datatype.number({'min':0,'max':5});
+            var intern =['oui','no'];
             if(j % 2 ==0){
                 sex='Homme';
                 gender=0;
@@ -596,6 +598,7 @@ exports.FakeEtudiants=()=>{
                 data_naissance:dob,
                 lieu_naissance:place,
                 adresse:addr,
+                intern:intern[rndm % 2]
             }).then((data)=>{  
                 console.log({data});       
             });
@@ -751,20 +754,24 @@ exports.FakeSemestres=()=>{
         var nv=['semestre 1','semestre 2'];
         var desc = faker.lorem.paragraph(1);
         var desc2 = faker.lorem.paragraph(1);
-        semestre.create({
-            numero: nv[0],
-            desc:desc,
-            niveauxNiveauId:data[j].get("niveauId")
-        }).then((data)=>{  
-            console.log({data});       
-        });
-        semestre.create({
-            numero:nv[1],
-            desc:desc2,
-            niveauxNiveauId:data[j].get("niveauId")
-        }).then((data)=>{  
-            console.log({data});       
-        });
+        for(let i=0;i<data.length;i++){
+            if(i%2==0){
+                semestre.create({
+                    numero: nv[i % 2],
+                    desc:desc,
+                    niveauxNiveauId:data[i].get("niveauId")
+                }).then((data)=>{  
+                    console.log({data});       
+                });
+                semestre.create({
+                    numero:nv[(i+1) % 2],
+                    desc:desc2,
+                    niveauxNiveauId:data[i+1].get("niveauId")
+                }).then((data)=>{  
+                    console.log({data});       
+                });
+            }
+        }
         //
     }).catch((err)=>{
         console.log({err});
@@ -794,7 +801,7 @@ exports.FakePfeMaster=()=>{
 //todo generate fake link etudiant with pfeMaster
 exports.FakeLinkEtudWithPfeMaster=async()=>{
     var etudiants = await etudiant.findAll();
-    var pfeMasters = await etudiant.findAll();
+    var pfeMasters = await PfeMaster.findAll();
     for(let i=0;i<etudiants.length;i++){
         if(i % 2 ==0){
             etudiant_pfemaster.create({
@@ -807,14 +814,15 @@ exports.FakeLinkEtudWithPfeMaster=async()=>{
 
 //fake Ues
 exports.FakeUes=()=>{
-    semestre.findAll().then((data)=>{
-        var range = 0;
+    semestre.findAll().then((dataa)=>{
         var ues=['UEF 1','UEF 2','UEM 1','UET 1','UEF 3','UEF 4','UEM 2','UET 2','UEF 5','UEF 6','UEM 3','UEM 4','UET 3','UEF 7','UEF 8','UEM 5','UEM 6','UET 4','UEF 9','UEF 10','UEM 7','UET 5','UEM 8'];
         var use_length = ues.length;
         var chargeHoraire=[''];//54-200
-        for(let i=0;i<data.length;i++){
-        for(let j=0;i<4;j++){
-            if(index + j >use_length){
+        var index=0;
+        for(let i=0; i<dataa.length ; i++){
+        for(let j=0; j<4 ; j++){
+            index=index+j;
+            if(index >= use_length){
                 index=0;
             }
             var confs = faker.datatype.number({
@@ -827,26 +835,26 @@ exports.FakeUes=()=>{
                 'min': 50,
                 'max': 200
             });
-            if(ues[j + index].includes("F")){
+            if(ues[index].includes("F")){
                 var type="Fondamentales";
-            }else if(ues[j + index].includes("M")){
+            }else if(ues[index].includes("M")){
                 var type="Méthodologie";
-            }else if(ues[j + index].includes("T")){
+            }else if(ues[index].includes("T")){
                 var type="Transversale";
             }
             ue.create({
-                nom: ues[j + index],
+                nom: ues[index],
                 Coefficient:confs,
                 type:type,
                 ChargeHoraire:chargeHoraire,
                 credit:credit,
-                semestreSemestreId:data[i].get('semestreId')
+                semestreSemestreId: dataa[i].get('SemestreId')
             }).then((data)=>{
                 console.log({data});       
-            });
+            }).catch((err)=>console.log({err}));
         }
         index=index+4;
       }
-            });
+            }).catch((err)=>console.log({err}));
         }
 
