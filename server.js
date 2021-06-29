@@ -4,6 +4,7 @@ const db = require("./app/models");
 const app = express();
 const faker = require("./app/faker/generator/generator");
 const bi_db_provider = require("./app/BI/bi_data_provider");
+const bi_query_parser = require("./app/BI/bi_query_parser");
 var corsOptions = {
     origin: "http://localhost:3000"
 };
@@ -81,6 +82,53 @@ require('./app/routes/statistics/data.routes')(app);
     console.log(JSON.stringify(value));
 
 });
+var obj ={
+    "tables": [
+      {
+        "name": "table_two",
+        "params":['param1','param2'],
+      },
+      {
+        "name": "table_one",
+        "params":['param3','param4'],
+      },
+    ],
+    "isRoleUp":true,
+    "isGroupBy": true,
+    "isCube": true,
+    "GroupBy": [
+       {
+        "name": "table_one",
+        "params":['param1']
+      },
+      {
+        "name": "table_two",
+        "params":['param4']
+      },
+      ],
+      "Cube":[
+       {
+        "name": "table_one",
+        "params":['param1']
+      },
+      {
+        "name": "table_two",
+        "params":['param4']
+      },
+      ],
+      "RollUp": [
+        {
+         "name": "table_one",
+         "params":['param1']
+       },
+       {
+         "name": "table_two",
+         "params":['param4']
+       },
+       ]
+  
+  }
+bi_query_parser.queryToSql(obj);
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
