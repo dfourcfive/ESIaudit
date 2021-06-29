@@ -3,7 +3,7 @@ const cors = require("cors");
 const db = require("./app/models");
 const app = express();
 const faker = require("./app/faker/generator/generator");
-const bi_db_data = require("./app/BI/bi_db_data");
+const bi_db_provider = require("./app/BI/bi_data_provider");
 var corsOptions = {
     origin: "http://localhost:3000"
 };
@@ -77,7 +77,10 @@ require('./app/routes/statistics/data.routes')(app);
 //faker.FakeSemestres();
 //faker.FakeUes();
 //set port, listen for requests
-bi_db_data.GetFactTableFields('test_fact');
+ bi_db_provider.GetBIFactTablesData().then((value)=>{
+    console.log(JSON.stringify(value));
+
+});
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
