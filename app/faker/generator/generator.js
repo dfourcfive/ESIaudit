@@ -20,7 +20,9 @@ const outil_salle=db.outil_salle;
 const semestre = db.semestre;
 const PfeMaster = db.PfeMaster;
 const etudiant_pfemaster = db.etudiant_pfemaster;
+const cite = db.cite;
 const ue=db.ue;
+const etudiant_cite=db.etudiant_cite;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -628,9 +630,9 @@ exports.FakeLinkManyToManyEtudNiv=()=>{
                             console.log(err);
                         });
                     }
-                    formation_partenaire.create({
-                        etudiantId: data[j].get("etudiantId"),
-                        niveauId: dataa[j].get("niveauId")
+                    etudiant_niveau.create({
+                        etudiantId: dataa[j].get("etudiantId"),
+                        niveauId: data[j].get("niveauId")
                     }).then((result)=>{console.log({result})}).catch((e)=>{console.log(e)});
                 }
             })     
@@ -858,3 +860,38 @@ exports.FakeUes=()=>{
             }).catch((err)=>console.log({err}));
         }
 
+//fake cite
+exports.FakeCite=()=>{
+    for(let i=0;i<5;i++){
+        let name = faker.random.word();
+        let type =['Homme','Femme'];
+        cite.create({
+            nom:name,
+            type:type[i % 2]
+        }).then((result)=>{
+            console.log({result});
+        }).catch((err)=>console.log({err}));
+    }
+}
+
+//fake link etudiant with cite
+exports.FakeLinkEtudiantWithCite=()=>{
+    etudiant.findAll().then((students)=>{
+        cite.findAll().then((cites)=>{
+            for(let i=0;i<students.length;i++){
+                for(let j=3;j<cites.length;j++){
+                    if(students[i].get('intern')=='oui'){
+                        if(students[i].get('Sex')==cites[j].get('type')){
+                            etudiant_cite.create({
+                                etudiantId: students[i].get('etudiantId'),
+                                citeId: cites[j].get('citeId')
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    });
+   
+}

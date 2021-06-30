@@ -29,7 +29,8 @@ const etudiant_niveauModel = require("./etudiant_niveau.model.js");
 const enseignants_formationModel = require("./enseignants_formations.model.js");
 const outil_salleModel = require("./outil_salle.model.js");
 const etudiant_pfemasterModel = require("./etudiant_pfeMaster.model");
-
+const citeModel = require('./cite.model.js');
+const etudiant_citeModel = require('./etudiant_cite.model');
 //sequelize connection
 const sequelize = new Sequelize(
     config.DB,
@@ -82,6 +83,8 @@ db.etudiant_niveau=etudiant_niveauModel(sequelize, Sequelize);
 db.enseignants_formation=enseignants_formationModel(sequelize, Sequelize);
 db.outil_salle = outil_salleModel(sequelize, Sequelize);
 db.etudiant_pfemaster = etudiant_pfemasterModel(sequelize, Sequelize);
+db.cite = citeModel(sequelize,Sequelize);
+db.etudiant_cite = etudiant_citeModel(sequelize,Sequelize);
 //user has many roles and role has many users
 db.role.belongsToMany(db.user, {through: "user_roles"})
 db.user.belongsToMany(db.role, {through: "user_roles"})

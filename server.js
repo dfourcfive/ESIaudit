@@ -16,11 +16,11 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-/*
+
 db.sequelize.sync().then(() => {
     console.log('Resync Db');
 });
-*/
+
 
 // simple route
 app.get("/", (req, res) => {
@@ -77,58 +77,14 @@ require('./app/routes/statistics/data.routes')(app);
 /****/
 //faker.FakeSemestres();
 //faker.FakeUes();
-//set port, listen for requests
- bi_db_provider.GetBIFactTablesData().then((value)=>{
-    console.log(JSON.stringify(value));
 
-});
-var obj ={
-    "tables": [
-      {
-        "name": "table_two",
-        "params":['param1','param2'],
-      },
-      {
-        "name": "table_one",
-        "params":['param3','param4'],
-      },
-    ],
-    "isRoleUp":true,
-    "isGroupBy": true,
-    "isCube": true,
-    "GroupBy": [
-       {
-        "name": "table_one",
-        "params":['param1']
-      },
-      {
-        "name": "table_two",
-        "params":['param4']
-      },
-      ],
-      "Cube":[
-       {
-        "name": "table_one",
-        "params":['param1']
-      },
-      {
-        "name": "table_two",
-        "params":['param4']
-      },
-      ],
-      "RollUp": [
-        {
-         "name": "table_one",
-         "params":['param1']
-       },
-       {
-         "name": "table_two",
-         "params":['param4']
-       },
-       ]
-  
-  }
-bi_query_parser.queryToSql(obj);
+/*****/
+//faker.FakeCite();
+//here if you want to generate good linking change excute this method and change the j each time (1,2,3,4,5) each time
+//faker.FakeLinkEtudiantWithCite();
+
+
+//set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
