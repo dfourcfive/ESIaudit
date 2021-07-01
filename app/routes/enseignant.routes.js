@@ -17,7 +17,11 @@ module.exports = function(app) {
   app.get("/api/data/enseignants",[authJwt.verifyToken],controller.getAll);
 
   app.post("/api/data/enseignants",[authJwt.verifyToken],controller.add);
-  app.put("/api/data/enseignants",[authJwt.verifyToken],controller.linkWithformation);
   app.post("/api/data/enseignants/:id",[authJwt.verifyToken],controller.UpdateOne);
+
+  //formation
+  app.put("/api/data/enseignants",[authJwt.verifyToken],controller.linkWithformation);
+
+  app.get("/api/data/enseignants/formations",[authJwt.verifyToken],controller.getLinkWithFormation)
 
 };

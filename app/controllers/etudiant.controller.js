@@ -31,15 +31,7 @@ exports.getAll=(req, res) =>{
 exports.getOne=(req, res) =>{
     const id = req.params.id;
     etudiant.findByPk(id,{
-        include: [
-            {
-              model: niveau,
-              attributes: ['niveauId','titre','desc','Durée'],
-              through: {
-                attributes: [],
-              }
-            },
-          ],
+
     }).then((data) => {
         res.send({data});
     }).catch((err) => {

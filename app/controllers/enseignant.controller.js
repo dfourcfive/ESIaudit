@@ -35,15 +35,6 @@ exports.getAll=(req, res) =>{
 exports.getOne=(req, res) =>{
     const id = req.params.id;
     enseignant.findByPk(id,{
-        include: [
-            {
-              model: niveau,
-              attributes: ['niveauId','nom','description'],
-              through: {
-                attributes: [],
-              }
-            },
-          ],
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
@@ -62,6 +53,15 @@ exports.DeleteOne=(req, res) =>{
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
+}
+
+exports.getLinkWithFormation=(req, res) =>{
+  const id = req.params.id;
+  enseignant_formation.findAll({where : {enseignantId: id}}).then((result) => {
+      res.send({result}); 
+  }).catch((err) => {
+      res.status(500).send({ message: err.message || "Some error occurred"});
+  });
 }
 
 exports.linkWithformation = (req, res) => {
