@@ -18,10 +18,13 @@ module.exports = function(app) {
 
   app.post("/api/data/etudiants",[authJwt.verifyToken],controller.add);
   
-  app.get("/api/data/etudiants/:id",[authJwt.verifyToken],controller.getlinks);
-
   app.put("/api/data/etudiants",[authJwt.verifyToken],controller.linkWithformation);
 
   app.post("/api/data/etudiants/:id",[authJwt.verifyToken],controller.UpdateOne);
+
+  //Niveau
+  app.post("/api/data/etudiants/niveau/:id",[authJwt.verifyToken],controller.linkWithNiveau);
+  
+  app.get("/api/data/etudiants/niveau/:id",[authJwt.verifyToken],controller.getlinksWithNiveau);
 
 };

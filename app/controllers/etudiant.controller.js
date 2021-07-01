@@ -60,7 +60,7 @@ exports.DeleteOne=(req, res) =>{
     });
 }
 
-exports.linkWithformation = (req, res) => {
+exports.linkWithNiveau = (req, res) => {
     etudiant.findByPk(req.body.etudiantId)
       .then((etud) => {
         if (!etud) {
@@ -85,11 +85,11 @@ exports.linkWithformation = (req, res) => {
         console.log(">> Error while adding Tutorial to Tag: ", err);
       });
   };
-  exports.getlinks = (req, res) => {
+  exports.getlinksWithNiveau = (req, res) => {
     const id = req.params.id;
     etudiant_niveau.findAll({
         where: {
-            formationId: id
+            etudiantId: id
           }
     }).then((data) => {
         res.send({data});
@@ -97,6 +97,8 @@ exports.linkWithformation = (req, res) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
   };
+
+ 
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
     etudiant.find({where : {etudiantId: id}}).then((data) => {
