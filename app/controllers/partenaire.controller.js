@@ -73,6 +73,18 @@ exports.linkWithformation = (req, res) => {
       });
   };
 
+  exports.getlinkswithformation = (req, res) => {
+      var id = req.body.partenaireId;
+    partenaire.findAll({where : {partenaireId : id}})
+      .then((result) => {
+          res.send({result});
+      })
+      .catch((err) => {
+        res.status(500).send('formation not found!',err);
+        console.log(">> Error while adding Tutorial to Tag: ", err);
+      });
+  };
+
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
     partenaire.find({where : {partenaireId: id}}).then((data) => {
