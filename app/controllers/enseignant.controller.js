@@ -26,15 +26,6 @@ exports.add=(req, res) =>{
 }
 exports.getAll=(req, res) =>{
     enseignant.findAll({
-        include: [
-            {
-              model: formation,
-              attributes: ['niveauId','nom','description'],
-              through: {
-                attributes: [],
-              }
-            },
-          ],
     }).then((results) => {
         res.send({results});
     }).catch((err) => {

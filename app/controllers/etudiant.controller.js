@@ -22,15 +22,6 @@ exports.add=(req, res) =>{
 }
 exports.getAll=(req, res) =>{
     etudiant.findAll({
-        include: [
-            {
-              model: niveau,
-              attributes: ['niveauId','titre','desc','Durée'],
-              through: {
-                attributes: [],
-              }
-            },
-          ],
     }).then((results) => {
         res.send({results});
     }).catch((err) => {

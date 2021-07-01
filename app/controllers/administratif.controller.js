@@ -24,8 +24,8 @@ exports.add=(req, res) =>{
 }
 
 exports.getAll=(req, res) =>{
-    administratif.findAll().then((results) => {
-        res.send({results});
+    administratif.findAll().then((data) => {
+        res.send({data});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
