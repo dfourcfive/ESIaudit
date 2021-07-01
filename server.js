@@ -43,6 +43,7 @@ require('./app/routes/niveau.routes')(app);
 require('./app/routes/etudiant.routes')(app);
 require('./app/routes/enseignant.routes')(app);
 require('./app/routes/DelibNiveau.routes')(app);
+require('./app/routes/administratif.routes')(app);
 require('./app/routes/semestre.routes')(app);
 require('./app/routes/ue.routes')(app);
 require('./app/routes/matiere.routes')(app);
