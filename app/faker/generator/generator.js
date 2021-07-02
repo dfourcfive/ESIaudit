@@ -23,6 +23,7 @@ const etudiant_pfemaster = db.etudiant_pfemaster;
 const cite = db.cite;
 const ue=db.ue;
 const etudiant_cite=db.etudiant_cite;
+const matier = db.matiere;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -893,5 +894,62 @@ exports.FakeLinkEtudiantWithCite=()=>{
             }
         });
     });
-   
 }
+//fake matier
+exports.FakeMatiers=()=>{
+    ue.findAll().then((dataa)=>{
+        for(let i=0; i<dataa.length ; i++){
+            var nbr_matier_rand = faker.datatype.number({
+                'min': 2,
+                'max': 3
+            });
+        let confs_ue=dataa[i].get('Coefficient');
+        let charge_ue=dataa[i].get('ChargeHoraire');
+        let total_confs=0;
+        let total_charge=0;
+        for(let j=0; j<nbr_matier_rand ; j++){
+            if(total_confs == confs_ue){
+                break;
+            }
+            if(total_charge == charge_ue){
+                break;
+            }
+            if(j==0){
+                var confs=faker.datatype.number({
+                    'min': 1,
+                    'max': confs_ue
+                });
+                var charge_matier=faker.datatype.number({
+                    'min': 20,
+                    'max': confs_ue
+                });
+            }else if(j==nbr_matier_rand-1){
+                var confs=confs_ue -total_confs;
+                var charge_matier=charge_ue - total_charge;
+            }else{
+                var confs=faker.datatype.number({
+                    'min': 1,
+                    'max': confs_ue- total_confs
+                });
+                var charge_matier=faker.datatype.number({
+                    'min': 20,
+                    'max': total_charge - confs_ue
+                });
+            }           
+            total_confs=total_confs + confs;
+            total_charge=total_charge + charge_matier;
+            let name = faker.lorem.word();
+            matier.create({
+                nom: name,
+                Coefficient:confs,
+                type:dataa[i].get('type'),
+                ChargeHoraire:charge_matier,
+                credit:confs,
+                ueUeId: dataa[i].get('ueId')
+            }).then((data)=>{
+                console.log({data});       
+            }).catch((err)=>console.log({err}));
+            
+        }
+      }
+            }).catch((err)=>console.log({err}));}

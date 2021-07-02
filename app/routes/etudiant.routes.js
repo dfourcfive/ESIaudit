@@ -18,8 +18,6 @@ module.exports = function(app) {
 
   app.post("/api/data/etudiants",[authJwt.verifyToken],controller.add);
   
-  app.put("/api/data/etudiants",[authJwt.verifyToken],controller.linkWithformation);
-
   app.post("/api/data/etudiants/:id",[authJwt.verifyToken],controller.UpdateOne);
 
   //Niveau

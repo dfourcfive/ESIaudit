@@ -15,6 +15,7 @@ const FormationModel = require("../models/formation.model.js");
 const AdministratifModel = require("../models/administratif.model.js");
 const PfeMasterModel = require("../models/PfeMaster.model.js");
 const DelibNiveauModel = require("../models/DelibNiveau.model.js");
+const DelibModuleModel = require("../models/delibModule.model");
 const NiveauModel = require("../models/niveau.model.js");
 const EnseignantModel = require("../models/enseignant.model.js");
 const EnseignementModel = require("../models/enseignement.model.js");
@@ -85,6 +86,7 @@ db.outil_salle = outil_salleModel(sequelize, Sequelize);
 db.etudiant_pfemaster = etudiant_pfemasterModel(sequelize, Sequelize);
 db.cite = citeModel(sequelize,Sequelize);
 db.etudiant_cite = etudiant_citeModel(sequelize,Sequelize);
+db.DelibModule = DelibModuleModel(sequelize,Sequelize);
 //user has many roles and role has many users
 db.role.belongsToMany(db.user, {through: "user_roles"})
 db.user.belongsToMany(db.role, {through: "user_roles"})
