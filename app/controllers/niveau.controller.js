@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 
 exports.add=(req, res) =>{
     niveau.create({
-        titre: req.body.titre,
+        nom: req.body.nom,
         desc:req.body.desc,
         Durée:req.body.Durée,
         formationFormationId:req.body.formationId

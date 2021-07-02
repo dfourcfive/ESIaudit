@@ -78,12 +78,13 @@ require('./app/routes/statistics/data.routes')(app);
 /****/
 //faker.FakeSemestres();
 //faker.FakeUes();
+//faker.FakeMatiers();
 
 /*****/
 //faker.FakeCite();
 //here if you want to generate good linking change excute this method and change the j each time (1,2,3,4,5) each time
 //faker.FakeLinkEtudiantWithCite();
-faker.FakeMatiers();
+
 
 //set port, listen for requests
 const PORT = process.env.PORT || 8080;
