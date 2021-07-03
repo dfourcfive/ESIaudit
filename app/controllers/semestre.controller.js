@@ -7,7 +7,7 @@ exports.add=(req, res) =>{
     semestre.create({
         numero: req.body.numero,
         desc:req.body.desc,
-        niveauNiveauId:req.body.niveauId
+        niveauxNiveauId:req.body.niveauId
     }).then((data) => {
         res.send({data});
     }).catch((err) => {
