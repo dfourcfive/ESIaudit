@@ -21,8 +21,13 @@ module.exports = function(app) {
   app.post("/api/data/etudiants/:id",[authJwt.verifyToken],controller.UpdateOne);
 
   //Niveau
-  app.post("/api/data/etudiants/niveau/:id",[authJwt.verifyToken],controller.linkWithNiveau);
+  app.post("/api/data/etudiants/niveau",[authJwt.verifyToken],controller.linkWithNiveau);
   
   app.get("/api/data/etudiants/niveau/:id",[authJwt.verifyToken],controller.getlinksWithNiveau);
+
+  //pfe master
+  app.post("/api/data/etudiants/pfemaster",[authJwt.verifyToken],controller.linkWithPfeMaster);
+  
+  app.get("/api/data/etudiants/pfemaster/:id",[authJwt.verifyToken],controller.getlinksWithPfeMaster);
 
 };
