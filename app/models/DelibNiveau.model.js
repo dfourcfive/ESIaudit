@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true
         },
         année: {
-            type: Sequelize.DATE
+            type: Sequelize.INTEGER
         },
         MoyenneS1: {
             type: Sequelize.DECIMAL

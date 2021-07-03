@@ -25,6 +25,7 @@ const ue=db.ue;
 const etudiant_cite=db.etudiant_cite;
 const matier = db.matiere;
 const DelibModule = db.DelibModule;
+const DelibNiveau = db.DelibNiveau;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -981,13 +982,20 @@ exports.FakerDelivModule=()=>{
                         }
                     }
                     var moyen =faker.finance.amount(8,16,2);
+                    var credit=0;
+                    if(moyen>=10){
+                        credit = matiers[j].get('Coefficient');
+                    }else{
+                        credit =0;
+                    }
                     DelibModule.create({
                         Moyenne: moyen,
                         annee: annee,
                         Coefficient: matiers[j].get('Coefficient'),
+                        Credit:credit,
                         etudiantEtudiantId : etudiants[i].get('etudiantId'),
                         matiereMatiereId : matiers[j].get('matiereId')
-                    }).then((result)=>console.log({result}));
+                    }).then((result)=>console.log({result})).catch((err)=>console.log({err}));
                     
                 }
             }
@@ -997,6 +1005,93 @@ exports.FakerDelivModule=()=>{
     }).catch((err)=>{
         console.log({err});
     })
+   //DelibModule
+}
+
+exports.FakerDelibNiveaux=()=>{
+    etudiant.findAll().then((etudiants)=>{
+        DelibModule.findAll().then((dmodules)=>{
+            matier.findAll().then((modules)=>{
+                for(let i=0;i<etudiants.length;i++){
+                    var totalMoyen=0;
+                    var totalConfs=0;
+                    var totalCredit=0;
+
+                    var moyens1;
+                    var moyenS2;
+                    var creditS1;
+                    var creditS2;
+                    var nbr_ue=1;
+                    var done=false;
+                    for(let j=0;j<dmodules.length;j++){
+                        if(etudiants[i].get('etudiantId')==dmodules[j].get('etudiantEtudiantId')){
+                            for(let m=0;m<modules.length;m++){
+                                if(dmodules[j].get('matiereMatiereId')==modules[m].get('matiereId')){
+                                    if(m==0){
+                                        var ue = modules[m].get('ueUeId')
+                                    }
+                                    if(ue != modules[m].get('ueUeId')){
+                                            nbr_ue = nbr_ue + 1;
+                                            console.log('number of ues'+nbr_ue);
+                                        }
+                                    
+                                }                    
+                            }
+                            totalMoyen=totalMoyen+((dmodules[j].get('Moyenne'))*(dmodules[j].get('Coefficient')));
+                            totalConfs=totalConfs+dmodules[j].get('Coefficient');
+                            totalCredit=totalCredit+dmodules[j].get('Credit');
+                            if(nbr_ue == 4){
+                                //semestre 1
+                                moyens1=(totalMoyen/totalConfs);
+                                creditS1=totalCredit;
+
+                                totalMoyen=0;
+                                totalConfs=0;
+                                totalCredit=0;
+
+                            }else if(nbr_ue == 8){
+                                //semestre 2
+                                moyenS2=(totalMoyen/totalConfs);
+                                creditS2=totalCredit;
+
+
+                                totalMoyen=0;
+                                totalConfs=0;
+                                totalCredit=0;
+                                done=true;
+                            }
+                            if(done){
+                                var observation;
+                                if(((moyens1+moyenS2)/2)>=10){
+                                    observation='réussi';
+                                }else{      
+                                    observation='ajourné'; 
+                                }
+                                DelibNiveau.create({
+                                    année:dmodules[j].get('annee'),
+                                    MoyenneS1:moyens1,
+                                    MoyenneS2:moyenS2,
+                                    CreditS1:creditS1,
+                                    CreditS2:creditS2,
+                                    Observation:observation,
+                                    etudiantEtudiantId:etudiants[i].get('etudiantId')
+                                }).then((result)=>console.log({result})).catch((err)=>console.log({err}));
+
+                            }
+                        }
+                           
+                    }
+    
+                }
+
+            }).catch((err)=>console.log({err}));
+           
+
+        }).catch((err)=>console.log({err}))
+            
+        }).catch((err)=>{
+            console.log({err});
+        });
 
     //DelibModule
 }

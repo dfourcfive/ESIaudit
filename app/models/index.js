@@ -136,7 +136,6 @@ db.doctorant.belongsTo(db.departement)
 //db.formation.belongsToMany(db.enseignant, {through: enseignants_formations})
 //
 db.DelibNiveau.belongsTo(db.etudiant)
-db.DelibNiveau.belongsTo(db.niveau)
 //
 db.DelibModule.belongsTo(db.etudiant);
 db.DelibModule.belongsTo(db.matiere);

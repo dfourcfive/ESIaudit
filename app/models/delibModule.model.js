@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
         Coefficient: {
             type: Sequelize.INTEGER
         },
+        Credit: {
+            type: Sequelize.INTEGER
+        },
     });
 
     return delibModule;
