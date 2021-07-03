@@ -7,12 +7,12 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true
         },
         annee: {
-            type: Sequelize.DOUBLE
+            type: Sequelize.INTEGER
         },
         Moyenne: {
             type: Sequelize.DECIMAL
         },
-        Confs: {
+        Coefficient: {
             type: Sequelize.INTEGER
         },
     });

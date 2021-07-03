@@ -24,6 +24,7 @@ const cite = db.cite;
 const ue=db.ue;
 const etudiant_cite=db.etudiant_cite;
 const matier = db.matiere;
+const DelibModule = db.DelibModule;
 exports.FakeDepartement=()=>{
     faker.seed(100);
     for(let i=0; i<100; i++){
@@ -953,3 +954,49 @@ exports.FakeMatiers=()=>{
         }
       }
             }).catch((err)=>console.log({err}));}
+
+exports.FakerDelivModule=()=>{
+    etudiant.findAll().then((etudiants)=>{
+        matier.findAll().then((matiers)=>{
+
+            for(let i=0;i<etudiants.length;i++){
+                var nbr_ue=0;
+                var nbr_nv=faker.datatype.number({
+                    'min': 1,
+                    'max': 5
+                });
+                var annee=2016;
+                for(let j=0;j<matiers.length;j++){
+                    if(nbr_ue == nbr_nv*8){
+                        break;
+                    }
+                    if(j==0){
+                        var current_ue = matiers[j].get('ueUeId');
+                    }
+                    if(current_ue != matiers[j].get('ueUeId')){
+                        nbr_ue = nbr_ue +1;
+                        current_ue = matiers[j].get('ueUeId');
+                        if(annee % 8 ==0){
+                            annee = annee + 1 ;
+                        }
+                    }
+                    var moyen =faker.finance.amount(8,16,2);
+                    DelibModule.create({
+                        Moyenne: moyen,
+                        annee: annee,
+                        Coefficient: matiers[j].get('Coefficient'),
+                        etudiantEtudiantId : etudiants[i].get('etudiantId'),
+                        matiereMatiereId : matiers[j].get('matiereId')
+                    }).then((result)=>console.log({result}));
+                    
+                }
+            }
+        }).catch((err)=>{
+            console.log({err});
+        })
+    }).catch((err)=>{
+        console.log({err});
+    })
+
+    //DelibModule
+}
