@@ -27,8 +27,7 @@ const matier = db.matiere;
 const DelibModule = db.DelibModule;
 const DelibNiveau = db.DelibNiveau;
 exports.FakeDepartement=()=>{
-    faker.seed(100);
-    for(let i=0; i<100; i++){
+    for(let i=0; i<6; i++){
         let name = faker.lorem.word();
         let desc = faker.lorem.paragraph(1);
         departement.create({
@@ -116,24 +115,27 @@ exports.FakeSalles=()=>{
 exports.FakeClubes=()=>{
     salle.findAll().then((data)=>{
         for(let j=0; j<data.length ; j++){
-            for(let i=0; i<3; i++){
-                let name = faker.lorem.word();
-                var type;
-                if(i % 3 == 0){
-                     type = 'scientifique';
-                }else if(i % 3 ==1){
-                     type = 'culturel';
-                }else{
-                     type = 'autre';
+            if(j % 25 == 0 ){
+                for(let i=0; i<3; i++){
+                    let name = faker.lorem.word();
+                    var type;
+                    if(i % 3 == 0){
+                         type = 'scientifique';
+                    }else if(i % 3 ==1){
+                         type = 'culturel';
+                    }else{
+                         type = 'autre';
+                    }
+                    club.create({
+                        nom: name,
+                        type: type,
+                        salleSalleId: data[j].get("salleId")
+                    }).then((result) => {
+                        console.log({data});
+                    });
                 }
-                club.create({
-                    nom: name,
-                    type: type,
-                    salleSalleId: data[j].get("salleId")
-                }).then((result) => {
-                    console.log({data});
-                });
-            }}
+            }
+        }
         //
     }).catch((err)=>{
         console.log({err});
@@ -316,7 +318,7 @@ exports.FakeLinkSalleWithOutils=async ()=>{
 exports.FakeAdministratifs=()=>{
     departement.findAll().then((data)=>{
         for(let j=0; j<data.length ; j++){
-            for(let i=0; i<5; i++){
+            for(let i=0; i<20; i++){
                 var sex;
                 var gender;
                 if(i % 2 ==0){
@@ -390,7 +392,7 @@ exports.FakeAdministratifs=()=>{
 exports.FakeFormations=()=>{
     departement.findAll().then((data)=>{
         for(let j=0; j<data.length ; j++){
-            for(let i=0; i<10; i++){
+            for(let i=0; i<5; i++){
                 let name;
                 if(i % 4 == 0){
                     name='SIW';
@@ -420,7 +422,7 @@ exports.FakeFormations=()=>{
 exports.FakePartenaires=()=>{
     formation.findAll().then((data)=>{
         for(let j=0; j<data.length-3 ; j++){
-            for(let i=0; i<10; i++){
+            for(let i=0; i<5; i++){
                 let name = faker.company.companyName();
                 let desc = faker.lorem.words();
                 partenaire.create({
@@ -463,6 +465,7 @@ exports.FakeNiveaux=()=>{
         var index=0;
         var names=['1 CPI','2 CPI','1 CS','2 CS','3 CS'];
         for(let j=0; j<data.length; j++){
+              for(let x=0;x<5;x++){
                 let desc = faker.lorem.words();
                 niveaux.create({
                     nom: names[index],
@@ -477,6 +480,7 @@ exports.FakeNiveaux=()=>{
                 }else{
                     index++;
                 }
+              }
             }
         //
     }).catch((err)=>{
@@ -491,31 +495,33 @@ exports.FakeTheses=()=>{
         var range = 0;
         var names=['informatique','electronique','economie','biologie','3 CS'];
         for(let j=0; j<data.length; j++){
-               if(range <5){
-                let desc = faker.lorem.words();
-                let titre = faker.lorem.word();
-                let date_debut=faker.date.between('2016-01-01','2017-01-01');
-                let date_fin=addDays(date_debut,1460);                         
-                these.create({
-                    domaine: names[index],
-                    titre:titre,
-                    desc:desc,
-                    Durée:12,
-                    date_Lancement:date_debut,
-                    date_Fin:date_fin,
-                    departementDepartementId:data[j].get("departementId")
-                }).then((data)=>{  
-                    console.log({data});       
-                });
-                if(index>=4){
-                    index=0;
-                }else{
-                    index++;
-                }
-                range++;
-               }
-               else{
-                   range=0;
+               for(let x=0;x<20;x++){
+                if(range <5){
+                    let desc = faker.lorem.words();
+                    let titre = faker.lorem.word();
+                    let date_debut=faker.date.between('2016-01-01','2017-01-01');
+                    let date_fin=addDays(date_debut,1460);                         
+                    these.create({
+                        domaine: names[index],
+                        titre:titre,
+                        desc:desc,
+                        Durée:12,
+                        date_Lancement:date_debut,
+                        date_Fin:date_fin,
+                        departementDepartementId:data[j].get("departementId")
+                    }).then((data)=>{  
+                        console.log({data});       
+                    });
+                    if(index>=4){
+                        index=0;
+                    }else{
+                        index++;
+                    }
+                    range++;
+                   }
+                   else{
+                       range=0;
+                   }
                }
             }
         //
@@ -530,43 +536,45 @@ exports.FakeDoctorants=()=>{
         var index=0;
         var range = 0;
         for(let j=0; j<data.length; j++){
-               if(range <5){
-                let dob=faker.date.between('1960-01-01','1980-01-01');
-                let place = faker.address.cityName();
-                let addr= faker.address.streetAddress();
-                var sex;
-                var gender;
-                if(j % 2 ==0){
-                    sex='Homme';
-                    gender=0;
-                }else{
-                    sex='Femme';
-                    gender=1;
-                }
-                let nom = faker.name.firstName({gender:gender});
-                let prenom = faker.name.lastName({gender:gender});
-
-                doctorant.create({
-                    nom: nom,
-                    prenom:prenom,
-                    sex:sex,
-                    date_naissance:dob,
-                    lieu_de_nissance:place,
-                    adresse:addr,
-                    departementDepartementId:data[j].get("departementId")
-                }).then((data)=>{  
-                    console.log({data});       
-                });
-                if(index>=4){
-                    index=0;
-                }else{
-                    index++;
-                }
-                range++;
-               }
-               else{
-                   range=0;
-               }
+            for(let x=0;x<15;x++){
+                if(range <5){
+                    let dob=faker.date.between('1960-01-01','1980-01-01');
+                    let place = faker.address.cityName();
+                    let addr= faker.address.streetAddress();
+                    var sex;
+                    var gender;
+                    if(j % 2 ==0){
+                        sex='Homme';
+                        gender=0;
+                    }else{
+                        sex='Femme';
+                        gender=1;
+                    }
+                    let nom = faker.name.firstName({gender:gender});
+                    let prenom = faker.name.lastName({gender:gender});
+    
+                    doctorant.create({
+                        nom: nom,
+                        prenom:prenom,
+                        sex:sex,
+                        date_naissance:dob,
+                        lieu_de_nissance:place,
+                        adresse:addr,
+                        departementDepartementId:data[j].get("departementId")
+                    }).then((data)=>{  
+                        console.log({data});       
+                    });
+                    if(index>=4){
+                        index=0;
+                    }else{
+                        index++;
+                    }
+                    range++;
+                   }
+                   else{
+                       range=0;
+                   }    
+            }
             }
         //
     }).catch((err)=>{
@@ -577,7 +585,7 @@ exports.FakeDoctorants=()=>{
 exports.FakeEtudiants=()=>{
     var index=0;
     var range = 0;
-    for(let j=0; j<1000; j++){
+    for(let j=0; j<8000; j++){
            if(range <5){
             let dob=faker.date.between('1997-01-01','2003-01-01');
             let place = faker.address.cityName();
@@ -622,22 +630,21 @@ exports.FakeEtudiants=()=>{
 exports.FakeLinkManyToManyEtudNiv=()=>{
     niveaux.findAll().then((data)=>{
             etudiant.findAll().then((dataa)=>{
-                for(let j=0; j<dataa.length ; j++){
-                    if(j==1){
+                let nbr_etud=dataa.length;
+                let nbr_index=0;
+                for(let i=0;i<data.length;i++){
+                    for(let j=0;j<100;j++){
                         etudiant_niveau.create({
-                            etudiantId:999,
-                            niveauId:999
-                        }).then((result) => {
-                            console.log(result);
-                        }).catch((err) => {
-                            console.log(err);
-                        });
+                            etudiantId: dataa[j].get("etudiantId"),
+                            niveauId: data[i].get("niveauId")
+                        }).then((result)=>{console.log({result})}).catch((e)=>{console.log(e)});
+                        nbr_index=nbr_index+1;
                     }
-                    etudiant_niveau.create({
-                        etudiantId: dataa[j].get("etudiantId"),
-                        niveauId: data[j].get("niveauId")
-                    }).then((result)=>{console.log({result})}).catch((e)=>{console.log(e)});
+                    if(nbr_index == nbr_etud){
+                        break;
+                    }
                 }
+            
             })     
     })
 }

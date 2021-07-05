@@ -80,7 +80,7 @@ require('./app/routes/statistics/data.routes')(app);
 //faker.FakeUes();
 //faker.FakeMatiers();
 //faker.FakerDelivModule();
-faker.FakerDelibNiveaux();
+///faker.FakerDelibNiveaux();
 
 /*****/
 //faker.FakeCite();
