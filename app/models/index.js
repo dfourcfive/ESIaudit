@@ -92,14 +92,14 @@ db.role.belongsToMany(db.user, {through: "user_roles"})
 db.user.belongsToMany(db.role, {through: "user_roles"})
 db.ROLES = ["user", "admin", "moderator"]
 //departement has many salles and salle belongs to one departement
-db.departement.hasMany(db.salle)
-db.salle.belongsTo(db.departement)
+db.departement.hasMany(db.salle,{ onDelete: 'cascade' })
+db.salle.belongsTo(db.departement,{ onDelete: 'cascade' })
 //Club has many activites and activite belongs to one club
-db.club.hasMany(db.activite)
-db.activite.belongsTo(db.club)
+db.club.hasMany(db.activite,{ onDelete: 'cascade' })
+db.activite.belongsTo(db.club,{ onDelete: 'cascade' })
 //Activite belongs to salle ...
-db.salle.hasMany(db.activite)
-db.activite.belongsTo(db.salle)
+db.salle.hasMany(db.activite,{ onDelete: 'cascade' })
+db.activite.belongsTo(db.salle,{ onDelete: 'cascade' })
 //salle has many outils and outil belongs to salle
 //db.salle.hasMany(db.outil)
 //db.outil.belongsTo(db.salle)
@@ -107,25 +107,25 @@ db.activite.belongsTo(db.salle)
 db.club.belongsTo(db.salle)
 //db.salle.belongsTo(db.club)
 //departement has many administratifs and administratif belongs to one departement
-db.departement.hasMany(db.administratif)
-db.administratif.belongsTo(db.departement)
+db.departement.hasMany(db.administratif,{ onDelete: 'cascade' })
+db.administratif.belongsTo(db.departement,{ onDelete: 'cascade' })
 //departement has many formations and formation belongs to one departement
-db.departement.hasMany(db.formation)
-db.formation.belongsTo(db.departement)
+db.departement.hasMany(db.formation,{ onDelete: 'cascade' })
+db.formation.belongsTo(db.departement,{ onDelete: 'cascade' })
 //formation has many partenaires and partenaire has many formations
 //db.formation.belongsTo(db.formation_partenaire);
 //db.formation_partenaire.hasMany(db.formation);
 //db.partenaire.belongsTo(db.formation_partenaire);
 //db.formation_partenaire.hasMany(db.partenaire)
 //formation has many niveaux and niveau belongs to one formation
-db.formation.hasMany(db.niveau)
-db.niveau.belongsTo(db.formation)
+db.formation.hasMany(db.niveau,{ onDelete: 'cascade' })
+db.niveau.belongsTo(db.formation,{ onDelete: 'cascade' })
 //departement has many these and these belongs to departement
-db.departement.hasMany(db.these)
-db.these.belongsTo(db.departement)
+db.departement.hasMany(db.these,{ onDelete: 'cascade' })
+db.these.belongsTo(db.departement,{ onDelete: 'cascade' })
 //departement has many doctorant and doctorant belongs to many departement
-db.departement.hasMany(db.doctorant)
-db.doctorant.belongsTo(db.departement)
+db.departement.hasMany(db.doctorant,{ onDelete: 'cascade' })
+db.doctorant.belongsTo(db.departement,{ onDelete: 'cascade' })
 //
 //const etudiant_niveau = sequelize.define('etudiant_niveau', {}, { timestamps: false });
 //db.etudiant.belongsToMany(db.niveau,{through: etudiant_niveau})
@@ -135,19 +135,19 @@ db.doctorant.belongsTo(db.departement)
 //db.enseignant.belongsToMany(db.formation, {through: enseignants_formations})
 //db.formation.belongsToMany(db.enseignant, {through: enseignants_formations})
 //
-db.DelibNiveau.belongsTo(db.etudiant)
+db.DelibNiveau.belongsTo(db.etudiant,{ onDelete: 'cascade' })
 //
-db.DelibModule.belongsTo(db.etudiant);
-db.DelibModule.belongsTo(db.matiere);
+db.DelibModule.belongsTo(db.etudiant,{ onDelete: 'cascade' });
+db.DelibModule.belongsTo(db.matiere,{ onDelete: 'cascade' });
 //
-db.semestre.belongsTo(db.niveau)
-db.niveau.hasMany(db.semestre)
+db.semestre.belongsTo(db.niveau,{ onDelete: 'cascade' })
+db.niveau.hasMany(db.semestre,{ onDelete: 'cascade' })
 //
-db.ue.belongsTo(db.semestre)
-db.semestre.hasMany(db.ue)
+db.ue.belongsTo(db.semestre,{ onDelete: 'cascade' })
+db.semestre.hasMany(db.ue,{ onDelete: 'cascade' })
 //
-db.matiere.belongsTo(db.ue)
-db.ue.hasMany(db.matiere)
+db.matiere.belongsTo(db.ue,{ onDelete: 'cascade' })
+db.ue.hasMany(db.matiere,{ onDelete: 'cascade' })
 //
 
 
