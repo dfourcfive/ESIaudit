@@ -148,7 +148,7 @@ db.semestre.hasMany(db.ue)
 //
 db.matiere.belongsTo(db.ue)
 db.ue.hasMany(db.matiere)
-
+//
 
 
 
