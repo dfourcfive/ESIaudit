@@ -767,22 +767,20 @@ exports.FakeSemestres=()=>{
         var desc = faker.lorem.paragraph(1);
         var desc2 = faker.lorem.paragraph(1);
         for(let i=0;i<data.length;i++){
-            if(i%2==0){
-                semestre.create({
-                    numero: nv[i % 2],
-                    desc:desc,
-                    niveauxNiveauId:data[i].get("niveauId")
-                }).then((data)=>{  
-                    console.log({data});       
-                });
-                semestre.create({
-                    numero:nv[(i+1) % 2],
-                    desc:desc2,
-                    niveauxNiveauId:data[i+1].get("niveauId")
-                }).then((data)=>{  
-                    console.log({data});       
-                });
-            }
+            semestre.create({
+                numero: nv[i % 2],
+                desc:desc,
+                niveauxNiveauId:data[i].get("niveauId")
+            }).then((data)=>{  
+                console.log({data});       
+            });
+            semestre.create({
+                numero:nv[(i+1) % 2],
+                desc:desc2,
+                niveauxNiveauId:data[i].get("niveauId")
+            }).then((data)=>{  
+                console.log({data});       
+            });
         }
         //
     }).catch((err)=>{
@@ -917,10 +915,10 @@ exports.FakeMatiers=()=>{
         let total_confs=0;
         let total_charge=0;
         for(let j=0; j<nbr_matier_rand ; j++){
-            if(total_confs == confs_ue){
+            if(total_confs === confs_ue){
                 break;
             }
-            if(total_charge == charge_ue){
+            if(total_charge === charge_ue){
                 break;
             }
             if(j==0){
@@ -932,7 +930,7 @@ exports.FakeMatiers=()=>{
                     'min': 20,
                     'max': confs_ue
                 });
-            }else if(j==nbr_matier_rand-1){
+            }else if(j==(nbr_matier_rand-1)){
                 var confs=confs_ue -total_confs;
                 var charge_matier=charge_ue - total_charge;
             }else{
@@ -942,7 +940,7 @@ exports.FakeMatiers=()=>{
                 });
                 var charge_matier=faker.datatype.number({
                     'min': 20,
-                    'max': total_charge - confs_ue
+                    'max': charge_ue - total_charge
                 });
             }           
             total_confs=total_confs + confs;

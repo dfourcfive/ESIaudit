@@ -49,6 +49,7 @@ require('./app/routes/ue.routes')(app);
 require('./app/routes/matiere.routes')(app);
 require('./app/routes/statistics/count.routes')(app);
 require('./app/routes/statistics/data.routes')(app);
+require('./app/routes/BI/bi_db_routes')(app);
 
 //faker functions here in order
 //faker.FakeDepartement();
@@ -80,7 +81,7 @@ require('./app/routes/statistics/data.routes')(app);
 //faker.FakeUes();
 //faker.FakeMatiers();
 //faker.FakerDelivModule();
-///faker.FakerDelibNiveaux();
+//faker.FakerDelibNiveaux();
 
 /*****/
 //faker.FakeCite();
