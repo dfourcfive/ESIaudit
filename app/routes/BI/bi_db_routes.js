@@ -10,5 +10,7 @@ module.exports = function(app) {
     next();
   });
 
-  app.get("/api/bi/data",[authJwt.verifyToken],controller.getTablesData);
+  app.get("/api/bi/dim_data",[authJwt.verifyToken],controller.getDimTablesData);
+  app.get("/api/bi/fact_data",[authJwt.verifyToken],controller.getFactTablesData);
+
 };

@@ -904,76 +904,76 @@ exports.FakeLinkEtudiantWithCite=()=>{
 }
 //fake matier
 exports.FakeMatiers=()=>{
-    ue.findAll().then((dataa)=>{
-        for(let i=0; i<dataa.length ; i++){
-            var nbr_matier_rand = faker.datatype.number({
-                'min': 2,
-                'max': 3
-            });
-        let confs_ue=dataa[i].get('Coefficient');
-        let charge_ue=dataa[i].get('ChargeHoraire');
-        let total_confs=0;
-        let total_charge=0;
-        for(let j=0; j<nbr_matier_rand ; j++){
-            if(total_confs === confs_ue){
-                break;
+    niveaux.findAll().then((nvs)=>{
+        ue.findAll().then((dataa)=>{
+            for(let i=0; i<dataa.length ; i++){
+                var nbr_matier_rand = faker.datatype.number({
+                    'min': 2,
+                    'max': 3
+                });
+            let confs_ue=dataa[i].get('Coefficient');
+            let charge_ue=dataa[i].get('ChargeHoraire');
+            let total_confs=0;
+            let total_charge=0;
+            for(let j=0; j<nbr_matier_rand ; j++){
+                if(total_confs === confs_ue){
+                    break;
+                }
+                if(total_charge === charge_ue){
+                    break;
+                }
+                if(j==0){
+                    var confs=faker.datatype.number({
+                        'min': 1,
+                        'max': confs_ue
+                    });
+                    var charge_matier=faker.datatype.number({
+                        'min': 20,
+                        'max': confs_ue
+                    });
+                }else if(j==(nbr_matier_rand-1)){
+                    var confs=confs_ue -total_confs;
+                    var charge_matier=charge_ue - total_charge;
+                }else{
+                    var confs=faker.datatype.number({
+                        'min': 1,
+                        'max': confs_ue- total_confs
+                    });
+                    var charge_matier=faker.datatype.number({
+                        'min': 20,
+                        'max': charge_ue - total_charge
+                    });
+                }           
+                total_confs=total_confs + confs;
+                total_charge=total_charge + charge_matier;
+                let name = faker.lorem.word();
+                matier.create({
+                    nom: name,
+                    Coefficient:confs,
+                    type:dataa[i].get('type'),
+                    ChargeHoraire:charge_matier,
+                    credit:confs,
+                    ueUeId: dataa[i].get('ueId')
+                }).then((data)=>{
+                    console.log({data});       
+                }).catch((err)=>console.log({err}));
+                
             }
-            if(total_charge === charge_ue){
-                break;
-            }
-            if(j==0){
-                var confs=faker.datatype.number({
-                    'min': 1,
-                    'max': confs_ue
-                });
-                var charge_matier=faker.datatype.number({
-                    'min': 20,
-                    'max': confs_ue
-                });
-            }else if(j==(nbr_matier_rand-1)){
-                var confs=confs_ue -total_confs;
-                var charge_matier=charge_ue - total_charge;
-            }else{
-                var confs=faker.datatype.number({
-                    'min': 1,
-                    'max': confs_ue- total_confs
-                });
-                var charge_matier=faker.datatype.number({
-                    'min': 20,
-                    'max': charge_ue - total_charge
-                });
-            }           
-            total_confs=total_confs + confs;
-            total_charge=total_charge + charge_matier;
-            let name = faker.lorem.word();
-            matier.create({
-                nom: name,
-                Coefficient:confs,
-                type:dataa[i].get('type'),
-                ChargeHoraire:charge_matier,
-                credit:confs,
-                ueUeId: dataa[i].get('ueId')
-            }).then((data)=>{
-                console.log({data});       
-            }).catch((err)=>console.log({err}));
-            
-        }
-      }
-            }).catch((err)=>console.log({err}));}
-
+          }
+                }).catch((err)=>console.log({err}));}
+            );}
 exports.FakerDelivModule=()=>{
     etudiant.findAll().then((etudiants)=>{
         matier.findAll().then((matiers)=>{
-
             for(let i=0;i<etudiants.length;i++){
                 var nbr_ue=0;
                 var nbr_nv=faker.datatype.number({
-                    'min': 1,
+                    'min': 2,
                     'max': 5
                 });
                 var annee=2016;
                 for(let j=0;j<matiers.length;j++){
-                    if(nbr_ue == nbr_nv*8){
+                    if(nbr_ue === nbr_nv*8){
                         break;
                     }
                     if(j==0){
@@ -982,7 +982,7 @@ exports.FakerDelivModule=()=>{
                     if(current_ue != matiers[j].get('ueUeId')){
                         nbr_ue = nbr_ue +1;
                         current_ue = matiers[j].get('ueUeId');
-                        if(annee % 8 ==0){
+                        if(nbr_nv % 8 ==0){
                             annee = annee + 1 ;
                         }
                     }
