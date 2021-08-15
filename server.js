@@ -2,9 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./app/models");
 const app = express();
-const faker = require("./app/faker/generator/generator");
-const bi_db_provider = require("./app/BI/bi_data_provider");
-const bi_query_parser = require("./app/BI/bi_query_parser");
+//const faker = require("./app/faker/generator/generator");
+//const bi_db_provider = require("./app/BI/bi_data_provider");
+//const bi_query_parser = require("./app/BI/bi_query_parser");
+const produce = require("./app/kafkaClient/producer");
+
 var corsOptions = {
     origin: "http://localhost:3000"
 };
@@ -45,6 +47,7 @@ require('./app/routes/enseignant.routes')(app);
 require('./app/routes/DelibNiveau.routes')(app);
 require('./app/routes/administratif.routes')(app);
 require('./app/routes/semestre.routes')(app);
+require('./app/routes/delibmodule.routes')(app);
 require('./app/routes/ue.routes')(app);
 require('./app/routes/matiere.routes')(app);
 require('./app/routes/statistics/count.routes')(app);
@@ -90,9 +93,9 @@ require('./app/routes/BI/bi_db_routes')(app);
 
 
 
+
 //set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
-
