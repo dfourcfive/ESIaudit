@@ -94,9 +94,9 @@ exports.linkWithformation = (req, res) => {
   };
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    enseignant.find({where : {enseignantId: id}}).then((data) => {
-        if (data == 1) {
-          enseignant.update({
+    enseignant.find({where : {enseignantId: id}}).then((record) => {
+        if (record) {
+          record.update({
               nom: req.body.nom,
               prenom:req.body.prenom,
               data_naissance:req.body.data_naissance,

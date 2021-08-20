@@ -52,9 +52,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    DelibNiveau.find({where : {DelibNiveauId: id}}).then((data) => {
-        if (data == 1) {
-            DelibNiveau.update({
+    DelibNiveau.find({where : {DelibNiveauId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 année: req.body.année,
                 MoyenneS1:req.body.MoyenneS1,
                 MoyenneS2:req.body.MoyenneS2,

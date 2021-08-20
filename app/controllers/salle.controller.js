@@ -48,9 +48,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    salle.find({where : {salleId: id}}).then((data) => {
-        if (data == 1) {
-            salle.update({
+    salle.find({where : {salleId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 nom: req.body.nom,
                 type:req.body.description,
                 capacite:req.body.capacite,

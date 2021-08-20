@@ -47,9 +47,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    niveau.find({where : {niveauId: id}}).then((data) => {
-        if (data == 1) {
-            niveau.update({
+    niveau.find({where : {niveauId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 titre: req.body.titre,
                 desc:req.body.desc,
                 Durée:req.body.Durée,

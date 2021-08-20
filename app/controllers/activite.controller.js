@@ -49,9 +49,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    activite.find({where : {activiteId: id}}).then((data) => {
-        if (data == 1) {
-            activite.update({
+    activite.find({where : {activiteId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 titre: req.body.titre,
                 type:req.body.type,
                 date_debut:req.body.date_debut,

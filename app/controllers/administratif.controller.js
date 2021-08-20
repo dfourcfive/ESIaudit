@@ -54,9 +54,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    administratif.find({where : {administratifId: id}}).then((data) => {
-        if (data == 1) {
-            administratif.update({
+    administratif.find({where : {administratifId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 nom: req.body.nom,
                 prenom: req.body.prenom,
                 type:req.body.description,

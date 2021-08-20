@@ -44,14 +44,13 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    departement.find({where : {departementId: id}}).then((data) => {
-        if (data == 1) {
-            departement.update({
+    departement.find({where : {departementId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 nom: req.body.nom,
                 description:req.body.description,
                 }).then((data)=>  {
-                res.send({message:'deleted successfully!'});
-
+                res.send({message:'updated successfully!'});
               }).error(err => res.send({message:'Cannot update'}));
         }
         else{

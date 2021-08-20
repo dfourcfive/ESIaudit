@@ -87,9 +87,9 @@ exports.linkWithSalle = (req, res) => {
   };
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    outil.find({where : {outilId: id}}).then((data) => {
-        if (data == 1) {
-            outil.update({
+    outil.find({where : {outilId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 titre: req.body.titre,
         type:req.body.type,
         salleSalleId:req.body.salleId

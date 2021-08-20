@@ -86,9 +86,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    cite.find({where : {citeId: id}}).then((data) => {
-        if (data == 1) {
-            cite.update({
+    cite.find({where : {citeId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 nom: req.body.nom,
                 type:req.body.type,
                 })

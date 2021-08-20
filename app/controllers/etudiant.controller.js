@@ -132,9 +132,9 @@ exports.linkWithNiveau = (req, res) => {
  
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    etudiant.find({where : {etudiantId: id}}).then((data) => {
-        if (data == 1) {
-          etudiant.update({
+    etudiant.find({where : {etudiantId: id}}).then((record) => {
+        if (record) {
+          record.update({
             nom: req.body.nom,
             prenom:req.body.prenom,
             data_naissance:req.body.data_naissance,

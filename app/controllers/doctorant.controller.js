@@ -49,9 +49,9 @@ exports.DeleteOne=(req, res) =>{
 }
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    doctorant.find({where : {doctorantId: id}}).then((data) => {
-        if (data == 1) {
-            doctorant.update({
+    doctorant.find({where : {doctorantId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 nom: req.body.nom,
                 prenom:req.body.prenom,
                 date_naissance:req.body.date_naissance,

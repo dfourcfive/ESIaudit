@@ -46,9 +46,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    club.find({where : {clubId: id}}).then((data) => {
-        if (data == 1) {
-            club.update({
+    club.find({where : {clubId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 nom: req.body.nom,
                 type:req.body.description,
                 salleSalleId:req.body.salleId})

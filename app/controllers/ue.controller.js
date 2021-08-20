@@ -49,9 +49,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    ue.find({where : {ueId: id}}).then((data) => {
-        if (data == 1) {
-            ue.update({
+    ue.find({where : {ueId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 nom: req.body.nom,
                 type:req.body.type,
                 Coefficient:req.body.Coefficient,

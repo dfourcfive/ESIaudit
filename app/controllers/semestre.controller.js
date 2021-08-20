@@ -46,9 +46,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    semestre.find({where : {semestreId: id}}).then((data) => {
-        if (data == 1) {
-            semestre.update({
+    semestre.find({where : {semestreId: id}}).then((record) => {
+        if (record) {
+            record.update({
         numero: req.body.numero,
         desc:req.body.desc,
         niveauNiveauId:req.body.niveauId

@@ -87,9 +87,9 @@ exports.linkWithformation = (req, res) => {
 
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    partenaire.find({where : {partenaireId: id}}).then((data) => {
-        if (data == 1) {
-          partenaire.update({
+    partenaire.find({where : {partenaireId: id}}).then((record) => {
+        if (record) {
+          record.update({
             nom: req.body.nom,
             type:req.body.type,
         }).then((data)=>  {

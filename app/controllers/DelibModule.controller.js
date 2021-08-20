@@ -49,9 +49,9 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    DelibModule.find({where : {DelibModuleId: id}}).then((data) => {
-        if (data == 1) {
-            DelibModule.update({
+    DelibModule.find({where : {DelibModuleId: id}}).then((record) => {
+        if (record) {
+            record.update({
                 annee: req.body.annee,
                 Moyenne:req.body.Moyenne,
                 Coefficient:req.body.Coefficient,
