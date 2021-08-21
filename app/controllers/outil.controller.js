@@ -72,6 +72,20 @@ exports.linkWithSalle = (req, res) => {
         console.log(">> Error while adding Tutorial to Tag: ", err);
       });
   };
+  exports.RemovelinkWithSalle = (req, res) => {
+    outil.findByPk(req.body.outilId)
+      .then((etud) => {
+        if (!etud) {
+          res.status(500).send('outil not found!');
+          return null;
+        }
+        outil_salle.destroy({where : {outilId: req.body.outilId}}).then((data)=>console.log({data})).catch((err)=>console.log({err}));
+      })
+      .catch((err) => {
+        res.status(500).send('salle not found!',err);
+        console.log(">> Error while adding Tutorial to Tag: ", err);
+      });
+  };
 
   exports.getlinks = (req, res) => {
     const id = req.params.id;

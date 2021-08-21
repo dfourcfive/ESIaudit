@@ -82,6 +82,22 @@ exports.linkWithPartenaire = (req, res) => {
       console.log(">> Error while adding Tutorial to Tag: ", err);
     });
 };
+
+exports.RemovelinkWithSalle = (req, res) => {
+    formation.findByPk(req.body.formationId)
+      .then((etud) => {
+        if (!etud) {
+          res.status(500).send('outil not found!');
+          return null;
+        }
+        formation_partenaire.destroy({where : {formationId: req.body.formationId}}).then((data)=>console.log({data})).catch((err)=>console.log({err}));
+      })
+      .catch((err) => {
+        res.status(500).send('salle not found!',err);
+        console.log(">> Error while adding Tutorial to Tag: ", err);
+      });
+  };
+
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
     formation.find({where : {formationId: id}}).then((record) => {

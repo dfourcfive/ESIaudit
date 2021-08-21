@@ -22,6 +22,7 @@ module.exports = function(app) {
   //with salles
 
   app.put("/api/data/outils/salles",[authJwt.verifyToken],controller.linkWithSalle);
+  app.delete("/api/data/outils/salles",[authJwt.verifyToken],controller.RemovelinkWithSalle);
 
   app.get("/api/data/outils/salles/:id",[authJwt.verifyToken],controller.getlinks);
 

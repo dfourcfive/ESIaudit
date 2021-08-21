@@ -3,7 +3,7 @@ const config = require("../config/auth.config");
 const activite = db.activite;
 const Op = db.Sequelize.Op;
 
-exports.add=(req, res) =>{
+exports.add=(req,res) => {
     activite.create({
         titre: req.body.titre,
         type:req.body.type,
