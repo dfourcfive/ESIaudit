@@ -50,7 +50,7 @@ exports.UpdateOne=(req, res) =>{
         if (record) {
             record.update({
                 nom: req.body.nom,
-                type:req.body.description,
+                type:req.body.type,
                 salleSalleId:req.body.salleId})
               .then((data)=>  {
                 res.send({message:'deleted successfully!'});

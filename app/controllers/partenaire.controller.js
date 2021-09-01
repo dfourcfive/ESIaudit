@@ -105,7 +105,7 @@ exports.RemovelinkWithformation = (req, res) => {
     partenaire.findOne({where : {partenaireId: id}}).then((record) => {
         if (record) {
           record.update({
-            nom: req.body.nom,
+            Nom: req.body.nom,
             type:req.body.type,
         }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
