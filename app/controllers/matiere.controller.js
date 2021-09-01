@@ -49,7 +49,7 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    matiere.find({where : {matiereId: id}}).then((record) => {
+    matiere.findOne({where : {matiereId: id}}).then((record) => {
         if (record) {
             record.update({
                 nom: req.body.nom,
@@ -60,7 +60,7 @@ exports.UpdateOne=(req, res) =>{
                 ueUeId:req.body.ueId            }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

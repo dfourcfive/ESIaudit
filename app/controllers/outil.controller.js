@@ -101,7 +101,7 @@ exports.linkWithSalle = (req, res) => {
   };
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    outil.find({where : {outilId: id}}).then((record) => {
+    outil.findOne({where : {outilId: id}}).then((record) => {
         if (record) {
             record.update({
                 titre: req.body.titre,
@@ -110,7 +110,7 @@ exports.UpdateOne=(req, res) =>{
     }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

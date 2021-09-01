@@ -61,6 +61,7 @@ exports.linkWithPartenaire = (req, res) => {
             formationId:req.body.formationId,
             partenaireId:req.body.partenaireId
           })
+          
           res.send(`linked formation id=${forma.id} to partenaire id=${parten.id}`);
           return parten;
         });
@@ -83,7 +84,7 @@ exports.linkWithPartenaire = (req, res) => {
     });
 };
 
-exports.RemovelinkWithSalle = (req, res) => {
+exports.RemovelinkWithPartenaire = (req, res) => {
     formation.findByPk(req.body.formationId)
       .then((etud) => {
         if (!etud) {
@@ -100,7 +101,7 @@ exports.RemovelinkWithSalle = (req, res) => {
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    formation.find({where : {formationId: id}}).then((record) => {
+    formation.findOne({where : {formationId: id}}).then((record) => {
         if (record) {
             record.update({
             nom: req.body.nom,
@@ -108,8 +109,7 @@ exports.UpdateOne=(req, res) =>{
             departementDepartementId:req.body.departementId,
     }).then((data)=> {
                 res.send({message:'deleted successfully!'});
-
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

@@ -46,7 +46,7 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    club.find({where : {clubId: id}}).then((record) => {
+    club.findOne({where : {clubId: id}}).then((record) => {
         if (record) {
             record.update({
                 nom: req.body.nom,
@@ -55,7 +55,7 @@ exports.UpdateOne=(req, res) =>{
               .then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

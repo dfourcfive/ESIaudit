@@ -47,7 +47,7 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    niveau.find({where : {niveauId: id}}).then((record) => {
+    niveau.findOne({where : {niveauId: id}}).then((record) => {
         if (record) {
             record.update({
                 titre: req.body.titre,
@@ -56,7 +56,7 @@ exports.UpdateOne=(req, res) =>{
                 formationFormationId:req.body.formationId                    }).then((data)=> {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

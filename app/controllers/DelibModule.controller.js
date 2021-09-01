@@ -49,7 +49,7 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    DelibModule.find({where : {DelibModuleId: id}}).then((record) => {
+    DelibModule.findOne({where : {DelibModuleId: id}}).then((record) => {
         if (record) {
             record.update({
                 annee: req.body.annee,
@@ -61,7 +61,7 @@ exports.UpdateOne=(req, res) =>{
                 }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

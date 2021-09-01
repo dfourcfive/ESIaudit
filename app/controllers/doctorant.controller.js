@@ -49,7 +49,7 @@ exports.DeleteOne=(req, res) =>{
 }
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    doctorant.find({where : {doctorantId: id}}).then((record) => {
+    doctorant.findOne({where : {doctorantId: id}}).then((record) => {
         if (record) {
             record.update({
                 nom: req.body.nom,
@@ -62,7 +62,7 @@ exports.UpdateOne=(req, res) =>{
                         }).then((data)=> {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

@@ -132,7 +132,7 @@ exports.linkWithNiveau = (req, res) => {
  
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    etudiant.find({where : {etudiantId: id}}).then((record) => {
+    etudiant.findOne({where : {etudiantId: id}}).then((record) => {
         if (record) {
           record.update({
             nom: req.body.nom,
@@ -143,7 +143,7 @@ exports.linkWithNiveau = (req, res) => {
             Sex:req.body.Sex,}).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

@@ -52,7 +52,7 @@ exports.DeleteOne=(req, res) =>{
 
 exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    DelibNiveau.find({where : {DelibNiveauId: id}}).then((record) => {
+    DelibNiveau.findOne({where : {DelibNiveauId: id}}).then((record) => {
         if (record) {
             record.update({
                 année: req.body.année,
@@ -66,7 +66,7 @@ exports.UpdateOne=(req, res) =>{
         }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

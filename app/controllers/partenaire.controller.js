@@ -102,7 +102,7 @@ exports.RemovelinkWithformation = (req, res) => {
 
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    partenaire.find({where : {partenaireId: id}}).then((record) => {
+    partenaire.findOne({where : {partenaireId: id}}).then((record) => {
         if (record) {
           record.update({
             nom: req.body.nom,
@@ -110,7 +110,7 @@ exports.RemovelinkWithformation = (req, res) => {
         }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
 
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});

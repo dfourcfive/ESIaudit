@@ -94,7 +94,7 @@ exports.linkWithformation = (req, res) => {
   };
   exports.UpdateOne=(req, res) =>{
     const id = req.params.id;
-    enseignant.find({where : {enseignantId: id}}).then((record) => {
+    enseignant.findOne({where : {enseignantId: id}}).then((record) => {
         if (record) {
           record.update({
               nom: req.body.nom,
@@ -109,7 +109,7 @@ exports.linkWithformation = (req, res) => {
               situationSocial:req.body.situationSocial,
               sex:req.body.sex,                              }).then((data)=>  {
                 res.send({message:'deleted successfully!'});
-              }).error(err => res.send({message:'Cannot update'}));
+              });
         }
         else{
             res.send({message:'Cannot update'});
