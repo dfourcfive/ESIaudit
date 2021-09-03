@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./app/models");
 const app = express();
-//const faker = require("./app/faker/generator/generator");
+const faker = require("./app/faker/generator/generator");
 //const bi_db_provider = require("./app/BI/bi_data_provider");
 //const bi_query_parser = require("./app/BI/bi_query_parser");
 const produce = require("./app/kafkaClient/producer");
@@ -89,7 +89,7 @@ require('./app/routes/BI/bi_db_routes')(app);
 /*****/
 //faker.FakeCite();
 //here if you want to generate good linking change excute this method and change the j each time (1,2,3,4,5) each time
-//faker.FakeLinkEtudiantWithCite();
+faker.FakeLinkEtudiantWithCite();
 
 
 

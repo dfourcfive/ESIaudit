@@ -24,6 +24,23 @@ exports.getAll=(req, res) =>{
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
 }
+exports.getByMatIdAndEtudId=(req, res) =>{
+    var id = req.params.id;
+    var mid = req.params.mid;
+    DelibModule.findAll({where: {etudiantId:id , matiereId: mid} }).then((results) => {
+        res.send({results});
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}
+exports.getBDelibsByEtudiantId=(req, res) =>{
+    var id = req.params.id;
+    DelibModule.findAll({where: {etudiantId:id} }).then((results) => {
+        res.send({results});
+    }).catch((err) => {
+        res.status(500).send({ message: err.message || "Some error occurred"});
+    });
+}
 exports.getOne=(req, res) =>{
     const id = req.params.id;
     DelibModule.findByPk(id).then((data) => {

@@ -887,14 +887,16 @@ exports.FakeLinkEtudiantWithCite=()=>{
     etudiant.findAll().then((students)=>{
         cite.findAll().then((cites)=>{
             for(let i=0;i<students.length;i++){
-                for(let j=3;j<cites.length;j++){
-                    if(students[i].get('intern')=='oui'){
-                        if(students[i].get('Sex')==cites[j].get('type')){
-                            etudiant_cite.create({
-                                etudiantId: students[i].get('etudiantId'),
-                                citeId: cites[j].get('citeId')
-                            });
-                            break;
+                for(var x=0;x<5;x++){
+                    for(let j=x;j<cites.length;j++){
+                        if(students[i].get('intern')=='oui'){
+                            if(students[i].get('Sex')==cites[j].get('type')){
+                                etudiant_cite.create({
+                                    etudiantId: students[i].get('etudiantId'),
+                                    citeId: cites[j].get('citeId')
+                                });
+                                break;
+                            }
                         }
                     }
                 }
@@ -967,18 +969,23 @@ exports.FakerDelivModule=()=>{
         matier.findAll().then((matiers)=>{
             for(let i=0;i<etudiants.length;i++){
                 var nbr_ue=0;
+                console.log(i);
                 var nbr_nv=faker.datatype.number({
                     'min': 2,
                     'max': 5
                 });
                 var annee=2016;
                 for(let j=0;j<matiers.length;j++){
-                    if(nbr_ue === nbr_nv*8){
+                    var current_ue;
+                    if(j==0){
+                        current_ue = matiers[0].get('ueUeId');
+                    }
+
+                    if(nbr_ue == nbr_nv*8){
+                        console.log('got break '+j,":"+i);
                         break;
                     }
-                    if(j==0){
-                        var current_ue = matiers[j].get('ueUeId');
-                    }
+                   
                     if(current_ue != matiers[j].get('ueUeId')){
                         nbr_ue = nbr_ue +1;
                         current_ue = matiers[j].get('ueUeId');
@@ -1000,7 +1007,8 @@ exports.FakerDelivModule=()=>{
                         Credit:credit,
                         etudiantEtudiantId : etudiants[i].get('etudiantId'),
                         matiereMatiereId : matiers[j].get('matiereId')
-                    }).then((result)=>console.log({result})).catch((err)=>console.log({err}));
+                    }).then((result)=>console.log("created with normal"));
+                    console.log('created');
                     
                 }
             }
