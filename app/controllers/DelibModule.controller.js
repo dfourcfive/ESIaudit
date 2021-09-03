@@ -27,7 +27,7 @@ exports.getAll=(req, res) =>{
 exports.getByMatIdAndEtudId=(req, res) =>{
     var id = req.params.id;
     var mid = req.params.mid;
-    DelibModule.findAll({where: {etudiantId:id , matiereId: mid} }).then((results) => {
+    DelibModule.findAll({where: {etudiantEtudiantId:id , matiereMatiereId: mid} }).then((results) => {
         res.send({results});
     }).catch((err) => {
         res.status(500).send({ message: err.message || "Some error occurred"});
@@ -35,9 +35,10 @@ exports.getByMatIdAndEtudId=(req, res) =>{
 }
 exports.getBDelibsByEtudiantId=(req, res) =>{
     var id = req.params.id;
-    DelibModule.findAll({where: {etudiantId:id} }).then((results) => {
+    DelibModule.findAll({where: {etudiantEtudiantId:id} }).then((results) => {
         res.send({results});
     }).catch((err) => {
+        console.log({err});
         res.status(500).send({ message: err.message || "Some error occurred"});
     });
 }

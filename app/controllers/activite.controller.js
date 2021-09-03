@@ -56,7 +56,8 @@ exports.UpdateOne=(req, res) =>{
                 type:req.body.type,
                 date_debut:req.body.date_debut,
                 date_fin:req.body.date_fin,
-                salleId:req.body.salleId
+                salleSalleId:req.body.salleId,
+                clubClubId:req.body.clubId
                       })
               .then((data)=> {
                 res.send({message:'deleted successfully!'});
