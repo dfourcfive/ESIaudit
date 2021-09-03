@@ -2,7 +2,6 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const activite = db.activite;
 const Op = db.Sequelize.Op;
-const produce = require("./app/kafkaClient/producer");
 
 exports.add=(req,res) => {
     activite.create({
