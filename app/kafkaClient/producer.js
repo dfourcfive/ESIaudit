@@ -13,7 +13,7 @@ const kafka = new Kafka({ clientId, brokers })
 const producer = kafka.producer()
 
 // we define an async function that writes a new message each second
-const produce = async (message,key) => {
+async function produce (message,key){
 	await producer.connect()
 
 	// after the produce has connected, we start an interval timer
@@ -22,19 +22,19 @@ const produce = async (message,key) => {
 			// send a message to the configured topic with
 			// the key and value formed from the current value of `i`
 			await producer.send({
-				topic,
-				messages: [
-					{
-						key: key,
-						value: message,
-					},
-				],
-			});
+				topic:'logs',
+				messages:[{		
+					key: key,
+					value: message,
+}]
+});
 
 			// if the message is written successfully, log it and increment `i`
 			console.log("writes: "+message)
+			return "writes: "+message;
 		} catch (err) {
 			console.error("could not write message " + err)
+			return "could not write message " + err;
 		}
 }
 

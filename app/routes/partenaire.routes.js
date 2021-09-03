@@ -19,7 +19,7 @@ module.exports = function(app) {
   app.post("/api/data/partenaire",[authJwt.verifyToken],controller.add);
   app.post("/api/data/partenaires/:id",[authJwt.verifyToken],controller.UpdateOne);
 //getlinkswithformation
-app.get("/api/data/partenaire/formations",[authJwt.verifyToken],controller.getlinkswithformation);
+app.get("/api/data/partenaire/formations/:id",[authJwt.verifyToken],controller.getlinkswithformation);
 app.delete("/api/data/partenaire/formations",[authJwt.verifyToken],controller.RemovelinkWithformation);
 
 app.put("/api/data/partenaire",[authJwt.verifyToken],controller.linkWithformation);
