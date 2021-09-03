@@ -20,7 +20,7 @@ module.exports = function(app) {
 
   app.post("/api/data/formations/:id",[authJwt.verifyToken],controller.UpdateOne);
 //getlinkswithformation
-app.get("/api/data/formations/partenaires",[authJwt.verifyToken],controller.getlinkswithformation);
+app.get("/api/data/formations/partenaires/:id",[authJwt.verifyToken],controller.getlinkswithformation);
 app.delete("/api/data/formations/partenaires",[authJwt.verifyToken],controller.RemovelinkWithPartenaire);
 
 app.put("/api/data/formation",[authJwt.verifyToken],controller.linkWithPartenaire);

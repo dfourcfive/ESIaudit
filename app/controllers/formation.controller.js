@@ -73,7 +73,7 @@ exports.linkWithPartenaire = (req, res) => {
   };
   
   exports.getlinkswithformation = (req, res) => {
-    var id = req.body.formationId;
+    var id = req.params.formationId;
   formation.findAll({where : {formationId : id}})
     .then((result) => {
         res.send({result});

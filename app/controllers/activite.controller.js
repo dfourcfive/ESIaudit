@@ -2,6 +2,7 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const activite = db.activite;
 const Op = db.Sequelize.Op;
+const produce = require("./app/kafkaClient/producer");
 
 exports.add=(req,res) => {
     activite.create({
@@ -56,8 +57,7 @@ exports.UpdateOne=(req, res) =>{
                 type:req.body.type,
                 date_debut:req.body.date_debut,
                 date_fin:req.body.date_fin,
-                salleSalleId:req.body.salleId,
-                clubClubId:req.body.clubId
+                salleId:req.body.salleId
                       })
               .then((data)=> {
                 res.send({message:'deleted successfully!'});
