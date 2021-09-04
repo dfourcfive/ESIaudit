@@ -13,7 +13,7 @@ exports.add = (req, res) => {
       type: req.body.type,
     })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime = new Date;
       var admin = req.body.admin;
       var table = "cite";
       var action = "Ajouter";
@@ -108,7 +108,7 @@ exports.DeleteOne = (req, res) => {
     .destroy({ where: { citeId: id } })
     .then((data) => {
       if (data == 1) {
-        var datetime = new Date.now();
+        var datetime = new Date;
         var admin = req.body.admin;
         var table = "club";
         var action = "Supprimer";
@@ -146,7 +146,7 @@ exports.UpdateOne = (req, res) => {
             type: req.body.type,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "cite";
             var action = "Modifier";

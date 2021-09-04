@@ -12,7 +12,7 @@ exports.add = (req, res) => {
       salleSalleId: req.body.salleId,
     })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime = new Date;
       var admin = req.body.admin;
       var table = "club";
       var action = "Ajouter";
@@ -63,7 +63,7 @@ exports.DeleteOne = (req, res) => {
     .destroy({ where: { clubId: id } })
     .then((data) => {
       if (data == 1) {
-        var datetime = new Date.now();
+        var datetime = new Date;
       var admin = req.body.admin;
       var table = "club";
       var action = "Supprimer";
@@ -102,7 +102,7 @@ exports.UpdateOne = (req, res) => {
             salleSalleId: req.body.salleId,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "club";
             var action = "Modifier";

@@ -5,8 +5,7 @@ const app = express();
 const faker = require("./app/faker/generator/generator");
 //const bi_db_provider = require("./app/BI/bi_data_provider");
 //const bi_query_parser = require("./app/BI/bi_query_parser");
-//const produce = require("./app/kafkaClient/producer");
-
+const produce = require("./app/kafkaClient/producer");
 var corsOptions = {
   origin: "http://localhost:3000",
 };
@@ -90,9 +89,12 @@ require("./app/routes/BI/bi_db_routes")(app);
 //here if you want to generate good linking change excute this method and change the j each time (1,2,3,4,5) each time
 //faker.FakeLinkEtudiantWithCite();
 //produce("hello latif nakchhhhh","key").then(()=>console.log('success'));
+const consumer = require("./app/kafkaClient/consumer");
+produce('testing','fff');
+
 
 //set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8090;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

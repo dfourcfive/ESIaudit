@@ -26,14 +26,14 @@ exports.signup = (req, res) => {
           },
         }).then((roles) => {
           user.setRoles(roles).then(() => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             auth_produce(req.body.username+':'+datetime.toString(),user.id);      
             res.send({ message: "User was registered successfully!" });
           });
         });
       } else {
         // user role = 1
-        var datetime = new Date.now();
+        var datetime =  Date;
         auth_produce(req.body.username+':'+datetime.toString(),user.id);      
         res.send({ message: "User was registered successfully!" });
       }
@@ -70,7 +70,7 @@ exports.signin = (req, res) => {
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400, // 24 hours
       });
-      var datetime = new Date.now();
+      var datetime = new Date;
       auth_produce(req.body.username+':'+datetime.toString(),user.id);
       res.status(200).send({
         username: user.username,

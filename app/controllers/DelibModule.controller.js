@@ -14,7 +14,7 @@ exports.add = (req, res) => {
     matiereMatiereId: req.body.matiereId,
   })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime = new Date;
       var admin = req.body.admin;
       var table = "Delib_Module";
       var action = "Ajouter";
@@ -85,7 +85,7 @@ exports.DeleteOne = (req, res) => {
   DelibModule.destroy({ where: { DelibModuleId: id } })
     .then((data) => {
       if (data == 1) {
-        var datetime = new Date.now();
+        var datetime = new Date;
       var admin = req.body.admin;
       var table = "Delib_Module";
       var action = "Supprimer";
@@ -126,7 +126,7 @@ exports.UpdateOne = (req, res) => {
             matiereMatiereId: req.body.matiereId,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "Delib_Module";
             var action = "Modifier";
