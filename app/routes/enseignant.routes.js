@@ -22,6 +22,6 @@ module.exports = function(app) {
   //formation
   app.put("/api/data/enseignants",[authJwt.verifyToken],controller.linkWithformation);
 
-  app.get("/api/data/enseignants/formations",[authJwt.verifyToken],controller.getLinkWithFormation)
+  app.get("/api/data/enseignants/formations/:id",[authJwt.verifyToken],controller.getLinkWithFormation)
 
 };
