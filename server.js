@@ -97,5 +97,5 @@ const PORT = process.env.PORT || 8090;
 server=app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-var io = require("socket.io").listen(server);
+var io = require("socket.io")(server);
 const consumer = require("./app/kafkaClient/consumer")(io);
