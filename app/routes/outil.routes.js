@@ -1,8 +1,8 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/outil.controller");
 
-module.exports = function(app) {
-  app.use(function(req, res, next) {
+module.exports = function (app) {
+  app.use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"
@@ -10,21 +10,35 @@ module.exports = function(app) {
     next();
   });
 
-  app.get("/api/data/outils/:id",[authJwt.verifyToken],controller.getOne);
+  app.get("/api/data/outils/:id", [authJwt.verifyToken], controller.getOne);
 
-  app.delete("/api/data/outils/:id",[authJwt.verifyToken],controller.DeleteOne);
+  app.delete(
+    "/api/data/outils/:id",
+    [authJwt.verifyToken],
+    controller.DeleteOne
+  );
 
-  app.get("/api/data/outils",[authJwt.verifyToken],controller.getAll);
-  
-  app.post("/api/data/outils",[authJwt.verifyToken],controller.add);
+  app.get("/api/data/outils", [authJwt.verifyToken], controller.getAll);
 
-  app.post("/api/data/outils/:id",[authJwt.verifyToken],controller.UpdateOne);
+  app.post("/api/data/outils", [authJwt.verifyToken], controller.add);
+
+  app.post("/api/data/outils/:id", [authJwt.verifyToken], controller.UpdateOne);
   //with salles
 
-  app.put("/api/data/outils/salles",[authJwt.verifyToken],controller.linkWithSalle);
-  app.delete("/api/data/outils/salles",[authJwt.verifyToken],controller.RemovelinkWithSalle);
+  app.put(
+    "/api/data/outils/salles",
+    [authJwt.verifyToken],
+    controller.linkWithSalle
+  );
+  app.delete(
+    "/api/data/outils/salles",
+    [authJwt.verifyToken],
+    controller.RemovelinkWithSalle
+  );
 
-  app.get("/api/data/outils/salles/:id",[authJwt.verifyToken],controller.getlinks);
-
-
+  app.get(
+    "/api/data/outils/salles/:id",
+    [authJwt.verifyToken],
+    controller.getlinks
+  );
 };

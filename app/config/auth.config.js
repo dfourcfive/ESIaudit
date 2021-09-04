@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "esiAudit-api-key"
+  secret: "esiAudit-api-key",
 };
