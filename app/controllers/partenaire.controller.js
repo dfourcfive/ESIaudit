@@ -90,7 +90,7 @@ exports.RemovelinkWithformation = (req, res) => {
 
   exports.getlinkswithformation = (req, res) => {
       var id = req.params.id;
-    partenaire.findAll({where : {partenaireId : id}})
+      formation_partenaire.findAll({where : {partenaireId : id}})
       .then((result) => {
           res.send({result});
       })

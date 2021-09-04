@@ -73,8 +73,8 @@ exports.linkWithPartenaire = (req, res) => {
   };
   
   exports.getlinkswithformation = (req, res) => {
-    var id = req.params.formationId;
-  formation.findAll({where : {formationId : id}})
+    var id = req.params.id;
+    formation_partenaire.findAll({where : {formationId : id}})
     .then((result) => {
         res.send({result});
     })
