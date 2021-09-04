@@ -1,7 +1,6 @@
 // import the `Kafka` instance from the kafkajs library
 const { Kafka } = require("kafkajs");
-const io = require("socket.io")(5000);
-
+const cors = require("cors");
 // the client ID lets kafka know who's producing the messages
 const clientId = "my-app";
 // we can define the list of brokers in the cluster
@@ -12,9 +11,9 @@ const kafka = new Kafka({ clientId, brokers });
 
 const consumer = kafka.consumer({ groupId: 'test-group' })
 
-const run = async () => {
-    await consumer.connect()
-    await consumer.subscribe({ topic, fromBeginning: true })  
+const run = async (io) => {
+    await consumer.connect();
+    await consumer.subscribe({ topic, fromBeginning: true });
     io.on("connect",async socket => {
         console.log('connecting...');
         await consumer.run({
