@@ -98,4 +98,7 @@ server=app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 var io = require("socket.io")(server);
-const consumer = require("./app/kafkaClient/consumer")(io);
+const consumer = require("./app/kafkaClient/consumer");
+consumer.run(io).then(()=>{
+  console.log('socket is running');
+});

@@ -11,7 +11,7 @@ const kafka = new Kafka({ clientId, brokers });
 
 const consumer = kafka.consumer({ groupId: 'test-group' })
 
-const run = async (io) => {
+exports.run = async function(io)  {
     await consumer.connect();
     await consumer.subscribe({ topic, fromBeginning: true });
     io.on("connect",async socket => {
@@ -24,5 +24,3 @@ const run = async (io) => {
           })      
       });
 }
-run().catch(console.error);
-module.exports = run;
