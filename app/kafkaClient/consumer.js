@@ -18,8 +18,8 @@ exports.run = async function(io)  {
         console.log('connecting...');
         await consumer.run({
             eachMessage: async ({ topic, partition, message }) => {
-                console.log('from sockets'+{message});
-                socket.send(message);
+                console.log('from sockets '+message.value);
+                socket.emit('stk',message.value);
             },
           })      
       });
