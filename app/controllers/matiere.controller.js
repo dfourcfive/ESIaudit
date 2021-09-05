@@ -15,7 +15,7 @@ exports.add = (req, res) => {
       ueUeId: req.body.ueId,
     })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime = new Date;
       var admin = req.body.admin;
       var table = "matiere";
       var action = "Ajouter";
@@ -67,7 +67,7 @@ exports.DeleteOne = (req, res) => {
     .destroy({ where: { matiereId: id } })
     .then((data) => {
       if (data == 1) {
-        var datetime = new Date.now();
+        var datetime =new Date;
         var admin = req.body.admin;
         var table = "matiere";
         var action = "Supprimer";
@@ -110,7 +110,7 @@ exports.UpdateOne = (req, res) => {
             ueUeId: req.body.ueId,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "matiere";
             var action = "Modifier";

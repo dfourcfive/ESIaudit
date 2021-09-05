@@ -97,7 +97,15 @@ const PORT = process.env.PORT || 8090;
 server=app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-var io = require("socket.io")(server);
+var io = require("socket.io")(server,{
+  cors: {
+    credentials:"true",
+    methods: ["GET", "POST"],
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+  allowEIO3: true
+  });
 const consumer = require("./app/kafkaClient/consumer");
 consumer.run(io).then(()=>{
   console.log('socket is running');

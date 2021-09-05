@@ -19,7 +19,11 @@ exports.run = async function(io)  {
         await consumer.run({
             eachMessage: async ({ topic, partition, message }) => {
                 console.log('from sockets '+message.value);
-                socket.emit('stk',message.value);
+                if(topic=='logs'){
+                    socket.emit('logs',message.value);
+                }else{
+                    socket.emit('auths',message.value);
+                }
             },
           })      
       });

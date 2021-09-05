@@ -14,7 +14,7 @@ exports.add = (req, res) => {
       type: req.body.type,
     })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime = new Date;
       var admin = req.body.admin;
       var table = "partenaire";
       var action = "Ajouter";
@@ -65,7 +65,7 @@ exports.DeleteOne = (req, res) => {
     .destroy({ where: { partenaireId: id } })
     .then((data) => {
       if (num == 1) {
-        var datetime = new Date.now();
+        var datetime = new Date;
         var admin = req.body.admin;
         var table = "partenaire";
         var action = "Supprimer";
@@ -166,7 +166,7 @@ exports.UpdateOne = (req, res) => {
             type: req.body.type,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "partenaire";
             var action = "Modifier";

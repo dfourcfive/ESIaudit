@@ -26,14 +26,14 @@ exports.signup = (req, res) => {
           },
         }).then((roles) => {
           user.setRoles(roles).then(() => {
-            var datetime = new Date;
+            var datetime =  new Date;
             auth_produce(req.body.username+':'+datetime.toString(),user.id);      
             res.send({ message: "User was registered successfully!" });
           });
         });
       } else {
         // user role = 1
-        var datetime =  Date;
+        var datetime = new Date;
         auth_produce(req.body.username+':'+datetime.toString(),user.id);      
         res.send({ message: "User was registered successfully!" });
       }

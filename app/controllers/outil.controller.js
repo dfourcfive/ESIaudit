@@ -14,7 +14,7 @@ exports.add = (req, res) => {
       salleSalleId: req.body.salleId,
     })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime =new Date;
       var admin = req.body.admin;
       var table = "outil";
       var action = "Ajouter";
@@ -66,7 +66,7 @@ exports.DeleteOne = (req, res) => {
     .destroy({ where: { outilId: id } })
     .then((data) => {
       if (data == 1) {
-        var datetime = new Date.now();
+        var datetime = new Date;
         var admin = req.body.admin;
         var table = "outil";
         var action = "Supprimer";
@@ -170,7 +170,7 @@ exports.UpdateOne = (req, res) => {
             salleSalleId: req.body.salleId,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "outil";
             var action = "Modifier";

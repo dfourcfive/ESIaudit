@@ -14,7 +14,7 @@ exports.add = (req, res) => {
     semestreSemestreId: req.body.semestreId,
   })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime = new Date;
       var admin = req.body.admin;
       var table = "ue";
       var action = "Ajouter";
@@ -63,7 +63,7 @@ exports.DeleteOne = (req, res) => {
   ue.destroy({ where: { ueId: id } })
     .then((data) => {
       if (data == 1) {
-        var datetime = new Date.now();
+        var datetime =new Date;
         var admin = req.body.admin;
         var table = "ue";
         var action = "Supprimer";
@@ -105,7 +105,7 @@ exports.UpdateOne = (req, res) => {
             semestreSemestreId: req.body.semestreId,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "ue";
             var action = "Modifier";

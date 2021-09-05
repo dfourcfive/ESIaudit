@@ -22,7 +22,7 @@ exports.add = (req, res) => {
       sex: req.body.sex,
     })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime =new Date;
       var admin = req.body.admin;
       var table = "enseignant";
       var action = "Ajouter";
@@ -72,7 +72,7 @@ exports.DeleteOne = (req, res) => {
     .destroy({ where: { enseignantId: id } })
     .then((num) => {
       if (num == 1) {
-        var datetime = new Date.now();
+        var datetime = new Date;
         var admin = req.body.admin;
         var table = "enseignant";
         var action = "Supprimer";
@@ -163,7 +163,7 @@ exports.UpdateOne = (req, res) => {
             sex: req.body.sex,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "enseignant";
             var action = "Modifier";

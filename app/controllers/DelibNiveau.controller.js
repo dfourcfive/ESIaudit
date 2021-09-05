@@ -16,7 +16,7 @@ exports.add = (req, res) => {
     niveauNiveauId: req.body.niveauId,
   })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime = new Date;
       var admin = req.body.admin;
       var table = "Delib_Niveau";
       var action = "Ajouter";
@@ -64,7 +64,7 @@ exports.DeleteOne = (req, res) => {
   DelibNiveau.destroy({ where: { DelibNiveauId: id } })
     .then((data) => {
       if (data == 1) {
-        var datetime = new Date.now();
+        var datetime = new Date;
         var admin = req.body.admin;
         var table = "Delib_Niveau";
         var action = "Supprimer";
@@ -107,7 +107,7 @@ exports.UpdateOne = (req, res) => {
             niveauNiveauId: req.body.niveauId,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "Delib_Niveau";
             var action = "Modifier";

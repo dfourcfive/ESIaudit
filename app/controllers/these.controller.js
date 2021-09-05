@@ -13,7 +13,7 @@ exports.add = (req, res) => {
       departementDepartementId: req.body.departementId,
     })
     .then((data) => {
-      var datetime = new Date.now();
+      var datetime = new Date;
       var admin = req.body.admin;
       var table = "these";
       var action = "Ajouter";
@@ -65,7 +65,7 @@ exports.DeleteOne = (req, res) => {
     .destroy({ where: { theseId: id } })
     .then((data) => {
       if (data == 1) {
-        var datetime = new Date.now();
+        var datetime = new Date;
         var admin = req.body.admin;
         var table = "these";
         var action = "Supprimer";
@@ -106,7 +106,7 @@ exports.UpdateOne = (req, res) => {
             departementDepartementId: req.body.departementId,
           })
           .then((data) => {
-            var datetime = new Date.now();
+            var datetime = new Date;
             var admin = req.body.admin;
             var table = "these";
             var action = "Modifier";
