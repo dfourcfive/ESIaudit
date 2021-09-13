@@ -27,13 +27,13 @@ exports.add = (req, res) => {
       var id = data.get("administratifId");
       produce(
         admin +
-          ":" +
+          "::" +
           action +
-          ":" +
+          "::" +
           id +
-          ":" +
+          "::" +
           datetime.toString() +
-          ":" +
+          "::" +
           table,
         table
       );
@@ -78,13 +78,13 @@ exports.DeleteOne = (req, res) => {
         var id = data.get("administratifId");
         produce(
           admin +
-            ":" +
+            "::" +
             action +
-            ":" +
+            "::" +
             id +
-            ":" +
+            "::" +
             datetime.toString() +
-            ":" +
+            "::" +
             table,
           table
         );
@@ -126,13 +126,13 @@ exports.UpdateOne = (req, res) => {
             var id = data.get("administratifId");
             produce(
               admin +
-                ":" +
+                "::" +
                 action +
-                ":" +
+                "::" +
                 id +
-                ":" +
+                "::" +
                 datetime.toString() +
-                ":" +
+                "::" +
                 table,
               table
             );

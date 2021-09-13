@@ -27,14 +27,14 @@ exports.signup = (req, res) => {
         }).then((roles) => {
           user.setRoles(roles).then(() => {
             var datetime =  new Date;
-            auth_produce(req.body.username+':'+datetime.toString(),user.id);      
+            auth_produce(req.body.username+'::'+datetime.toString(),user.id);      
             res.send({ message: "User was registered successfully!" });
           });
         });
       } else {
         // user role = 1
         var datetime = new Date;
-        auth_produce(req.body.username+':'+datetime.toString(),user.id);      
+        auth_produce(req.body.username+'::'+datetime.toString(),user.id);      
         res.send({ message: "User was registered successfully!" });
       }
     })
@@ -71,7 +71,7 @@ exports.signin = (req, res) => {
         expiresIn: 86400, // 24 hours
       });
       var datetime = new Date;
-      auth_produce(req.body.username+':'+datetime.toString(),user.id);
+      auth_produce(req.body.username+'::'+datetime.toString(),user.id);
       res.status(200).send({
         username: user.username,
         email: user.email,

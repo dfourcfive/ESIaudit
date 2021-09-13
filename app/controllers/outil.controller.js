@@ -4,6 +4,11 @@ const outil = db.outil;
 const salle = db.salle;
 const outil_salle = db.outil_salle;
 const Op = db.Sequelize.Op;
+const fs = require('fs'); 
+const csv = require('csv-parser');
+
+const { Readable } = require('stream');
+
 const produce = require("../../app/kafkaClient/producer");
 
 exports.add = (req, res) => {
@@ -21,13 +26,13 @@ exports.add = (req, res) => {
       var id = data.get("outilId");
       produce(
         admin +
-          ":" +
+          "::" +
           action +
-          ":" +
+          "::" +
           id +
-          ":" +
+          "::" +
           datetime.toString() +
-          ":" +
+          "::" +
           table,
         table
       );
@@ -73,13 +78,13 @@ exports.DeleteOne = (req, res) => {
         var id = data.get("outilId");
         produce(
           admin +
-            ":" +
+            "::" +
             action +
-            ":" +
+            "::" +
             id +
-            ":" +
+            "::" +
             datetime.toString() +
-            ":" +
+            "::" +
             table,
           table
         );
@@ -176,13 +181,13 @@ exports.UpdateOne = (req, res) => {
             var action = "Modifier";
             produce(
               admin +
-                ":" +
+                "::" +
                 action +
-                ":" +
+                "::" +
                 id +
-                ":" +
+                "::" +
                 datetime.toString() +
-                ":" +
+                "::" +
                 table,
               table
             );
@@ -196,4 +201,55 @@ exports.UpdateOne = (req, res) => {
     .catch((err) => {
       res.status(500).send({ message: err.message || "Some error occurred" });
     });
+};
+
+
+exports.addCSV = (req, res) => {
+  var id_salle = 10;
+  var url = req.file.buffer;
+  const stream = Readable.from(url.toString());
+
+  stream
+.pipe(csv({delimiter: ','}))
+.on('data', function(row){
+    try {
+        outil
+    .create({
+      titre: row.titre,
+      type: row.type,
+    })
+    .then((data) => {
+      var datetime =new Date;
+      var admin = req.body.admin;
+      var table = "outil";
+      var action = "Ajouter";
+      var id = data.get("outilId");
+      produce(
+        admin +
+          "::" +
+          action +
+          "::" +
+          id +
+          "::" +
+          datetime.toString() +
+          "::" +
+          table,
+        table
+      );
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+    }
+    catch(err) {
+        //error handler
+        console.log({err});
+        res.send(err.toString());
+
+    }
+})
+.on('end',function(){
+    //some final operation
+    res.send('sucess');
+});
 };

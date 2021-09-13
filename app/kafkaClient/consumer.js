@@ -20,9 +20,9 @@ exports.run = async function(io)  {
             eachMessage: async ({ topic, partition, message }) => {
                 console.log('from sockets '+message.value);
                 if(topic=='logs'){
-                    socket.emit('logs',message.value);
+                    io.emit('logs',message.value);
                 }else{
-                    socket.emit('auths',message.value);
+                    io.emit('auths',message.value);
                 }
             },
           })      

@@ -20,13 +20,13 @@ exports.add = (req, res) => {
       var id = data.get("citeId");
       produce(
         admin +
-          ":" +
+          "::" +
           action +
-          ":" +
+          "::" +
           id +
-          ":" +
+          "::" +
           datetime.toString() +
-          ":" +
+          "::" +
           table,
         table
       );
@@ -114,13 +114,13 @@ exports.DeleteOne = (req, res) => {
         var action = "Supprimer";
         produce(
           admin +
-            ":" +
+            "::" +
             action +
-            ":" +
+            "::" +
             id +
-            ":" +
+            "::" +
             datetime.toString() +
-            ":" +
+            "::" +
             table,
           table
         );
@@ -152,13 +152,13 @@ exports.UpdateOne = (req, res) => {
             var action = "Modifier";
             produce(
               admin +
-                ":" +
+                "::" +
                 action +
-                ":" +
+                "::" +
                 id +
-                ":" +
+                "::" +
                 datetime.toString() +
-                ":" +
+                "::" +
                 table,
               table
             );
