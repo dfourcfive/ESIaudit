@@ -212,11 +212,13 @@ exports.addCSV = (req, res) => {
   stream
 .pipe(csv({delimiter: ','}))
 .on('data', function(row){
+  var titre = row.titre;
+  var type = row.type;
     try {
         outil
     .create({
-      titre: row.titre,
-      type: row.type,
+      titre: titre,
+      type: type,
     })
     .then((data) => {
       var datetime =new Date;
