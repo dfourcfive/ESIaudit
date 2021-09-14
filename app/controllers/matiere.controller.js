@@ -3,6 +3,8 @@ const config = require("../config/auth.config");
 const matiere = db.matiere;
 const Op = db.Sequelize.Op;
 const produce = require("../../app/kafkaClient/producer");
+const csv = require('csv-parser');
+const { Readable } = require('stream');
 
 exports.add = (req, res) => {
   matiere
@@ -136,4 +138,62 @@ exports.UpdateOne = (req, res) => {
     .catch((err) => {
       res.status(500).send({ message: err.message || "Some error occurred" });
     });
+};
+
+exports.addCSV = (req, res) => {
+  var url = req.file.buffer;
+  const stream = Readable.from(url.toString());
+
+  stream
+.pipe(csv({delimiter: ';'}))
+.on('data', function(row){
+  var nom = row['nom;type;Coefficient;credit;ChargeHoraire'].split(';')[0];
+  var type = row['nom;type;Coefficient;credit;ChargeHoraire'].split(';')[1];
+  var Coefficient = row['nom;type;Coefficient;credit;ChargeHoraire'].split(';')[2];
+  var credit = row['nom;type;Coefficient;credit;ChargeHoraire'].split(';')[3];
+  var ChargeHoraire = row['nom;type;Coefficient;credit;ChargeHoraire'].split(';')[4];
+    try {
+      matiere
+    .create({
+      nom: nom,
+      type: type,
+      Coefficient: Coefficient,
+      credit:credit,
+      ChargeHoraire:ChargeHoraire,
+      ueUeId: req.body.ueId,
+    })
+    .then((data) => {
+      var datetime =new Date;
+      var admin = req.body.admin;
+      var table = "ue";
+      var action = "Ajouter";
+      var id = data.get("ueId");
+      produce(
+        admin +
+          "::" +
+          action +
+          "::" +
+          id +
+          "::" +
+          datetime.toString() +
+          "::" +
+          table,
+        table
+      );
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+    }
+    catch(err) {
+        //error handler
+        console.log({err});
+        res.send(err.toString());
+
+    }
+})
+.on('end',function(){
+    //some final operation
+    res.send('sucess');
+});
 };

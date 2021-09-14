@@ -1,5 +1,8 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/ue.controller");
+var multer  = require('multer');
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -11,7 +14,11 @@ module.exports = function (app) {
   });
 
   app.get("/api/data/ues/:id", [authJwt.verifyToken], controller.getOne);
-
+  app.post(
+    "/api/data/ues/file",
+    upload.single('file'),
+    controller.addCSV
+  );
   app.delete("/api/data/ues/:id", [authJwt.verifyToken], controller.DeleteOne);
 
   app.get("/api/data/ues", [authJwt.verifyToken], controller.getAll);
