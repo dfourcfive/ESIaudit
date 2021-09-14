@@ -68,7 +68,7 @@ exports.DeleteOne = (req, res) => {
     .then((data) => {
       if (num == 1) {
         var datetime = new Date;
-        var admin = req.body.admin;
+        var admin = req.params.admin;
         var table = "partenaire";
         var action = "Supprimer";
         produce(

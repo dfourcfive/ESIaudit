@@ -17,7 +17,7 @@ module.exports = function (app) {
   );
 
   app.delete(
-    "/api/data/DelibNiveaux/:id",
+    "/api/data/DelibNiveaux/:id/:admin",
     [authJwt.verifyToken],
     controller.DeleteOne
   );

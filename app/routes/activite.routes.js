@@ -13,7 +13,7 @@ module.exports = function (app) {
   app.get("/api/data/activites/:id", [authJwt.verifyToken], controller.getOne);
 
   app.delete(
-    "/api/data/activites/:id",
+    "/api/data/activites/:id/:admin",
     [authJwt.verifyToken],
     controller.DeleteOne
   );

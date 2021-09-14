@@ -22,7 +22,7 @@ module.exports = function (app) {
   );
 
   app.delete(
-    "/api/data/DelibModules/:id",
+    "/api/data/DelibModules/:id/:admin",
     [authJwt.verifyToken],
     controller.DeleteOne
   );

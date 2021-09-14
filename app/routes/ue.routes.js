@@ -19,7 +19,7 @@ module.exports = function (app) {
     upload.single('file'),
     controller.addCSV
   );
-  app.delete("/api/data/ues/:id", [authJwt.verifyToken], controller.DeleteOne);
+  app.delete("/api/data/ues/:id/:admin", [authJwt.verifyToken], controller.DeleteOne);
 
   app.get("/api/data/ues", [authJwt.verifyToken], controller.getAll);
 

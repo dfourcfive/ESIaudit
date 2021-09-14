@@ -20,7 +20,7 @@ module.exports = function (app) {
   );
 
   app.delete(
-    "/api/data/administratifs/:id",
+    "/api/data/administratifs/:id/:admin",
     [authJwt.verifyToken],
     controller.DeleteOne
   );

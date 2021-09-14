@@ -16,7 +16,7 @@ module.exports = function (app) {
   app.get("/api/data/outils/:id", [authJwt.verifyToken], controller.getOne);
 
   app.delete(
-    "/api/data/outils/:id",
+    "/api/data/outils/:id/:admin",
     [authJwt.verifyToken],
     controller.DeleteOne
   );

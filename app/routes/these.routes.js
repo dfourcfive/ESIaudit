@@ -13,7 +13,7 @@ module.exports = function (app) {
   app.get("/api/data/theses/:id", [authJwt.verifyToken], controller.getOne);
 
   app.delete(
-    "/api/data/theses/:id",
+    "/api/data/theses/:id/:admin",
     [authJwt.verifyToken],
     controller.DeleteOne
   );
