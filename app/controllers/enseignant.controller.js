@@ -5,6 +5,8 @@ const formation = db.formation;
 const enseignant_formation = db.enseignants_formation;
 const Op = db.Sequelize.Op;
 const produce = require("../../app/kafkaClient/producer");
+const csv = require('csv-parser');
+const { Readable } = require('stream');
 
 exports.add = (req, res) => {
   enseignant
@@ -157,7 +159,6 @@ exports.UpdateOne = (req, res) => {
             adresse: req.body.adresse,
             diplome: req.body.diplome,
             grade: req.body.grade,
-            adresse: req.body.adresse,
             specialite: req.body.specialite,
             situationSocial: req.body.situationSocial,
             sex: req.body.sex,
@@ -189,4 +190,72 @@ exports.UpdateOne = (req, res) => {
     .catch((err) => {
       res.status(500).send({ message: err.message || "Some error occurred" });
     });
+};
+
+exports.addCSV = (req, res) => {
+  var url = req.file.buffer;
+  const stream = Readable.from(url.toString());
+
+stream
+.pipe(csv({delimiter: ';'}))
+.on('data', function(row){
+  var nom = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[0];
+  var prenom = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[1];
+  var data_naissance = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[2];
+  var lieu_de_nissance = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[3];
+  var adresse = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[4];
+  var diplome = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[5];
+  var grade = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[6];
+  var specialite = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[7];
+  var situationSocial = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[8];
+  var sex = row['nom;prenom;data_naissance;lieu_naissance;adresse;diplome;grade;specialite;situationSocial;sex;'].split(';')[9];
+
+    try {
+      enseignant
+    .create({
+      nom: nom,
+      prenom: prenom,
+      date_naissance: data_naissance,
+      lieu_naissance:lieu_de_nissance,
+      adresse:adresse,
+      diplome:diplome,
+      grade:grade,
+      specialite:specialite,
+      situationSocial:situationSocial,
+      sex:sex,
+    })
+    .then((data) => {
+      var datetime =new Date;
+      var admin = req.body.admin;
+      var table = "enseignant";
+      var action = "Ajouter";
+      var id = data.get("enseignantId");
+      produce(
+        admin +
+          "::" +
+          action +
+          "::" +
+          id +
+          "::" +
+          datetime.toString() +
+          "::" +
+          table,
+        table
+      );
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+    }
+    catch(err) {
+        //error handler
+        console.log({err});
+        res.send(err.toString());
+
+    }
+})
+.on('end',function(){
+    //some final operation
+    res.send('sucess');
+});
 };

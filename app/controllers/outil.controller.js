@@ -4,9 +4,8 @@ const outil = db.outil;
 const salle = db.salle;
 const outil_salle = db.outil_salle;
 const Op = db.Sequelize.Op;
-const fs = require('fs'); 
-const csv = require('csv-parser');
 
+const csv = require('csv-parser');
 const { Readable } = require('stream');
 
 const produce = require("../../app/kafkaClient/producer");
@@ -210,10 +209,10 @@ exports.addCSV = (req, res) => {
   const stream = Readable.from(url.toString());
 
   stream
-.pipe(csv({delimiter: ','}))
+.pipe(csv({delimiter: ';'}))
 .on('data', function(row){
-  var titre = row.titre;
-  var type = row.type;
+  var titre = row['titre;type;'].split(';')[0];
+  var type = row['titre;type;'].split(';')[1];
     try {
         outil
     .create({

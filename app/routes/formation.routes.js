@@ -1,5 +1,8 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/formation.controller");
+var multer  = require('multer');
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -21,6 +24,12 @@ module.exports = function (app) {
   app.get("/api/data/formations", [authJwt.verifyToken], controller.getAll);
 
   app.post("/api/data/formations", [authJwt.verifyToken], controller.add);
+
+  app.post(
+    "/api/data/formations/file",
+    upload.single('file'),
+    controller.addCSV
+  );
 
   app.post(
     "/api/data/formations/:id",

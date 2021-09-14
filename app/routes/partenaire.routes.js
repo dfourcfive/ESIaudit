@@ -1,5 +1,8 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/partenaire.controller");
+var multer  = require('multer');
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -21,7 +24,11 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.DeleteOne
   );
-
+  app.post(
+    "/api/data/partenaires/file",
+    upload.single('file'),
+    controller.addCSV
+  );
   app.get("/api/data/partenaires", [authJwt.verifyToken], controller.getAll);
 
   app.post("/api/data/partenaire", [authJwt.verifyToken], controller.add);

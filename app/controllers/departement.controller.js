@@ -3,6 +3,8 @@ const config = require("../config/auth.config");
 const departement = db.departement;
 const Op = db.Sequelize.Op;
 const produce = require("../../app/kafkaClient/producer");
+const csv = require('csv-parser');
+const { Readable } = require('stream');
 
 exports.add = (req, res) => {
   departement
@@ -124,4 +126,56 @@ exports.UpdateOne = (req, res) => {
     .catch((err) => {
       res.status(500).send({ message: err.message || "Some error occurred" });
     });
+};
+
+
+exports.addCSV = (req, res) => {
+  var url = req.file.buffer;
+  const stream = Readable.from(url.toString());
+
+stream
+.pipe(csv({delimiter: ';'}))
+.on('data', function(row){
+  var nom = row['nom;description;'].split(';')[0];
+  var description = row['nom;description;'].split(';')[1];
+    try {
+      departement
+    .create({
+      nom: nom,
+      description:description,
+    })
+    .then((data) => {
+      var datetime =new Date;
+      var admin = req.body.admin;
+      var table = "departement";
+      var action = "Ajouter";
+      var id = data.get("departementId");
+      produce(
+        admin +
+          "::" +
+          action +
+          "::" +
+          id +
+          "::" +
+          datetime.toString() +
+          "::" +
+          table,
+        table
+      );
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+    }
+    catch(err) {
+        //error handler
+        console.log({err});
+        res.send(err.toString());
+
+    }
+})
+.on('end',function(){
+    //some final operation
+    res.send('sucess');
+});
 };
